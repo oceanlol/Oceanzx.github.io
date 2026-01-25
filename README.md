@@ -64,19 +64,78 @@ header p { margin:5px 0 0; font-size:0.9rem; color:#ccc; }
 
 /* Cart */
 #cart {
-  position: fixed; top:20px; right:20px; background:#111; border:2px solid #444; border-radius:15px; padding:15px; width:260px; max-height:70vh; overflow-y:auto; z-index:10;
+  position: fixed; top:20px; right:20px; background:#111; border:2px solid #444; border-radius:15px; padding:15px; width:280px; max-height:75vh; overflow-y:auto; z-index:10;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+  transition: transform 0.3s ease;
 }
-#cart h3 { margin-top:0; margin-bottom:10px; font-size:1rem; text-align:center; position:relative; }
+#cart:hover { transform: translateY(-2px); }
+
+#cart h3 { margin-top:0; margin-bottom:15px; font-size:1.1rem; text-align:center; position:relative; color:#0a84ff; }
 #cart-count {
-  position:absolute; top:-10px; right:-10px; background:#0a84ff; color:#fff; border-radius:50%; width:22px; height:22px; display:flex; justify-content:center; align-items:center; font-size:0.75rem; font-weight:bold;
+  position:absolute; top:-10px; right:-10px; background:#0a84ff; color:#fff; border-radius:50%; width:24px; height:24px; display:flex; justify-content:center; align-items:center; font-size:0.75rem; font-weight:bold;
 }
-.cart-item { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; font-size:0.85rem; }
-.cart-item img { margin-right:8px; border-radius:5px; width:35px; height:35px; object-fit:cover; }
-.cart-total { font-weight:bold; margin-top:8px; text-align:right; }
-.checkout-btn { background:#0a84ff; color:#fff; width:100%; border:none; padding:8px; border-radius:12px; font-weight:bold; cursor:pointer; margin-top:10px; transition:0.3s; }
+
+.cart-item {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:10px;
+  background:#222;
+  border-radius:12px;
+  padding:5px 8px;
+  box-shadow:0 2px 8px rgba(255,255,255,0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.cart-item:hover { transform:translateY(-2px); box-shadow:0 4px 12px rgba(255,255,255,0.1); }
+
+.cart-item img {
+  width:40px;
+  height:40px;
+  border-radius:8px;
+  object-fit:cover;
+  margin-right:10px;
+  flex-shrink:0;
+}
+
+.cart-item span {
+  flex-grow:1;
+  font-size:0.9rem;
+  font-weight:bold;
+}
+
+.cart-item button {
+  background:#ff4d4d;
+  border:none;
+  border-radius:8px;
+  padding:4px 8px;
+  cursor:pointer;
+  font-size:0.75rem;
+  transition: background 0.3s;
+}
+.cart-item button:hover { background:#e60000; }
+
+.cart-total {
+  font-weight:bold;
+  text-align:right;
+  margin-top:10px;
+  font-size:1rem;
+}
+
+.checkout-btn {
+  background:#0a84ff;
+  color:#fff;
+  width:100%;
+  border:none;
+  padding:10px;
+  border-radius:12px;
+  font-weight:bold;
+  cursor:pointer;
+  margin-top:10px;
+  transition:0.3s;
+}
 .checkout-btn:hover { background:#0066cc; }
 
-/* Fullscreen Overlay for Screenshot */
+/* Overlay Cart */
 #checkout-overlay {
   display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background: rgba(0,0,0,0.95); color:#fff; z-index:1000; padding:50px 20px; text-align:center; overflow-y:auto; opacity:0; transform:translateY(-50px); transition: opacity 0.5s ease, transform 0.5s ease;
 }
@@ -84,22 +143,42 @@ header p { margin:5px 0 0; font-size:0.9rem; color:#ccc; }
 
 #checkout-overlay h2 { font-size:1.8rem; margin-bottom:20px; }
 #checkout-overlay p { font-size:1rem; margin-bottom:20px; }
-#checkout-overlay .overlay-cart { text-align:left; max-width:500px; margin:0 auto; background:#222; padding:20px; border-radius:15px; }
-#checkout-overlay .overlay-cart .cart-item { display:flex; align-items:center; margin-bottom:8px; }
-#overlay-close, #copy-total-btn { background:#0a84ff; color:#fff; border:none; padding:10px 20px; border-radius:12px; font-weight:bold; cursor:pointer; margin-top:20px; transition:0.3s; display:block; margin-left:auto; margin-right:auto; }
-#overlay-close:hover, #copy-total-btn:hover { background:#0066cc; }
+#checkout-overlay .overlay-cart { text-align:left; max-width:500px; margin:0 auto; background:#222; padding:20px; border-radius:15px; box-shadow:0 8px 20px rgba(0,0,0,0.5); }
+#checkout-overlay .overlay-cart .cart-item { display:flex; align-items:center; margin-bottom:10px; background:#333; padding:8px; border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,0.3); }
+#checkout-overlay .overlay-cart .cart-item img { width:40px; height:40px; margin-right:12px; border-radius:8px; object-fit:cover; }
+#checkout-overlay .overlay-cart .cart-item span { font-size:0.95rem; font-weight:bold; }
 
-/* Footer */
-footer { text-align:center; padding:12px; margin-top:30px; color:#aaa; font-size:0.85rem; }
+/* Overlay Buttons */
+#copy-total-btn, #overlay-close {
+  width:80%;
+  max-width:250px;
+  font-weight:bold;
+  border:none;
+  padding:10px;
+  border-radius:12px;
+  margin-top:15px;
+  cursor:pointer;
+  transition:0.3s;
+}
+#copy-total-btn { background:#0a84ff; color:#fff; }
+#copy-total-btn:hover { background:#0066cc; }
+#overlay-close { background:#00c853; color:#fff; }
+#overlay-close:hover { background:#009624; }
 
 /* Mobile tweaks */
 @media(max-width:480px){
-  .grid { gap:15px; }
-  .product-img { max-width:120px; height:120px; }
-  #cart { width:200px; padding:10px; top:10px; right:10px; }
-  .checkout-btn, #overlay-close, #copy-total-btn { padding:6px; font-size:0.8rem; }
-  #checkout-overlay { padding:20px 10px; }
+  #cart { width:220px; top:10px; right:10px; padding:10px; max-height:70vh; }
+  .cart-item img { width:35px; height:35px; }
+  .cart-item span { font-size:0.85rem; }
+  .checkout-btn, #copy-total-btn, #overlay-close { padding:8px; font-size:0.8rem; }
+  #checkout-overlay { padding:20px 10px; height:100vh; overflow-y:auto; }
+  #checkout-overlay h2 { font-size:1.5rem; }
+  #checkout-overlay p { font-size:0.95rem; }
+  #checkout-overlay .overlay-cart .cart-item img { width:35px; height:35px; }
 }
+
+/* Footer */
+footer { text-align:center; padding:12px; margin-top:30px; color:#aaa; font-size:0.85rem; }
 </style>
 </head>
 <body>
@@ -112,6 +191,7 @@ footer { text-align:center; padding:12px; margin-top:30px; color:#aaa; font-size
 <div class="container">
   <div class="section-title">🔥 Available Pets 🔥</div>
   <div class="grid">
+    <!-- Pet Items -->
     <div class="item" data-name="Axolotl Fly Ride" data-price="2">
       <img src="https://image2url.com/r2/default/images/1769312696977-97a3b12d-0869-4661-86d5-65f8f181744a.png" class="product-img">
       <div class="item-name">Axolotl Fly Ride</div>
@@ -151,7 +231,7 @@ footer { text-align:center; padding:12px; margin-top:30px; color:#aaa; font-size
   </div>
 </div>
 
-<!-- Cart -->
+<!-- Cart Sidebar -->
 <div id="cart">
   <h3>Cart <span id="cart-count">0</span></h3>
   <div id="cart-items"></div>
@@ -201,23 +281,20 @@ function renderCart() {
 
     // Sidebar
     const div = document.createElement('div'); div.className='cart-item';
-    div.style.display='flex'; div.style.alignItems='center'; div.style.justifyContent='space-between';
 
     const left = document.createElement('div'); left.style.display='flex'; left.style.alignItems='center';
     const thumb = document.createElement('img'); thumb.src=item.img;
-    thumb.style.width='35px'; thumb.style.height='35px'; thumb.style.marginRight='10px'; thumb.style.borderRadius='5px'; thumb.style.objectFit='cover';
     const text = document.createElement('span'); text.textContent=`${item.name} - $${item.price.toFixed(2)}`;
     left.appendChild(thumb); left.appendChild(text);
 
-    const removeBtn=document.createElement('button'); removeBtn.textContent='Remove'; removeBtn.style.cursor='pointer';
-    removeBtn.onclick=()=>{ cart.splice(index,1); renderCart(); }
+    const removeBtn=document.createElement('button'); removeBtn.textContent='Remove'; removeBtn.onclick=()=>{ cart.splice(index,1); renderCart(); }
 
     div.appendChild(left); div.appendChild(removeBtn);
     cartItemsDiv.appendChild(div);
 
     // Overlay
-    const overlayDiv=document.createElement('div'); overlayDiv.className='cart-item'; overlayDiv.style.display='flex'; overlayDiv.style.alignItems='center'; overlayDiv.style.marginBottom='8px';
-    const overlayThumb=document.createElement('img'); overlayThumb.src=item.img; overlayThumb.style.width='40px'; overlayThumb.style.height='40px'; overlayThumb.style.marginRight='10px'; overlayThumb.style.borderRadius='8px'; overlayThumb.style.objectFit='cover';
+    const overlayDiv=document.createElement('div'); overlayDiv.className='cart-item';
+    const overlayThumb=document.createElement('img'); overlayThumb.src=item.img;
     const overlayText=document.createElement('span'); overlayText.textContent=`${item.name} - $${item.price.toFixed(2)}`;
     overlayDiv.appendChild(overlayThumb); overlayDiv.appendChild(overlayText);
     overlayCart.appendChild(overlayDiv);
@@ -243,6 +320,7 @@ document.querySelectorAll('.add-btn').forEach(btn=>{
 document.getElementById('checkout').addEventListener('click',()=>{
   if(cart.length===0){ alert("Your cart is empty!"); return; }
   overlay.classList.add('active');
+  overlay.scrollTop = 0;
 });
 
 // Copy cart summary & total for Cash App
