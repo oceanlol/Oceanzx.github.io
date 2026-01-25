@@ -70,7 +70,8 @@ header p { margin:5px 0 0; color:#ccc; font-size:0.9rem; }
   position: fixed; top:20px; right:20px; background:#111; border:2px solid #444; border-radius:15px; padding:15px; width:260px; max-height:70vh; overflow-y:auto; box-shadow:0 4px 12px rgba(0,0,0,0.5); transition:all 0.3s ease; z-index:10;
 }
 #cart h3 { margin-top:0; margin-bottom:10px; font-size:1rem; text-align:center; }
-.cart-item { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; font-size:0.85rem; }
+.cart-item { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; font-size:0.85rem; opacity:0; transform:translateX(-20px); transition: all 0.3s ease; }
+.cart-item.show { opacity:1; transform:translateX(0); }
 .cart-item button { background:#ff4444; color:#fff; border:none; padding:2px 6px; border-radius:6px; cursor:pointer; font-size:0.75rem; margin-left:5px; transition:0.2s; }
 .cart-item button:hover { background:#cc0000; }
 .cart-total { font-weight:bold; margin-top:8px; text-align:right; }
@@ -86,6 +87,7 @@ header p { margin:5px 0 0; color:#ccc; font-size:0.9rem; }
 #checkout-overlay h2 { font-size:1.8rem; margin-bottom:20px; }
 #checkout-overlay p { font-size:1rem; margin-bottom:20px; }
 #checkout-overlay .overlay-cart { text-align:left; max-width:500px; margin:0 auto; background:#222; padding:20px; border-radius:15px; }
+#checkout-overlay .overlay-cart .cart-item { opacity:0; transform:translateX(-20px); }
 #overlay-close { background:#0a84ff; color:#fff; border:none; padding:10px 20px; border-radius:12px; font-weight:bold; cursor:pointer; margin-top:20px; transition:0.3s; }
 #overlay-close:hover { background:#0066cc; }
 
@@ -112,14 +114,43 @@ footer { text-align:center; padding:12px; margin-top:30px; color:#aaa; font-size
 <div class="container">
   <div class="section-title">🔥 Available Pets 🔥</div>
   <div class="grid">
-    <!-- Pets (same as before, you can fill in your images & data-name/data-price) -->
+    <!-- Pet Items -->
     <div class="item" data-name="Axolotl Fly Ride" data-price="2">
       <img src="https://image2url.com/r2/default/images/1769312696977-97a3b12d-0869-4661-86d5-65f8f181744a.png" class="product-img">
       <div class="item-name">Axolotl Fly Ride</div>
       <div class="item-price">$2</div>
       <button class="add-btn">Add to Cart</button>
     </div>
-    <!-- Add other pets similarly -->
+    <div class="item" data-name="Cerberus Fly Ride" data-price="3">
+      <img src="https://image2url.com/r2/default/images/1769312266778-b30a7b97-61bb-4650-bc6c-45a73512c0ba.jpg" class="product-img">
+      <div class="item-name">Cerberus Fly Ride</div>
+      <div class="item-price">$3</div>
+      <button class="add-btn">Add to Cart</button>
+    </div>
+    <div class="item" data-name="Dango Penguins" data-price="10">
+      <img src="https://image2url.com/r2/default/images/1769312623274-1c54447a-0b15-4ac9-a9b6-c875cecd6076.png" class="product-img">
+      <div class="item-name">Dango Penguins</div>
+      <div class="item-price">$10</div>
+      <button class="add-btn">Add to Cart</button>
+    </div>
+    <div class="item" data-name="Neon Sneak Weasel (5)" data-price="12">
+      <img src="https://image2url.com/r2/default/images/1769312555909-e343e380-5694-43a1-9ddf-df2b262990c4.png" class="product-img">
+      <div class="item-name">Neon Sneak Weasel (5)</div>
+      <div class="item-price">$12</div>
+      <button class="add-btn">Add to Cart</button>
+    </div>
+    <div class="item" data-name="Ride Sakura Spirit" data-price="8">
+      <img src="https://image2url.com/r2/default/images/1769312389581-e6410de1-5faa-4d25-8b23-dcf7c38fb51e.jpg" class="product-img">
+      <div class="item-name">Ride Sakura Spirit</div>
+      <div class="item-price">$8</div>
+      <button class="add-btn">Add to Cart</button>
+    </div>
+    <div class="item" data-name="Snow Owl Fly Ride" data-price="2.5">
+      <img src="https://image2url.com/r2/default/images/1769312167327-6f2f8ab6-16e0-45d1-9730-dc8a16d6acdd.jpg" class="product-img">
+      <div class="item-name">Snow Owl Fly Ride</div>
+      <div class="item-price">$2.50</div>
+      <button class="add-btn">Add to Cart</button>
+    </div>
   </div>
 </div>
 
@@ -179,7 +210,7 @@ function renderCart() {
     div.appendChild(removeBtn);
     cartItemsDiv.appendChild(div);
     
-    // Overlay cart
+    // Overlay cart with animation delay
     const overlayDiv = document.createElement('div');
     overlayDiv.className='cart-item';
     overlayDiv.textContent = item.name + " - $" + item.price.toFixed(2);
@@ -188,6 +219,14 @@ function renderCart() {
     total += item.price;
   });
   cartTotalDiv.textContent = "Total: $" + total.toFixed(2);
+}
+
+// Animate overlay items individually
+function animateOverlay() {
+  const items = overlayCart.querySelectorAll('.cart-item');
+  items.forEach((item,i)=>{
+    setTimeout(()=>{ item.classList.add('show'); }, i*150);
+  });
 }
 
 document.querySelectorAll('.add-btn').forEach(btn=>{
@@ -205,6 +244,7 @@ document.getElementById('checkout').addEventListener('click', ()=>{
   if(cart.length===0){ alert("Your cart is empty!"); return; }
   overlay.classList.add('active');
   document.body.classList.add('blur');
+  animateOverlay();
 });
 
 // Confirm & Go to Discord
@@ -219,6 +259,11 @@ document.getElementById('overlay-close').addEventListener('click', ()=>{
   overlay.classList.remove('active');
   document.body.classList.remove('blur');
 });
+</script>
+
+</body>
+</html>
+
 </script>
 
 </body>
