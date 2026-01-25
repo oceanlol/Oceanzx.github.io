@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neon Sneak Weasel - Oceanzx Shop</title>
+<style>
+body { background:black; color:#e0e0e0; font-family:Arial; text-align:center; padding:30px; overflow-x:hidden;}
+.product-img { width:200px; height:200px; object-fit:cover; border-radius:25px; margin-bottom:20px; }
+.buy-btn { background:#333; color:#fff; padding:12px 25px; border-radius:20px; text-decoration:none; display:inline-block; font-weight:bold; transition:0.3s; margin:5px; }
+.buy-btn:hover { background:#555; transform:scale(1.05); }
+.dot{position:absolute;background:white;border-radius:50%;opacity:0.8;animation:moveDot linear infinite;}
+@keyframes moveDot{0%{transform:translateY(0) translateX(0);}100%{transform:translateY(120vh) translateX(50vw);}}
+</style>
+</head>
+<body>
+<script>
+const numDots=100;
+for(let i=0;i<numDots;i++){
+const dot=document.createElement('div');dot.classList.add('dot');
+const size=Math.random()*3+1;dot.style.width=size+'px';dot.style.height=size+'px';
+dot.style.top=Math.random()*window.innerHeight+'px';dot.style.left=Math.random()*window.innerWidth+'px';
+dot.style.animationDuration=(20+Math.random()*40)+'s';document.body.appendChild(dot);}
+</script>
+
+<h1>Neon Sneak Weasel (5)</h1>
+<img src="https://image2url.com/r2/default/images/1769312555909-e343e380-5694-43a1-9ddf-df2b262990c4.png" class="product-img" alt="Neon Sneak Weasel">
+<p>Price: $12</p>
+<a href="https://discord.com/channels/jasonlolololol123df" class="buy-btn" target="_blank">Buy Now</a>
+<a href="index.html" class="buy-btn">⬅ Back to Shop</a>
+</body>
+</html>
