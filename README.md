@@ -69,11 +69,13 @@ header p { margin:5px 0 0; color:#ccc; font-size:0.9rem; }
 #cart {
   position: fixed; top:20px; right:20px; background:#111; border:2px solid #444; border-radius:15px; padding:15px; width:260px; max-height:70vh; overflow-y:auto; box-shadow:0 4px 12px rgba(0,0,0,0.5); transition:all 0.3s ease; z-index:10;
 }
-#cart h3 { margin-top:0; margin-bottom:10px; font-size:1rem; text-align:center; }
-.cart-item { display:flex; justify-content:flex-start; align-items:center; margin-bottom:8px; font-size:0.85rem; opacity:0; transform:translateX(-20px); transition: all 0.3s ease; }
+#cart h3 { margin-top:0; margin-bottom:10px; font-size:1rem; text-align:center; position:relative; }
+#cart-count {
+  position:absolute; top:-10px; right:-10px; background:#0a84ff; color:#fff; border-radius:50%; width:22px; height:22px; display:flex; justify-content:center; align-items:center; font-size:0.75rem; font-weight:bold;
+}
+.cart-item { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; font-size:0.85rem; opacity:0; transform:translateX(-20px); transition: all 0.3s ease; }
 .cart-item.show { opacity:1; transform:translateX(0); }
-.cart-item button { background:#ff4444; color:#fff; border:none; padding:2px 6px; border-radius:6px; cursor:pointer; font-size:0.75rem; margin-left:5px; transition:0.2s; }
-.cart-item button:hover { background:#cc0000; }
+.cart-item img { margin-right:8px; border-radius:5px; width:30px; height:30px; object-fit:cover; }
 .cart-total { font-weight:bold; margin-top:8px; text-align:right; }
 .checkout-btn { background:#0a84ff; color:#fff; width:100%; border:none; padding:8px; border-radius:12px; font-weight:bold; cursor:pointer; margin-top:10px; transition:0.3s; }
 .checkout-btn:hover { background:#0066cc; }
@@ -87,7 +89,7 @@ header p { margin:5px 0 0; color:#ccc; font-size:0.9rem; }
 #checkout-overlay h2 { font-size:1.8rem; margin-bottom:20px; }
 #checkout-overlay p { font-size:1rem; margin-bottom:20px; }
 #checkout-overlay .overlay-cart { text-align:left; max-width:500px; margin:0 auto; background:#222; padding:20px; border-radius:15px; }
-#checkout-overlay .overlay-cart .cart-item { opacity:0; transform:translateX(-20px); }
+#checkout-overlay .overlay-cart .cart-item { display:flex; align-items:center; margin-bottom:8px; opacity:0; transform:translateX(-20px); transition: all 0.3s ease; }
 #overlay-close, #copy-total-btn { background:#0a84ff; color:#fff; border:none; padding:10px 20px; border-radius:12px; font-weight:bold; cursor:pointer; margin-top:20px; transition:0.3s; display:block; margin-left:auto; margin-right:auto; }
 #overlay-close:hover, #copy-total-btn:hover { background:#0066cc; }
 
@@ -156,7 +158,7 @@ footer { text-align:center; padding:12px; margin-top:30px; color:#aaa; font-size
 
 <!-- Cart -->
 <div id="cart">
-  <h3>Cart</h3>
+  <h3>Cart <span id="cart-count">0</span></h3>
   <div id="cart-items"></div>
   <div class="cart-total" id="cart-total">Total: $0.00</div>
   <button class="checkout-btn" id="checkout">Checkout</button>
@@ -176,7 +178,7 @@ footer { text-align:center; padding:12px; margin-top:30px; color:#aaa; font-size
 </footer>
 
 <script>
-// Moving dots
+// Moving dots background
 const numDots = 100;
 for(let i=0;i<numDots;i++){
   const dot = document.createElement('div');
@@ -193,6 +195,7 @@ for(let i=0;i<numDots;i++){
 let cart = [];
 const cartItemsDiv = document.getElementById('cart-items');
 const cartTotalDiv = document.getElementById('cart-total');
+const cartCount = document.getElementById('cart-count');
 const overlay = document.getElementById('checkout-overlay');
 const overlayCart = document.getElementById('overlay-cart');
 
@@ -200,48 +203,61 @@ function renderCart() {
   cartItemsDiv.innerHTML = '';
   overlayCart.innerHTML = '';
   let total = 0;
+
   cart.forEach((item,index)=>{
-    // Sidebar cart with thumbnail
+    // Sidebar cart
     const div = document.createElement('div');
     div.className='cart-item';
-    
+    div.style.display = 'flex';
+    div.style.alignItems = 'center';
+    div.style.justifyContent = 'space-between';
+
+    const left = document.createElement('div');
+    left.style.display = 'flex';
+    left.style.alignItems = 'center';
+
     const thumb = document.createElement('img');
     thumb.src = item.img;
-    thumb.style.width = '30px';
-    thumb.style.height = '30px';
-    thumb.style.objectFit = 'cover';
-    thumb.style.borderRadius = '5px';
-    thumb.style.marginRight = '5px';
-    
+
     const text = document.createElement('span');
-    text.textContent = item.name + " - $" + item.price.toFixed(2);
+    text.textContent = `${item.name} - $${item.price.toFixed(2)}`;
+
+    left.appendChild(thumb);
+    left.appendChild(text);
 
     const removeBtn = document.createElement('button');
     removeBtn.textContent = "Remove";
     removeBtn.onclick = () => { cart.splice(index,1); renderCart(); };
 
-    div.appendChild(thumb);
-    div.appendChild(text);
+    div.appendChild(left);
     div.appendChild(removeBtn);
     cartItemsDiv.appendChild(div);
-    
-    // Overlay cart with thumbnail
+
+    // Overlay cart
     const overlayDiv = document.createElement('div');
     overlayDiv.className='cart-item';
+    overlayDiv.style.display='flex';
+    overlayDiv.style.alignItems='center';
+    overlayDiv.style.marginBottom='8px';
+
     const overlayThumb = thumb.cloneNode(true);
     overlayDiv.appendChild(overlayThumb);
+
     const overlayText = document.createElement('span');
-    overlayText.textContent = item.name + " - $" + item.price.toFixed(2);
-    overlayText.style.marginLeft = '5px';
+    overlayText.textContent = `${item.name} - $${item.price.toFixed(2)}`;
+    overlayText.style.marginLeft = '10px';
     overlayDiv.appendChild(overlayText);
+
     overlayCart.appendChild(overlayDiv);
-    
+
     total += item.price;
   });
+
   cartTotalDiv.textContent = "Total: $" + total.toFixed(2);
+  cartCount.textContent = cart.length;
 }
 
-// Animate overlay items individually
+// Animate overlay
 function animateOverlay() {
   const items = overlayCart.querySelectorAll('.cart-item');
   items.forEach((item,i)=>{
