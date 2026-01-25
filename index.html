@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oceanzx Shop</title>
+<style>
+body{margin:0;background:black;color:white;font-family:Arial}
+header{text-align:center;padding:30px;background:#111}
+.container{max-width:1100px;margin:30px auto;padding:20px;background:#1a1a1a;border-radius:30px}
+.section{margin-bottom:40px}
+.section h2{text-align:center;margin-bottom:25px}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:25px;
+}
+
+.card{
+    background:#222;
+    padding:18px;
+    border-radius:28px;
+    text-align:center;
+    transition:.3s;
+    cursor:pointer;
+}
+.card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 0 25px rgba(10,132,255,.4);
+}
+.card img{
+    width:150px;height:150px;
+    object-fit:cover;
+    border-radius:22px;
+}
+.price{color:#aaa;margin:6px 0}
+
+.popular{
+    box-shadow:0 0 30px rgba(255,215,0,.5);
+    border:2px solid gold;
+}
+
+button{
+    background:#0a84ff;
+    border:none;
+    padding:10px 18px;
+    border-radius:16px;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+button:hover{background:#0066cc}
+
+footer{text-align:center;color:#777;padding:20px}
+</style>
+</head>
+<body>
+
+<header>
+<h1>Oceanzx Adopt Me Shop</h1>
+<p>Fast delivery • Trusted trades</p>
+</header>
+
+<div class="container">
+
+<div class="section">
+<h2>⭐ MOST POPULAR ⭐</h2>
+<div class="grid">
+<div class="card popular" onclick="openProduct('Cerberus Fly Ride','$3','https://image2url.com/r2/default/images/1769312266778-b30a7b97-61bb-4650-bc6c-45a73512c0ba.jpg')">
+<img src="https://image2url.com/r2/default/images/1769312266778-b30a7b97-61bb-4650-bc6c-45a73512c0ba.jpg">
+<h3>Cerberus Fly Ride</h3>
+<div class="price">$3</div>
+</div>
+</div>
+</div>
+
+<div class="section">
+<h2>🔥 Available Pets 🔥</h2>
+<div class="grid">
+
+<div class="card" onclick="openProduct('Axolotl Fly Ride','$2','https://image2url.com/r2/default/images/1769312696977-97a3b12d-0869-4661-86d5-65f8f181744a.png')">
+<img src="https://image2url.com/r2/default/images/1769312696977-97a3b12d-0869-4661-86d5-65f8f181744a.png">
+<h3>Axolotl Fly Ride</h3>
+<div class="price">$2</div>
+</div>
+
+<div class="card" onclick="openProduct('Dango Penguins','$10','https://image2url.com/r2/default/images/1769312623274-1c54447a-0b15-4ac9-a9b6-c875cecd6076.png')">
+<img src="https://image2url.com/r2/default/images/1769312623274-1c54447a-0b15-4ac9-a9b6-c875cecd6076.png">
+<h3>Dango Penguins</h3>
+<div class="price">$10</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+<footer>© 2026 Oceanzx</footer>
+
+<script>
+function openProduct(name,price,img){
+    localStorage.setItem("product",JSON.stringify({name,price,img}));
+    location.href="product.html";
+}
+</script>
+
+</body>
+</html>
