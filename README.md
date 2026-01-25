@@ -15,9 +15,7 @@ body {
   position: relative;
   transition: filter 0.3s ease;
 }
-body.blur {
-  filter: blur(5px) brightness(0.7);
-}
+body.blur { filter: blur(5px) brightness(0.7); }
 
 .dot {
   position: absolute;
@@ -43,28 +41,9 @@ header h1 { margin:0; color:#f0f0f0; font-size:1.6rem; }
 header p { margin:5px 0 0; color:#ccc; font-size:0.9rem; }
 
 /* Container & Grid */
-.container {
-  max-width: 1000px;
-  margin: 20px auto;
-  padding: 15px;
-  background: #1a1a1a;
-  border-radius:20px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.5);
-}
-
-.section-title {
-  text-align:center;
-  font-size:1.4rem;
-  margin:20px 0;
-  color:#f0f0f0;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
-  gap: 20px;
-  justify-items:center;
-}
+.container { max-width:1000px; margin:20px auto; padding:15px; background:#1a1a1a; border-radius:20px; box-shadow:0 6px 15px rgba(0,0,0,0.5); }
+.section-title { text-align:center; font-size:1.4rem; margin:20px 0; color:#f0f0f0; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:20px; justify-items:center; }
 
 .item {
   background:#222;
@@ -75,133 +54,43 @@ header p { margin:5px 0 0; color:#ccc; font-size:0.9rem; }
   align-items:center;
   transition: transform 0.3s, box-shadow 0.3s;
 }
+.item:hover { transform:translateY(-3px); box-shadow:0 5px 12px rgba(255,255,255,0.2); }
 
-.item:hover {
-  transform:translateY(-3px);
-  box-shadow: 0 5px 12px rgba(255,255,255,0.2);
-}
-
-.product-img {
-  width:100%;
-  max-width:140px;
-  height:140px;
-  object-fit:cover;
-  border-radius:15px;
-  margin-bottom:10px;
-}
-
-.item-name {
-  font-weight:bold;
-  font-size:0.95rem;
-  text-align:center;
-  margin-bottom:5px;
-}
-
-.item-price {
-  color:#aaa;
-  font-weight:bold;
-  margin-bottom:10px;
-}
+.product-img { width:100%; max-width:140px; height:140px; object-fit:cover; border-radius:15px; margin-bottom:10px; }
+.item-name { font-weight:bold; font-size:0.95rem; text-align:center; margin-bottom:5px; }
+.item-price { color:#aaa; font-weight:bold; margin-bottom:10px; }
 
 .add-btn {
-  background:#333;
-  color:#fff;
-  border:none;
-  padding:6px 12px;
-  border-radius:12px;
-  cursor:pointer;
-  font-weight:bold;
-  font-size:0.85rem;
-  transition:all 0.3s;
+  background:#333; color:#fff; border:none; padding:6px 12px; border-radius:12px; cursor:pointer; font-weight:bold; font-size:0.85rem; transition:all 0.3s;
 }
-.add-btn:hover {
-  background:#555;
-  transform:scale(1.05);
-}
+.add-btn:hover { background:#555; transform:scale(1.05); }
 
 /* Cart */
 #cart {
-  position: fixed;
-  top:20px;
-  right:20px;
-  background:#111;
-  border:2px solid #444;
-  border-radius:15px;
-  padding:15px;
-  width:260px;
-  max-height:70vh;
-  overflow-y:auto;
-  box-shadow:0 4px 12px rgba(0,0,0,0.5);
-  transition: all 0.3s ease;
-  z-index: 10;
+  position: fixed; top:20px; right:20px; background:#111; border:2px solid #444; border-radius:15px; padding:15px; width:260px; max-height:70vh; overflow-y:auto; box-shadow:0 4px 12px rgba(0,0,0,0.5); transition:all 0.3s ease; z-index:10;
 }
 #cart h3 { margin-top:0; margin-bottom:10px; font-size:1rem; text-align:center; }
-.cart-item { display:flex; justify-content:space-between; margin-bottom:8px; font-size:0.85rem; }
+.cart-item { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; font-size:0.85rem; }
+.cart-item button { background:#ff4444; color:#fff; border:none; padding:2px 6px; border-radius:6px; cursor:pointer; font-size:0.75rem; margin-left:5px; transition:0.2s; }
+.cart-item button:hover { background:#cc0000; }
 .cart-total { font-weight:bold; margin-top:8px; text-align:right; }
-.checkout-btn {
-  background:#0a84ff;
-  color:#fff;
-  width:100%;
-  border:none;
-  padding:8px;
-  border-radius:12px;
-  font-weight:bold;
-  cursor:pointer;
-  margin-top:10px;
-  transition:0.3s;
-}
-.checkout-btn:hover {
-  background:#0066cc;
-}
+.checkout-btn { background:#0a84ff; color:#fff; width:100%; border:none; padding:8px; border-radius:12px; font-weight:bold; cursor:pointer; margin-top:10px; transition:0.3s; }
+.checkout-btn:hover { background:#0066cc; }
 
 /* Fullscreen Overlay for Screenshot */
 #checkout-overlay {
-  display:none;
-  position:fixed;
-  top:0; left:0;
-  width:100vw;
-  height:100vh;
-  background: rgba(0,0,0,0.95);
-  color:#fff;
-  z-index:1000;
-  padding:50px 20px;
-  text-align:center;
-  overflow-y:auto;
-  opacity:0;
-  transform:translateY(-50px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background: rgba(0,0,0,0.95); color:#fff; z-index:1000; padding:50px 20px; text-align:center; overflow-y:auto; opacity:0; transform:translateY(-50px); transition: opacity 0.5s ease, transform 0.5s ease;
 }
-
-#checkout-overlay.active {
-  display:block;
-  opacity:1;
-  transform:translateY(0);
-}
+#checkout-overlay.active { display:block; opacity:1; transform:translateY(0); }
 
 #checkout-overlay h2 { font-size:1.8rem; margin-bottom:20px; }
 #checkout-overlay p { font-size:1rem; margin-bottom:20px; }
 #checkout-overlay .overlay-cart { text-align:left; max-width:500px; margin:0 auto; background:#222; padding:20px; border-radius:15px; }
-#overlay-close {
-  background:#0a84ff;
-  color:#fff;
-  border:none;
-  padding:10px 20px;
-  border-radius:12px;
-  font-weight:bold;
-  cursor:pointer;
-  margin-top:20px;
-  transition:0.3s;
-}
+#overlay-close { background:#0a84ff; color:#fff; border:none; padding:10px 20px; border-radius:12px; font-weight:bold; cursor:pointer; margin-top:20px; transition:0.3s; }
 #overlay-close:hover { background:#0066cc; }
 
 /* Footer */
-footer {
-  text-align:center;
-  padding:12px;
-  margin-top:30px;
-  color:#aaa;
-  font-size:0.85rem;
-}
+footer { text-align:center; padding:12px; margin-top:30px; color:#aaa; font-size:0.85rem; }
 
 /* Responsive */
 @media(max-width:480px){
@@ -223,7 +112,14 @@ footer {
 <div class="container">
   <div class="section-title">🔥 Available Pets 🔥</div>
   <div class="grid">
-    <!-- Pets (same as before, omitted here for brevity) -->
+    <!-- Pets (same as before, you can fill in your images & data-name/data-price) -->
+    <div class="item" data-name="Axolotl Fly Ride" data-price="2">
+      <img src="https://image2url.com/r2/default/images/1769312696977-97a3b12d-0869-4661-86d5-65f8f181744a.png" class="product-img">
+      <div class="item-name">Axolotl Fly Ride</div>
+      <div class="item-price">$2</div>
+      <button class="add-btn">Add to Cart</button>
+    </div>
+    <!-- Add other pets similarly -->
   </div>
 </div>
 
@@ -262,11 +158,37 @@ for(let i=0;i<numDots;i++){
 }
 
 // Cart functionality
-const cart = [];
+let cart = [];
 const cartItemsDiv = document.getElementById('cart-items');
 const cartTotalDiv = document.getElementById('cart-total');
 const overlay = document.getElementById('checkout-overlay');
 const overlayCart = document.getElementById('overlay-cart');
+
+function renderCart() {
+  cartItemsDiv.innerHTML = '';
+  overlayCart.innerHTML = '';
+  let total = 0;
+  cart.forEach((item,index)=>{
+    // Sidebar cart
+    const div = document.createElement('div');
+    div.className='cart-item';
+    div.textContent = item.name + " - $" + item.price.toFixed(2);
+    const removeBtn = document.createElement('button');
+    removeBtn.textContent = "Remove";
+    removeBtn.onclick = () => { cart.splice(index,1); renderCart(); };
+    div.appendChild(removeBtn);
+    cartItemsDiv.appendChild(div);
+    
+    // Overlay cart
+    const overlayDiv = document.createElement('div');
+    overlayDiv.className='cart-item';
+    overlayDiv.textContent = item.name + " - $" + item.price.toFixed(2);
+    overlayCart.appendChild(overlayDiv);
+    
+    total += item.price;
+  });
+  cartTotalDiv.textContent = "Total: $" + total.toFixed(2);
+}
 
 document.querySelectorAll('.add-btn').forEach(btn=>{
   btn.addEventListener('click', ()=>{
@@ -278,37 +200,14 @@ document.querySelectorAll('.add-btn').forEach(btn=>{
   });
 });
 
-function renderCart(){
-  cartItemsDiv.innerHTML = '';
-  overlayCart.innerHTML = '';
-  let total = 0;
-  cart.forEach((item)=>{
-    const div = document.createElement('div');
-    div.className='cart-item';
-    div.textContent = item.name + " - $" + item.price.toFixed(2);
-    cartItemsDiv.appendChild(div);
-
-    const overlayDiv = document.createElement('div');
-    overlayDiv.className='cart-item';
-    overlayDiv.textContent = item.name + " - $" + item.price.toFixed(2);
-    overlayCart.appendChild(overlayDiv);
-
-    total += item.price;
-  });
-  cartTotalDiv.textContent = "Total: $" + total.toFixed(2);
-}
-
 // Checkout
 document.getElementById('checkout').addEventListener('click', ()=>{
-  if(cart.length === 0){
-    alert("Your cart is empty!");
-    return;
-  }
+  if(cart.length===0){ alert("Your cart is empty!"); return; }
   overlay.classList.add('active');
   document.body.classList.add('blur');
 });
 
-// Confirm & go to Discord
+// Confirm & Go to Discord
 document.getElementById('overlay-close').addEventListener('click', ()=>{
   let message = "Hi, I want to buy:%0A";
   cart.forEach(item=>{
@@ -324,3 +223,4 @@ document.getElementById('overlay-close').addEventListener('click', ()=>{
 
 </body>
 </html>
+
