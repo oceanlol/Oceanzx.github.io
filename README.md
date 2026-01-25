@@ -88,8 +88,8 @@ header p { margin:5px 0 0; color:#ccc; font-size:0.9rem; }
 #checkout-overlay p { font-size:1rem; margin-bottom:20px; }
 #checkout-overlay .overlay-cart { text-align:left; max-width:500px; margin:0 auto; background:#222; padding:20px; border-radius:15px; }
 #checkout-overlay .overlay-cart .cart-item { opacity:0; transform:translateX(-20px); }
-#overlay-close { background:#0a84ff; color:#fff; border:none; padding:10px 20px; border-radius:12px; font-weight:bold; cursor:pointer; margin-top:20px; transition:0.3s; }
-#overlay-close:hover { background:#0066cc; }
+#overlay-close, #copy-total-btn { background:#0a84ff; color:#fff; border:none; padding:10px 20px; border-radius:12px; font-weight:bold; cursor:pointer; margin-top:20px; transition:0.3s; display:block; margin-left:auto; margin-right:auto; }
+#overlay-close:hover, #copy-total-btn:hover { background:#0066cc; }
 
 /* Footer */
 footer { text-align:center; padding:12px; margin-top:30px; color:#aaa; font-size:0.85rem; }
@@ -99,7 +99,7 @@ footer { text-align:center; padding:12px; margin-top:30px; color:#aaa; font-size
   .grid { gap:15px; }
   .product-img { max-width:120px; height:120px; }
   #cart { width:200px; padding:10px; top:10px; right:10px; }
-  .checkout-btn { padding:6px; font-size:0.8rem; }
+  .checkout-btn, #overlay-close, #copy-total-btn { padding:6px; font-size:0.8rem; }
   #checkout-overlay { padding:20px 10px; }
 }
 </style>
@@ -165,8 +165,9 @@ footer { text-align:center; padding:12px; margin-top:30px; color:#aaa; font-size
 <!-- Fullscreen Overlay -->
 <div id="checkout-overlay">
   <h2>Take a Screenshot of Your Cart</h2>
-  <p>Make sure your cart is fully visible. Then click "Confirm & Go to Discord".</p>
+  <p>Make sure your cart is fully visible. Then click "Copy Total & Go to Discord".</p>
   <div class="overlay-cart" id="overlay-cart"></div>
+  <button id="copy-total-btn">Copy Total to Clipboard 💰</button>
   <button id="overlay-close">Confirm & Go to Discord</button>
 </div>
 
@@ -267,14 +268,19 @@ document.getElementById('checkout').addEventListener('click', ()=>{
   animateOverlay();
 });
 
+// Copy total to clipboard for Cash App
+document.getElementById('copy-total-btn').addEventListener('click', ()=>{
+  const total = cart.reduce((sum,item)=>sum+item.price,0).toFixed(2);
+  navigator.clipboard.writeText(total).then(()=>{
+    alert(`Total $${total} copied! Paste this in Cash App to pay.`);
+  }).catch(err=>{
+    alert('Failed to copy total. Please copy manually.');
+  });
+});
+
 // Confirm & Go to Discord
 document.getElementById('overlay-close').addEventListener('click', ()=>{
-  let message = "Hi, I want to buy:%0A";
-  cart.forEach(item=>{
-    message += `- ${item.name} ($${item.price.toFixed(2)})%0A`;
-  });
-  const total = cart.reduce((sum,item)=>sum+item.price,0);
-  message += `Total: $${total.toFixed(2)}`;
+  if(cart.length===0){ alert("Your cart is empty!"); overlay.classList.remove('active'); document.body.classList.remove('blur'); return; }
   window.open(`https://discord.gg/sv6tRJBR5G`,'_blank');
   overlay.classList.remove('active');
   document.body.classList.remove('blur');
@@ -283,4 +289,3 @@ document.getElementById('overlay-close').addEventListener('click', ()=>{
 
 </body>
 </html>
-
