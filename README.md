@@ -4,348 +4,173 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Oceanzx Adopt Me Shop</title>
+
 <style>
-/* General */
 body {
-  margin:0;
-  font-family: Arial, sans-serif;
-  background: black;
-  color: #e0e0e0;
-  overflow-x: hidden;
+    margin:0;
+    font-family: Arial, sans-serif;
+    background:black;
+    color:#e0e0e0;
+    overflow-x:hidden;
 }
 
+/* Floating dots */
 .dot {
-  position: absolute;
-  border-radius: 50%;
-  background: white;
-  opacity: 0.8;
-  animation: moveDot linear infinite;
+    position:absolute;
+    width:4px;
+    height:4px;
+    background:white;
+    border-radius:50%;
+    opacity:0.7;
+    animation: float 15s linear infinite;
 }
-@keyframes moveDot {
-  0% { transform: translateY(0) translateX(0); }
-  100% { transform: translateY(120vh) translateX(50vw); }
+@keyframes float {
+    from { transform: translateY(-10vh); }
+    to { transform: translateY(120vh); }
 }
 
-/* Header */
 header {
-  text-align:center;
-  padding:20px;
-  background:#111;
-  border-bottom:2px solid #444;
-  border-radius:0 0 20px 20px;
+    text-align:center;
+    padding:20px;
+    background:#111;
+    border-radius:0 0 20px 20px;
 }
-header h1 { margin:0; font-size:1.6rem; }
-header p { margin:5px 0 0; font-size:0.9rem; color:#ccc; }
 
-/* Container & Grid */
-.container { max-width:1000px; margin:20px auto; padding:15px; background:#1a1a1a; border-radius:20px; }
-.section-title { text-align:center; font-size:1.4rem; margin:20px 0; }
-.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:20px; justify-items:center; }
+.container {
+    max-width:1000px;
+    margin:20px auto;
+    padding:15px;
+    background:#1a1a1a;
+    border-radius:20px;
+}
+
+.grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+    gap:20px;
+}
 
 .item {
-  background:#222;
-  padding:15px;
-  border-radius:15px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  transition: transform 0.3s, box-shadow 0.3s;
+    background:#222;
+    padding:15px;
+    border-radius:18px;
+    text-align:center;
+    transition:0.3s;
 }
-.item:hover { transform:translateY(-3px); box-shadow:0 5px 12px rgba(255,255,255,0.2); }
+.item:hover {
+    transform:translateY(-5px);
+    box-shadow:0 6px 15px rgba(255,255,255,0.15);
+}
 
-.product-img { width:100%; max-width:140px; height:140px; object-fit:cover; border-radius:15px; margin-bottom:10px; }
-.item-name { font-weight:bold; font-size:0.95rem; text-align:center; margin-bottom:5px; }
-.item-price { color:#aaa; font-weight:bold; margin-bottom:10px; }
+.item img {
+    width:100%;
+    max-width:140px;
+    height:140px;
+    object-fit:cover;
+    border-radius:15px;
+}
+
+.price {
+    color:#aaa;
+    margin:5px 0;
+}
 
 .add-btn {
-  background:#333; color:#fff; border:none; padding:8px 14px; border-radius:12px; cursor:pointer; font-weight:bold; font-size:0.85rem; transition:all 0.3s;
+    background:#0a84ff;
+    border:none;
+    padding:8px 14px;
+    border-radius:12px;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
 }
-.add-btn:hover { background:#555; transform:scale(1.05); }
-
-/* Cart */
-#cart {
-  position: fixed; top:20px; right:20px; background:#111; border:2px solid #444; border-radius:15px; padding:15px; width:280px; max-height:75vh; overflow-y:auto; z-index:10;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-  transition: transform 0.3s ease;
-}
-#cart:hover { transform: translateY(-2px); }
-
-#cart h3 { margin-top:0; margin-bottom:15px; font-size:1.1rem; text-align:center; position:relative; color:#0a84ff; }
-#cart-count {
-  position:absolute; top:-10px; right:-10px; background:#0a84ff; color:#fff; border-radius:50%; width:24px; height:24px; display:flex; justify-content:center; align-items:center; font-size:0.75rem; font-weight:bold;
+.add-btn:hover {
+    background:#0066cc;
 }
 
-.cart-item {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin-bottom:10px;
-  background:#222;
-  border-radius:12px;
-  padding:5px 8px;
-  box-shadow:0 2px 8px rgba(255,255,255,0.05);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+footer {
+    text-align:center;
+    padding:15px;
+    color:#888;
 }
-.cart-item:hover { transform:translateY(-2px); box-shadow:0 4px 12px rgba(255,255,255,0.1); }
-
-.cart-item img {
-  width:40px;
-  height:40px;
-  border-radius:8px;
-  object-fit:cover;
-  margin-right:10px;
-  flex-shrink:0;
-}
-
-.cart-item span {
-  flex-grow:1;
-  font-size:0.9rem;
-  font-weight:bold;
-}
-
-.cart-item button {
-  background:#ff4d4d;
-  border:none;
-  border-radius:8px;
-  padding:4px 8px;
-  cursor:pointer;
-  font-size:0.75rem;
-  transition: background 0.3s;
-}
-.cart-item button:hover { background:#e60000; }
-
-.cart-total {
-  font-weight:bold;
-  text-align:right;
-  margin-top:10px;
-  font-size:1rem;
-}
-
-.checkout-btn {
-  background:#0a84ff;
-  color:#fff;
-  width:100%;
-  border:none;
-  padding:10px;
-  border-radius:12px;
-  font-weight:bold;
-  cursor:pointer;
-  margin-top:10px;
-  transition:0.3s;
-}
-.checkout-btn:hover { background:#0066cc; }
-
-/* Overlay Cart */
-#checkout-overlay {
-  display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background: rgba(0,0,0,0.95); color:#fff; z-index:1000; padding:50px 20px; text-align:center; overflow-y:auto; opacity:0; transform:translateY(-50px); transition: opacity 0.5s ease, transform 0.5s ease;
-}
-#checkout-overlay.active { display:block; opacity:1; transform:translateY(0); }
-
-#checkout-overlay h2 { font-size:1.8rem; margin-bottom:20px; }
-#checkout-overlay p { font-size:1rem; margin-bottom:20px; }
-#checkout-overlay .overlay-cart { text-align:left; max-width:500px; margin:0 auto; background:#222; padding:20px; border-radius:15px; box-shadow:0 8px 20px rgba(0,0,0,0.5); }
-#checkout-overlay .overlay-cart .cart-item { display:flex; align-items:center; margin-bottom:10px; background:#333; padding:8px; border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,0.3); }
-#checkout-overlay .overlay-cart .cart-item img { width:40px; height:40px; margin-right:12px; border-radius:8px; object-fit:cover; }
-#checkout-overlay .overlay-cart .cart-item span { font-size:0.95rem; font-weight:bold; }
-
-/* Overlay Buttons */
-#copy-total-btn, #overlay-close {
-  width:80%;
-  max-width:250px;
-  font-weight:bold;
-  border:none;
-  padding:10px;
-  border-radius:12px;
-  margin-top:15px;
-  cursor:pointer;
-  transition:0.3s;
-}
-#copy-total-btn { background:#0a84ff; color:#fff; }
-#copy-total-btn:hover { background:#0066cc; }
-#overlay-close { background:#00c853; color:#fff; }
-#overlay-close:hover { background:#009624; }
-
-/* Mobile tweaks */
-@media(max-width:480px){
-  #cart { width:220px; top:10px; right:10px; padding:10px; max-height:70vh; }
-  .cart-item img { width:35px; height:35px; }
-  .cart-item span { font-size:0.85rem; }
-  .checkout-btn, #copy-total-btn, #overlay-close { padding:8px; font-size:0.8rem; }
-  #checkout-overlay { padding:20px 10px; height:100vh; overflow-y:auto; }
-  #checkout-overlay h2 { font-size:1.5rem; }
-  #checkout-overlay p { font-size:0.95rem; }
-  #checkout-overlay .overlay-cart .cart-item img { width:35px; height:35px; }
-}
-
-/* Footer */
-footer { text-align:center; padding:12px; margin-top:30px; color:#aaa; font-size:0.85rem; }
 </style>
 </head>
+
 <body>
 
 <header>
-  <h1>Oceanzx Adopt Me Shop</h1>
-  <p>Fast delivery • Trusted trades • DM before payment</p>
+    <h1>Oceanzx Adopt Me Shop</h1>
+    <p>Fast delivery • Trusted trades • DM before payment</p>
 </header>
 
 <div class="container">
-  <div class="section-title">🔥 Available Pets 🔥</div>
-  <div class="grid">
-    <!-- Pet Items -->
-    <div class="item" data-name="Axolotl Fly Ride" data-price="2">
-      <img src="https://image2url.com/r2/default/images/1769312696977-97a3b12d-0869-4661-86d5-65f8f181744a.png" class="product-img">
-      <div class="item-name">Axolotl Fly Ride</div>
-      <div class="item-price">$2</div>
-      <button class="add-btn">Add to Cart</button>
-    </div>
-    <div class="item" data-name="Cerberus Fly Ride" data-price="3">
-      <img src="https://image2url.com/r2/default/images/1769312266778-b30a7b97-61bb-4650-bc6c-45a73512c0ba.jpg" class="product-img">
-      <div class="item-name">Cerberus Fly Ride</div>
-      <div class="item-price">$3</div>
-      <button class="add-btn">Add to Cart</button>
-    </div>
-    <div class="item" data-name="Dango Penguins" data-price="10">
-      <img src="https://image2url.com/r2/default/images/1769312623274-1c54447a-0b15-4ac9-a9b6-c875cecd6076.png" class="product-img">
-      <div class="item-name">Dango Penguins</div>
-      <div class="item-price">$10</div>
-      <button class="add-btn">Add to Cart</button>
-    </div>
-    <div class="item" data-name="Neon Sneak Weasel (5)" data-price="12">
-      <img src="https://image2url.com/r2/default/images/1769312555909-e343e380-5694-43a1-9ddf-df2b262990c4.png" class="product-img">
-      <div class="item-name">Neon Sneak Weasel (5)</div>
-      <div class="item-price">$12</div>
-      <button class="add-btn">Add to Cart</button>
-    </div>
-    <div class="item" data-name="Ride Sakura Spirit" data-price="8">
-      <img src="https://image2url.com/r2/default/images/1769312389581-e6410de1-5faa-4d25-8b23-dcf7c38fb51e.jpg" class="product-img">
-      <div class="item-name">Ride Sakura Spirit</div>
-      <div class="item-price">$8</div>
-      <button class="add-btn">Add to Cart</button>
-    </div>
-    <div class="item" data-name="Snow Owl Fly Ride" data-price="2.5">
-      <img src="https://image2url.com/r2/default/images/1769312167327-6f2f8ab6-16e0-45d1-9730-dc8a16d6acdd.jpg" class="product-img">
-      <div class="item-name">Snow Owl Fly Ride</div>
-      <div class="item-price">$2.50</div>
-      <button class="add-btn">Add to Cart</button>
-    </div>
-  </div>
-</div>
+    <h2 style="text-align:center;">🔥 Available Pets 🔥</h2>
 
-<!-- Cart Sidebar -->
-<div id="cart">
-  <h3>Cart <span id="cart-count">0</span></h3>
-  <div id="cart-items"></div>
-  <div class="cart-total" id="cart-total">Total: $0.00</div>
-  <button class="checkout-btn" id="checkout">Checkout</button>
-</div>
+    <div class="grid">
 
-<!-- Checkout Overlay -->
-<div id="checkout-overlay">
-  <h2>Take a Screenshot of Your Cart</h2>
-  <p>Make sure your cart is fully visible. Then click "Copy Cart & Go to Discord".</p>
-  <div class="overlay-cart" id="overlay-cart"></div>
-  <button id="copy-total-btn">Copy Cart & Total 💰</button>
-  <button id="overlay-close">Confirm & Go to Discord</button>
+        <div class="item">
+            <img src="https://image2url.com/r2/default/images/1769312696977-97a3b12d-0869-4661-86d5-65f8f181744a.png">
+            <h3>Axolotl Fly Ride</h3>
+            <div class="price">$2</div>
+            <button class="add-btn" onclick="buy()">Buy</button>
+        </div>
+
+        <div class="item">
+            <img src="https://image2url.com/r2/default/images/1769312266778-b30a7b97-61bb-4650-bc6c-45a73512c0ba.jpg">
+            <h3>Cerberus Fly Ride</h3>
+            <div class="price">$3</div>
+            <button class="add-btn" onclick="buy()">Buy</button>
+        </div>
+
+        <div class="item">
+            <img src="https://image2url.com/r2/default/images/1769312623274-1c54447a-0b15-4ac9-a9b6-c875cecd6076.png">
+            <h3>Dango Penguins</h3>
+            <div class="price">$10</div>
+            <button class="add-btn" onclick="buy()">Buy</button>
+        </div>
+
+        <div class="item">
+            <img src="https://image2url.com/r2/default/images/1769312555909-e343e380-5694-43a1-9ddf-df2b262990c4.png">
+            <h3>Neon Sneak Weasel (5)</h3>
+            <div class="price">$12</div>
+            <button class="add-btn" onclick="buy()">Buy</button>
+        </div>
+
+        <div class="item">
+            <img src="https://image2url.com/r2/default/images/1769312389581-e6410de1-5faa-4d25-8b23-dcf7c38fb51e.jpg">
+            <h3>Ride Sakura Spirit</h3>
+            <div class="price">$8</div>
+            <button class="add-btn" onclick="buy()">Buy</button>
+        </div>
+
+        <div class="item">
+            <img src="https://image2url.com/r2/default/images/1769312167327-6f2f8ab6-16e0-45d1-9730-dc8a16d6acdd.jpg">
+            <h3>Snow Owl Fly Ride</h3>
+            <div class="price">$2.50</div>
+            <button class="add-btn" onclick="buy()">Buy</button>
+        </div>
+
+    </div>
 </div>
 
 <footer>
-  &copy; 2026 Oceanzx Adopt Me Shop
+© 2026 Oceanzx Adopt Me Shop
 </footer>
 
 <script>
-// Background dots
-const numDots = 100;
-for(let i=0;i<numDots;i++){
-  const dot=document.createElement('div'); dot.classList.add('dot');
-  const size=Math.random()*3+1; dot.style.width=dot.style.height=size+'px';
-  dot.style.top=Math.random()*window.innerHeight+'px'; dot.style.left=Math.random()*window.innerWidth+'px';
-  dot.style.animationDuration=(20+Math.random()*40)+'s';
-  document.body.appendChild(dot);
+// floating dots
+for(let i=0;i<80;i++){
+    const d=document.createElement("div");
+    d.className="dot";
+    d.style.left=Math.random()*100+"vw";
+    d.style.animationDuration=(8+Math.random()*12)+"s";
+    document.body.appendChild(d);
 }
 
-// Cart logic
-let cart = [];
-const cartItemsDiv = document.getElementById('cart-items');
-const cartTotalDiv = document.getElementById('cart-total');
-const cartCount = document.getElementById('cart-count');
-const overlay = document.getElementById('checkout-overlay');
-const overlayCart = document.getElementById('overlay-cart');
-
-function renderCart() {
-  cartItemsDiv.innerHTML = '';
-  overlayCart.innerHTML = '';
-  let total=0;
-
-  cart.forEach((item,index)=>{
-    total += item.price;
-
-    // Sidebar
-    const div = document.createElement('div'); div.className='cart-item';
-
-    const left = document.createElement('div'); left.style.display='flex'; left.style.alignItems='center';
-    const thumb = document.createElement('img'); thumb.src=item.img;
-    const text = document.createElement('span'); text.textContent=`${item.name} - $${item.price.toFixed(2)}`;
-    left.appendChild(thumb); left.appendChild(text);
-
-    const removeBtn=document.createElement('button'); removeBtn.textContent='Remove'; removeBtn.onclick=()=>{ cart.splice(index,1); renderCart(); }
-
-    div.appendChild(left); div.appendChild(removeBtn);
-    cartItemsDiv.appendChild(div);
-
-    // Overlay
-    const overlayDiv=document.createElement('div'); overlayDiv.className='cart-item';
-    const overlayThumb=document.createElement('img'); overlayThumb.src=item.img;
-    const overlayText=document.createElement('span'); overlayText.textContent=`${item.name} - $${item.price.toFixed(2)}`;
-    overlayDiv.appendChild(overlayThumb); overlayDiv.appendChild(overlayText);
-    overlayCart.appendChild(overlayDiv);
-  });
-
-  cartTotalDiv.textContent="Total: $"+total.toFixed(2);
-  cartCount.textContent=cart.length;
+// Buy button
+function buy(){
+    window.open("https://discord.com/users/1455058787257024512","_blank");
 }
-
-// Add to cart buttons
-document.querySelectorAll('.add-btn').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    const itemDiv=btn.closest('.item');
-    const name=itemDiv.dataset.name;
-    const price=parseFloat(itemDiv.dataset.price);
-    const img=itemDiv.querySelector('img').src;
-    cart.push({name,price,img});
-    renderCart();
-  });
-});
-
-// Checkout
-document.getElementById('checkout').addEventListener('click',()=>{
-  if(cart.length===0){ alert("Your cart is empty!"); return; }
-  overlay.classList.add('active');
-  overlay.scrollTop = 0;
-});
-
-// Copy cart summary & total for Cash App
-document.getElementById('copy-total-btn').addEventListener('click',()=>{
-  if(cart.length===0){ alert("Cart is empty!"); return; }
-
-  let text="Oceanzx Adopt Me Shop Order:\n";
-  let total=0;
-  cart.forEach(item=>{
-    text += `- ${item.name} - $${item.price.toFixed(2)}\n`;
-    total += item.price;
-  });
-  text += `Total: $${total.toFixed(2)}`;
-
-  navigator.clipboard.writeText(text).then(()=>{
-    alert("Cart summary copied! Paste it in Cash App or your buying ticket.");
-  });
-});
-
-// Go to Discord
-document.getElementById('overlay-close').addEventListener('click',()=>{
-  if(cart.length===0){ overlay.classList.remove('active'); return; }
-  window.open('https://discord.gg/sv6tRJBR5G','_blank');
-  overlay.classList.remove('active'); 
-});
 </script>
 
 </body>
