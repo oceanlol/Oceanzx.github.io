@@ -129,14 +129,14 @@ header p { margin:5px 0 0; color:#ccc; font-size:0.9rem; }
   border:2px solid #444;
   border-radius:15px;
   padding:15px;
-  width:250px;
+  width:260px;
   max-height:70vh;
   overflow-y:auto;
   box-shadow:0 4px 12px rgba(0,0,0,0.5);
 }
 #cart h3 { margin-top:0; margin-bottom:10px; font-size:1rem; text-align:center; }
 .cart-item { display:flex; justify-content:space-between; margin-bottom:8px; font-size:0.85rem; }
-.cart-item span { margin-left:5px; }
+.cart-total { font-weight:bold; margin-top:8px; text-align:right; }
 .checkout-btn {
   background:#0a84ff;
   color:#fff;
@@ -230,9 +230,8 @@ footer {
 <div id="cart">
   <h3>Cart</h3>
   <div id="cart-items"></div>
-  <div style="text-align:center;">
-    <button class="checkout-btn" id="checkout">Checkout</button>
-  </div>
+  <div class="cart-total" id="cart-total">Total: $0.00</div>
+  <button class="checkout-btn" id="checkout">Checkout</button>
 </div>
 
 <footer>
@@ -256,12 +255,13 @@ for(let i=0;i<numDots;i++){
 // Cart functionality
 const cart = [];
 const cartItemsDiv = document.getElementById('cart-items');
+const cartTotalDiv = document.getElementById('cart-total');
 
 document.querySelectorAll('.add-btn').forEach(btn=>{
   btn.addEventListener('click', ()=>{
     const itemDiv = btn.parentElement;
     const name = itemDiv.dataset.name;
-    const price = itemDiv.dataset.price;
+    const price = parseFloat(itemDiv.dataset.price);
     cart.push({name, price});
     renderCart();
   });
@@ -269,22 +269,35 @@ document.querySelectorAll('.add-btn').forEach(btn=>{
 
 function renderCart(){
   cartItemsDiv.innerHTML = '';
+  let total = 0;
   cart.forEach((item, index)=>{
     const div = document.createElement('div');
     div.className='cart-item';
-    div.textContent = item.name + " - $" + item.price;
+    div.textContent = item.name + " - $" + item.price.toFixed(2);
     cartItemsDiv.appendChild(div);
+    total += item.price;
   });
+  cartTotalDiv.textContent = "Total: $" + total.toFixed(2);
 }
 
+// Checkout
 document.getElementById('checkout').addEventListener('click', ()=>{
   if(cart.length === 0){
     alert("Your cart is empty!");
     return;
   }
-  window.open("https://discord.gg/sv6tRJBR5G","_blank");
+  // Build message for Discord
+  let message = "Hi, I want to buy:%0A";
+  cart.forEach(item=>{
+    message += `- ${item.name} ($${item.price.toFixed(2)})%0A`;
+  });
+  const total = cart.reduce((sum,item)=>sum+item.price,0);
+  message += `Total: $${total.toFixed(2)}`;
+  // Open Discord server with pre-filled message
+  window.open(`https://discord.gg/sv6tRJBR5G?message=${message}`,'_blank');
 });
 </script>
 
 </body>
 </html>
+
