@@ -58,9 +58,23 @@ header p{color:#aaa}
 
 /* mobile */
 @media(max-width:600px){#cart{width:240px}}
+
+/* fake buyer popup */
+.popup {position: fixed;bottom: 20px;left: -320px;background: #121212;border-radius: 16px;padding: 12px 16px;width: 260px;box-shadow: 0 0 25px rgba(0,0,0,.6);font-size: .85rem;z-index: 9999;animation: slideIn 0.6s forwards;}
+.popup strong {color: #0a84ff;}
+@keyframes slideIn {to { left: 20px; }}
+@keyframes slideOut {to { left: -320px; opacity: 0; }}
 </style>
 </head>
 <body>
+
+<!-- KEY PROMPT -->
+<div id="keyPrompt" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#0b0b0b;display:flex;align-items:center;justify-content:center;flex-direction:column;z-index:9999;">
+<h2 style="color:white;margin-bottom:10px;">Enter Key to Access</h2>
+<input type="password" id="accessKey" placeholder="Enter Key" style="padding:10px;border-radius:8px;border:none;margin-bottom:10px;">
+<button class="btn" onclick="checkKey()">Submit</button>
+<p style="color:#aaa;margin-top:5px;">Hint: It's simple 😎</p>
+</div>
 
 <header>
 <h1>Oceanzx Adopt Me Shop</h1>
@@ -70,6 +84,7 @@ header p{color:#aaa}
 <div class="trust">✔ Instant Delivery • ✔ Trusted Trades • ✔ Discord Support</div>
 
 <div class="container">
+
 <h2 style="text-align:center">🔥 Available Pets 🔥</h2>
 <div class="grid">
 
@@ -138,8 +153,24 @@ header p{color:#aaa}
 </div>
 
 <script>
-// Cart & stock
+// ===== KEY CHECK =====
+function checkKey(){
+  const key = document.getElementById("accessKey").value;
+  if(key === "Keebs"){
+    document.getElementById("keyPrompt").style.display="none";
+  } else {
+    alert("Incorrect Key 😤");
+  }
+}
+
+// ===== CART & STOCK =====
 let cart = [];
+
+// Load cart from localStorage
+const savedCart = JSON.parse(localStorage.getItem("oceanzx-cart"));
+if(savedCart) cart = savedCart;
+
+// stock
 let stock = {
   "Axolotl Fly Ride": 3,
   "Cerberus Fly Ride": 2,
@@ -149,28 +180,24 @@ let stock = {
   "Snow Owl Fly Ride": 4
 };
 
-// Hold items for 5 minutes (300000ms)
+// hold timers
 let holdTimers = {};
 
 // Add to cart
-function addToCart(name, price) {
-  if (stock[name] <= 0) return;
+function addToCart(name, price){
+  if(stock[name] <= 0) return;
 
-  cart.push({ name, price });
+  cart.push({name, price});
   stock[name]--;
   renderCart();
   updateStock(name);
 
-  // Only 1 left warning
-  if(stock[name] === 1){
-    const stockEl = document.querySelector(`[data-stock="${name}"]`);
-    stockEl.classList.add("only-one");
+  if(stock[name]===1){
+    document.querySelector(`[data-stock="${name}"]`).classList.add("only-one");
   }
 
-  // Start hold timer
   if(holdTimers[name]) clearTimeout(holdTimers[name]);
   holdTimers[name] = setTimeout(()=>{
-    // release item after 5 mins
     stock[name]++;
     updateStock(name);
     renderCart();
@@ -182,38 +209,39 @@ function updateStock(name){
   const stockEl = document.querySelector(`[data-stock="${name}"]`);
   const btn = document.querySelector(`[data-btn="${name}"]`);
 
-  if(stock[name] <= 0){
-    stockEl.innerText = "❌ SOLD OUT";
-    btn.disabled = true;
-    btn.innerText = "Sold Out";
+  if(stock[name]<=0){
+    stockEl.innerText="❌ SOLD OUT";
+    btn.disabled=true;
+    btn.innerText="Sold Out";
     btn.style.background="#444";
     stockEl.classList.remove("only-one");
   } else {
     stockEl.innerText=`⏳ Stock left: ${stock[name]}`;
-    if(stock[name] > 1) stockEl.classList.remove("only-one");
+    if(stock[name]>1) stockEl.classList.remove("only-one");
   }
 }
 
 // Render cart
 function renderCart(){
-  let items = document.getElementById("cart-items");
+  const items = document.getElementById("cart-items");
   let total = 0;
   items.innerHTML = "";
 
   cart.forEach((i,idx)=>{
-    total += i.price;
-    items.innerHTML += `
-      <div class="cart-item">
-        <span onclick="removeFromCart(${idx})">❌</span>
-        <span>${i.name}</span>
-        <span>$${i.price}</span>
-      </div>`;
+    total+=i.price;
+    items.innerHTML += `<div class="cart-item">
+      <span onclick="removeFromCart(${idx})">❌</span>
+      <span>${i.name}</span>
+      <span>$${i.price}</span>
+    </div>`;
   });
 
   document.getElementById("total").innerText = total.toFixed(2);
+  // save to localStorage
+  localStorage.setItem("oceanzx-cart", JSON.stringify(cart));
 }
 
-// Remove item from cart
+// Remove from cart
 function removeFromCart(idx){
   const removed = cart.splice(idx,1)[0];
   stock[removed.name]++;
@@ -224,44 +252,52 @@ function removeFromCart(idx){
 
 // Checkout
 function checkout(){
-  if(cart.length===0){alert("Your cart is empty!"); return;}
-
-  // Generate order ID
+  if(cart.length===0){alert("Cart empty!"); return;}
   const orderID = Math.floor(Math.random()*900000+100000);
-
-  let order="🛒 Oceanzx Order (ID:"+orderID+"):\\n";
+  let order = `🛒 Oceanzx Order (ID:${orderID}):\n`;
   let total=0;
   cart.forEach(i=>{
-    order += `• ${i.name} - $${i.price}\\n`;
+    order+=`• ${i.name} - $${i.price}\n`;
     total+=i.price;
   });
-  order+=`\\n💰 Total: $${total.toFixed(2)}`;
-
+  order+=`\n💰 Total: $${total.toFixed(2)}`;
   navigator.clipboard.writeText(order);
   window.open("https://discord.com/users/1455058787257024512","_blank");
-
-  // Clear cart
   cart=[];
   renderCart();
+  localStorage.removeItem("oceanzx-cart");
 }
-</script>
 
-<script>
-// anti inspect (basic)
+// ===== FAKE BUYERS =====
+const fakeBuyers = ["xShadowWolf","LunaPlays","AdoptQueen","NeonTrader","RobloxKid88","MegaPets","StarrySky","FrostyX"];
+const fakeItems = ["Axolotl Fly Ride","Cerberus Fly Ride","Snow Owl Fly Ride","Ride Sakura Spirit","Neon Sneak Weasel","Dango Penguins"];
+
+function showFakePopup(){
+  const buyer = fakeBuyers[Math.floor(Math.random()*fakeBuyers.length)];
+  const item = fakeItems[Math.floor(Math.random()*fakeItems.length)];
+  const popup = document.createElement("div");
+  popup.className="popup";
+  popup.innerHTML=`<strong>${buyer}</strong><br>bought <b>${item}</b><br><span style="color:#aaa">Just now</span>`;
+  document.body.appendChild(popup);
+  setTimeout(()=>{popup.style.animation="slideOut 0.6s forwards"; setTimeout(()=>popup.remove(),600);},5000);
+}
+
+setInterval(()=>{showFakePopup();}, Math.random()*12000+8000);
+
+// ===== ANTI INSPECT =====
 document.addEventListener('contextmenu',e=>e.preventDefault());
 document.addEventListener('keydown',e=>{
-if(e.key==="F12"||(e.ctrlKey&&e.shiftKey&&["I","J","C"].includes(e.key))||(e.ctrlKey&&e.key==="U")){e.preventDefault();}
+if(e.key==="F12"||(e.ctrlKey&&e.shiftKey&&["I","J","C"].includes(e.key))||(e.ctrlKey&&e.key==="U")) e.preventDefault();
 });
 
-// particles
+// ===== PARTICLES =====
 for(let i=0;i<80;i++){
-  let d=document.createElement("div");
+  const d=document.createElement("div");
   d.className="dot";
   d.style.left=Math.random()*100+"vw";
   d.style.animationDuration=(8+Math.random()*18)+"s";
   document.body.appendChild(d);
 }
 </script>
-
 </body>
 </html>
