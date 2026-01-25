@@ -61,12 +61,6 @@ header p { margin:5px 0 0; color:#ccc; font-size:0.9rem; }
   justify-items:center;
 }
 
-.product-card {
-  text-decoration:none;
-  color:inherit;
-  width:100%;
-}
-
 .item {
   background:#222;
   padding:15px;
@@ -133,6 +127,8 @@ header p { margin:5px 0 0; color:#ccc; font-size:0.9rem; }
   max-height:70vh;
   overflow-y:auto;
   box-shadow:0 4px 12px rgba(0,0,0,0.5);
+  transition: all 0.3s ease;
+  z-index: 10;
 }
 #cart h3 { margin-top:0; margin-bottom:10px; font-size:1rem; text-align:center; }
 .cart-item { display:flex; justify-content:space-between; margin-bottom:8px; font-size:0.85rem; }
@@ -153,6 +149,37 @@ header p { margin:5px 0 0; color:#ccc; font-size:0.9rem; }
   background:#0066cc;
 }
 
+/* Fullscreen Overlay for Screenshot */
+#checkout-overlay {
+  display:none;
+  position:fixed;
+  top:0; left:0;
+  width:100vw;
+  height:100vh;
+  background: rgba(0,0,0,0.95);
+  color:#fff;
+  z-index:1000;
+  padding:50px 20px;
+  text-align:center;
+  overflow-y:auto;
+}
+
+#checkout-overlay h2 { font-size:1.8rem; margin-bottom:20px; }
+#checkout-overlay p { font-size:1rem; margin-bottom:20px; }
+#checkout-overlay .overlay-cart { text-align:left; max-width:500px; margin:0 auto; background:#222; padding:20px; border-radius:15px; }
+#overlay-close {
+  background:#0a84ff;
+  color:#fff;
+  border:none;
+  padding:10px 20px;
+  border-radius:12px;
+  font-weight:bold;
+  cursor:pointer;
+  margin-top:20px;
+  transition:0.3s;
+}
+#overlay-close:hover { background:#0066cc; }
+
 /* Footer */
 footer {
   text-align:center;
@@ -168,6 +195,7 @@ footer {
   .product-img { max-width:120px; height:120px; }
   #cart { width:200px; padding:10px; top:10px; right:10px; }
   .checkout-btn { padding:6px; font-size:0.8rem; }
+  #checkout-overlay { padding:20px 10px; }
 }
 </style>
 </head>
@@ -234,6 +262,14 @@ footer {
   <button class="checkout-btn" id="checkout">Checkout</button>
 </div>
 
+<!-- Fullscreen Overlay -->
+<div id="checkout-overlay">
+  <h2>Take a Screenshot of Your Cart</h2>
+  <p>Make sure your cart is visible. Then click "Confirm & Go to Discord".</p>
+  <div class="overlay-cart" id="overlay-cart"></div>
+  <button id="overlay-close">Confirm & Go to Discord</button>
+</div>
+
 <footer>
   &copy; 2026 Oceanzx Adopt Me Shop
 </footer>
@@ -256,6 +292,8 @@ for(let i=0;i<numDots;i++){
 const cart = [];
 const cartItemsDiv = document.getElementById('cart-items');
 const cartTotalDiv = document.getElementById('cart-total');
+const overlay = document.getElementById('checkout-overlay');
+const overlayCart = document.getElementById('overlay-cart');
 
 document.querySelectorAll('.add-btn').forEach(btn=>{
   btn.addEventListener('click', ()=>{
@@ -269,12 +307,19 @@ document.querySelectorAll('.add-btn').forEach(btn=>{
 
 function renderCart(){
   cartItemsDiv.innerHTML = '';
+  overlayCart.innerHTML = '';
   let total = 0;
-  cart.forEach((item, index)=>{
+  cart.forEach((item)=>{
     const div = document.createElement('div');
     div.className='cart-item';
     div.textContent = item.name + " - $" + item.price.toFixed(2);
     cartItemsDiv.appendChild(div);
+    
+    const overlayDiv = document.createElement('div');
+    overlayDiv.className='cart-item';
+    overlayDiv.textContent = item.name + " - $" + item.price.toFixed(2);
+    overlayCart.appendChild(overlayDiv);
+
     total += item.price;
   });
   cartTotalDiv.textContent = "Total: $" + total.toFixed(2);
@@ -286,6 +331,11 @@ document.getElementById('checkout').addEventListener('click', ()=>{
     alert("Your cart is empty!");
     return;
   }
+  overlay.style.display = 'block';
+});
+
+// Confirm & go to Discord
+document.getElementById('overlay-close').addEventListener('click', ()=>{
   // Build message for Discord
   let message = "Hi, I want to buy:%0A";
   cart.forEach(item=>{
@@ -293,8 +343,8 @@ document.getElementById('checkout').addEventListener('click', ()=>{
   });
   const total = cart.reduce((sum,item)=>sum+item.price,0);
   message += `Total: $${total.toFixed(2)}`;
-  // Open Discord server with pre-filled message
   window.open(`https://discord.gg/sv6tRJBR5G?message=${message}`,'_blank');
+  overlay.style.display = 'none';
 });
 </script>
 
