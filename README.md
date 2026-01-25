@@ -70,7 +70,7 @@ header p { margin:5px 0 0; color:#ccc; font-size:0.9rem; }
   position: fixed; top:20px; right:20px; background:#111; border:2px solid #444; border-radius:15px; padding:15px; width:260px; max-height:70vh; overflow-y:auto; box-shadow:0 4px 12px rgba(0,0,0,0.5); transition:all 0.3s ease; z-index:10;
 }
 #cart h3 { margin-top:0; margin-bottom:10px; font-size:1rem; text-align:center; }
-.cart-item { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; font-size:0.85rem; opacity:0; transform:translateX(-20px); transition: all 0.3s ease; }
+.cart-item { display:flex; justify-content:flex-start; align-items:center; margin-bottom:8px; font-size:0.85rem; opacity:0; transform:translateX(-20px); transition: all 0.3s ease; }
 .cart-item.show { opacity:1; transform:translateX(0); }
 .cart-item button { background:#ff4444; color:#fff; border:none; padding:2px 6px; border-radius:6px; cursor:pointer; font-size:0.75rem; margin-left:5px; transition:0.2s; }
 .cart-item button:hover { background:#cc0000; }
@@ -200,20 +200,39 @@ function renderCart() {
   overlayCart.innerHTML = '';
   let total = 0;
   cart.forEach((item,index)=>{
-    // Sidebar cart
+    // Sidebar cart with thumbnail
     const div = document.createElement('div');
     div.className='cart-item';
-    div.textContent = item.name + " - $" + item.price.toFixed(2);
+    
+    const thumb = document.createElement('img');
+    thumb.src = item.img;
+    thumb.style.width = '30px';
+    thumb.style.height = '30px';
+    thumb.style.objectFit = 'cover';
+    thumb.style.borderRadius = '5px';
+    thumb.style.marginRight = '5px';
+    
+    const text = document.createElement('span');
+    text.textContent = item.name + " - $" + item.price.toFixed(2);
+
     const removeBtn = document.createElement('button');
     removeBtn.textContent = "Remove";
     removeBtn.onclick = () => { cart.splice(index,1); renderCart(); };
+
+    div.appendChild(thumb);
+    div.appendChild(text);
     div.appendChild(removeBtn);
     cartItemsDiv.appendChild(div);
     
-    // Overlay cart with animation delay
+    // Overlay cart with thumbnail
     const overlayDiv = document.createElement('div');
     overlayDiv.className='cart-item';
-    overlayDiv.textContent = item.name + " - $" + item.price.toFixed(2);
+    const overlayThumb = thumb.cloneNode(true);
+    overlayDiv.appendChild(overlayThumb);
+    const overlayText = document.createElement('span');
+    overlayText.textContent = item.name + " - $" + item.price.toFixed(2);
+    overlayText.style.marginLeft = '5px';
+    overlayDiv.appendChild(overlayText);
     overlayCart.appendChild(overlayDiv);
     
     total += item.price;
@@ -231,10 +250,11 @@ function animateOverlay() {
 
 document.querySelectorAll('.add-btn').forEach(btn=>{
   btn.addEventListener('click', ()=>{
-    const itemDiv = btn.parentElement;
+    const itemDiv = btn.closest('.item');
     const name = itemDiv.dataset.name;
     const price = parseFloat(itemDiv.dataset.price);
-    cart.push({name, price});
+    const img = itemDiv.querySelector('img').src;
+    cart.push({name, price, img});
     renderCart();
   });
 });
@@ -255,7 +275,7 @@ document.getElementById('overlay-close').addEventListener('click', ()=>{
   });
   const total = cart.reduce((sum,item)=>sum+item.price,0);
   message += `Total: $${total.toFixed(2)}`;
-  window.open(`https://discord.gg/sv6tRJBR5G?message=${message}`,'_blank');
+  window.open(`https://discord.gg/sv6tRJBR5G`,'_blank');
   overlay.classList.remove('active');
   document.body.classList.remove('blur');
 });
@@ -264,7 +284,3 @@ document.getElementById('overlay-close').addEventListener('click', ()=>{
 </body>
 </html>
 
-</script>
-
-</body>
-</html>
