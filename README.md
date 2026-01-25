@@ -13,7 +13,6 @@ body {
   color: #e0e0e0;
   overflow-x: hidden;
 }
-body.blur { filter: blur(5px) brightness(0.7); }
 
 .dot {
   position: absolute;
@@ -243,7 +242,7 @@ document.querySelectorAll('.add-btn').forEach(btn=>{
 // Checkout
 document.getElementById('checkout').addEventListener('click',()=>{
   if(cart.length===0){ alert("Your cart is empty!"); return; }
-  overlay.classList.add('active'); document.body.classList.add('blur');
+  overlay.classList.add('active');
 });
 
 // Copy total for Cash App
@@ -254,9 +253,9 @@ document.getElementById('copy-total-btn').addEventListener('click',()=>{
 
 // Go to Discord
 document.getElementById('overlay-close').addEventListener('click',()=>{
-  if(cart.length===0){ overlay.classList.remove('active'); document.body.classList.remove('blur'); return; }
+  if(cart.length===0){ overlay.classList.remove('active'); return; }
   window.open('https://discord.gg/sv6tRJBR5G','_blank');
-  overlay.classList.remove('active'); document.body.classList.remove('blur');
+  overlay.classList.remove('active'); 
 });
 </script>
 
