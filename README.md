@@ -162,9 +162,9 @@ footer { text-align:center; padding:12px; margin-top:30px; color:#aaa; font-size
 <!-- Checkout Overlay -->
 <div id="checkout-overlay">
   <h2>Take a Screenshot of Your Cart</h2>
-  <p>Make sure your cart is fully visible. Then click "Copy Total & Go to Discord".</p>
+  <p>Make sure your cart is fully visible. Then click "Copy Cart & Go to Discord".</p>
   <div class="overlay-cart" id="overlay-cart"></div>
-  <button id="copy-total-btn">Copy Total to Clipboard 💰</button>
+  <button id="copy-total-btn">Copy Cart & Total 💰</button>
   <button id="overlay-close">Confirm & Go to Discord</button>
 </div>
 
@@ -245,10 +245,21 @@ document.getElementById('checkout').addEventListener('click',()=>{
   overlay.classList.add('active');
 });
 
-// Copy total for Cash App
+// Copy cart summary & total for Cash App
 document.getElementById('copy-total-btn').addEventListener('click',()=>{
-  const total = cart.reduce((sum,item)=>sum+item.price,0).toFixed(2);
-  navigator.clipboard.writeText(total).then(()=>{ alert(`Total $${total} copied! Paste this in Cash App to pay.`); });
+  if(cart.length===0){ alert("Cart is empty!"); return; }
+
+  let text="Oceanzx Adopt Me Shop Order:\n";
+  let total=0;
+  cart.forEach(item=>{
+    text += `- ${item.name} - $${item.price.toFixed(2)}\n`;
+    total += item.price;
+  });
+  text += `Total: $${total.toFixed(2)}`;
+
+  navigator.clipboard.writeText(text).then(()=>{
+    alert("Cart summary copied! Paste it in Cash App or your buying ticket.");
+  });
 });
 
 // Go to Discord
