@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Oceanzx Adopt Me Shop</title>
 <meta name="description" content="Oceanzx Adopt Me Shop – Fast delivery, trusted trades, instant Discord checkout.">
+
 <style>
 :root{
 --accent:#0a84ff;
@@ -16,8 +17,6 @@
 --text:#ffffff;
 --trust:#00ff99;
 }
-
-/* BASE */
 *{box-sizing:border-box}
 body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;scroll-behavior:smooth}
 
@@ -26,12 +25,12 @@ body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:var(--bg);color:v
 @keyframes float{from{transform:translateY(-10vh)}to{transform:translateY(120vh)}}
 
 /* HEADER */
-header{position:relative;text-align:center;padding:40px 20px;background:linear-gradient(180deg,#111,#000)}
+header{text-align:center;padding:40px 20px;background:linear-gradient(180deg,#111,#000)}
 header h1{margin:0;font-size:2.8rem;color:var(--accent);text-shadow:0 0 12px #0a84ff}
-header p{color:#aaa;font-size:1.2rem;margin-top:8px;text-shadow:0 0 6px #000}
+header p{color:#aaa;font-size:1.2rem;margin-top:8px}
 
 /* TRUST BAR */
-.trust{background:linear-gradient(90deg, #00ff99, #00bfff);text-align:center;padding:14px 0;font-weight:bold;border-radius:12px;margin:12px 20px;font-size:1rem;box-shadow:0 0 20px rgba(0,255,153,.3);}
+.trust{background:linear-gradient(90deg,#00ff99,#00bfff);text-align:center;padding:14px 0;font-weight:bold;border-radius:12px;margin:12px 20px;font-size:1rem;box-shadow:0 0 20px rgba(0,255,153,.3);}
 
 /* CONTAINER */
 .container{max-width:1200px;margin:20px auto;padding:25px;background:#121212;border-radius:30px;box-shadow:0 0 50px rgba(10,132,255,.15)}
@@ -69,7 +68,6 @@ header p{color:#aaa;font-size:1.2rem;margin-top:8px;text-shadow:0 0 6px #000}
 .cart-item{display:flex;justify-content:space-between;margin:6px 0;font-size:.9rem}
 .cart-item span:first-child{color:red;cursor:pointer}
 .cart-total{margin-top:10px;font-weight:bold}
-#cart-toggle{display:none;position:fixed;bottom:20px;right:20px;background:var(--accent);color:#fff;padding:10px 14px;border-radius:50%;font-weight:bold;cursor:pointer;z-index:9999}
 
 /* POPUP */
 .popup{position:fixed;bottom:20px;left:-320px;background:#121212;border-radius:16px;padding:12px 16px;width:260px;font-size:.85rem;animation:slideIn .6s forwards;z-index:9999;color:#fff}
@@ -93,8 +91,8 @@ header p{color:#aaa;font-size:1.2rem;margin-top:8px;text-shadow:0 0 6px #000}
 @media(max-width:600px){#cart{width:240px}}
 </style>
 </head>
-<body>
 
+<body>
 <header>
 <h1>Oceanzx Adopt Me Shop</h1>
 <p>Fast delivery • Trusted trades • DM before payment</p>
@@ -131,31 +129,46 @@ let items=[
 {name:"Snow Owl Fly Ride",price:2.5,img:"https://image2url.com/r2/default/images/1769312167327-6f2f8ab6-16e0-45d1-9730-dc8a16d6acdd.jpg",stock:4,rarity:"rare"}
 ];
 
-// RENDER
+// RENDER ITEMS
 function renderItems(){
-const eggsGrid=document.getElementById("eggs-grid");
-const petsGrid=document.getElementById("pets-grid");
-eggsGrid.innerHTML=""; petsGrid.innerHTML="";
-items.forEach(it=>{
-const card=document.createElement("div"); card.className="card "+it.rarity;
-card.innerHTML=`<div class="view-notice"></div><img src="${it.img}"><h3>${it.name}</h3><div class="price">$${it.price}</div><div class="stock" data-stock="${it.name}">⏳ Stock left: ${it.stock}</div><button class="btn" data-btn="${it.name}" onclick="addToCart('${it.name}',${it.price})">Add to Cart</button>`;
-if(it.name.toLowerCase().includes("egg"))eggsGrid.appendChild(card); else petsGrid.appendChild(card);
-});
+  const eggsGrid=document.getElementById("eggs-grid");
+  const petsGrid=document.getElementById("pets-grid");
+  eggsGrid.innerHTML=""; petsGrid.innerHTML="";
+  items.forEach(it=>{
+    const card=document.createElement("div");
+    card.className="card "+it.rarity;
+    card.innerHTML=`
+      <div class="view-notice"></div>
+      <img src="${it.img}">
+      <h3>${it.name}</h3>
+      <div class="price">$${it.price}</div>
+      <div class="stock" data-stock="${it.name}">⏳ Stock left: ${it.stock}</div>
+      <button class="btn" data-btn="${it.name}" onclick="addToCart('${it.name}',${it.price})">Add to Cart</button>
+    `;
+    if(it.name.toLowerCase().includes("egg")){
+      eggsGrid.appendChild(card);
+    }else{
+      petsGrid.appendChild(card);
+    }
+  });
 }
 
-// CART FUNCTIONS
+// FUNCTIONS
 function findItem(name){return items.find(i=>i.name===name);}
 function addToCart(name,price){
-const it=findItem(name); if(!it||it.stock<=0)return;
-cart.push({name,price}); it.stock--; updateStock(name); renderCart(); showViewedNotice(name);
-if(name.toLowerCase().includes("egg")){const imgEl=document.querySelector(`[data-stock="${name}"]`).closest(".card").querySelector("img"); imgEl.classList.add("hatch"); setTimeout(()=>{imgEl.classList.remove("hatch")},800);}
-setTimeout(()=>{it.stock++; updateStock(name); renderCart();},300000);
-if(it.stock===1)showHotBanner(name);}
+  const it=findItem(name); if(!it||it.stock<=0)return;
+  cart.push({name,price}); it.stock--; updateStock(name); renderCart(); showViewedNotice(name);
+  if(name.toLowerCase().includes("egg")){
+    const imgEl=document.querySelector(`[data-stock="${name}"]`).closest(".card").querySelector("img");
+    imgEl.classList.add("hatch"); setTimeout(()=>{imgEl.classList.remove("hatch")},800);
+  }
+  if(it.stock===1)showHotBanner(name);
+}
 function updateStock(name){const it=findItem(name); const s=document.querySelector(`[data-stock="${name}"]`); const b=document.querySelector(`[data-btn="${name}"]`);
-if(it.stock<=0){s.innerText="❌ SOLD OUT"; b.disabled=true; b.innerText="Sold Out"; if(it.stock===0) s.classList.add("only-one");}else{s.innerText=`⏳ Stock left: ${it.stock}`; b.disabled=false; b.innerText="Add to Cart"; s.classList.remove("only-one");}}
+if(it.stock<=0){s.innerText="❌ SOLD OUT"; b.disabled=true; b.innerText="Sold Out"; s.classList.add("only-one");}else{s.innerText=`⏳ Stock left: ${it.stock}`; b.disabled=false; b.innerText="Add to Cart"; s.classList.remove("only-one");}}
 function renderCart(){const itemsEl=document.getElementById("cart-items"); let total=0; itemsEl.innerHTML=""; cart.forEach((i,idx)=>{total+=i.price; itemsEl.innerHTML+=`<div class="cart-item"><span onclick="removeFromCart(${idx})">❌</span><span>${i.name}</span><span>$${i.price}</span></div>`}); document.getElementById("total").innerText=total.toFixed(2); localStorage.setItem("oceanzx-cart",JSON.stringify(cart));}
 function removeFromCart(idx){const r=cart.splice(idx,1)[0]; const it=findItem(r.name); if(it) it.stock++; updateStock(r.name); renderCart();}
-function checkout(){if(cart.length===0)return alert("Cart empty"); const id=Math.floor(Math.random()*900000+100000); let text=`🛒 Oceanzx Order (ID:${id})\n`; let total=0; cart.forEach(i=>{text+=`• ${i.name} - $${i.price}\n`; total+=i.price}); text+=`\n💰 Total: $${total.toFixed(2)}`; navigator.clipboard.writeText(text); window.open("https://discord.com/users/1455058787257024512","_blank"); cart=[]; localStorage.removeItem("oceanzx-cart"); renderCart();}
+function checkout(){if(cart.length===0)return alert("Cart empty"); const id=Math.floor(Math.random()*900000+100000); let text=`🛒 Oceanzx Order (ID:${id})\n`; let total=0; cart.forEach(i=>{text+=`• ${i.name} - $${i.price}\n`; total+=i.price}); text+=`\n💰 Total: $${total.toFixed(2)}`; navigator.clipboard.writeText(text); window.open("https://discord.com/users/1455058787257024512","_blank"); cart=[]; renderCart(); localStorage.removeItem("oceanzx-cart");}
 
 // FAKE BUYERS
 const names=["Jayden R.","Mia L.","Ethan P.","Noah T.","Ava S.","Lucas M.","Sophie K.","Ryan D.","Olivia B.","Daniel C."];
@@ -163,10 +176,8 @@ const itemsFake=items.map(i=>i.name);
 function fakePopup(){const p=document.createElement("div"); p.className="popup"; p.innerHTML=`<strong>${names[Math.floor(Math.random()*names.length)]}</strong> bought <b>${itemsFake[Math.floor(Math.random()*itemsFake.length)]}</b><br><span style="color:#aaa">Just now</span>`; document.body.appendChild(p); setTimeout(()=>{p.style.animation="slideOut .6s forwards"; setTimeout(()=>p.remove(),600)},5000);}
 setInterval(fakePopup,Math.random()*12000+8000);
 
-// VIEW NOTICE
-function showViewedNotice(name){const card=document.querySelector(`[data-stock="${name}"]`).closest(".card`); const notice=card.querySelector(".view-notice"); notice.innerText="👀 Someone viewed this!"; notice.style.opacity=1; setTimeout(()=>{notice.style.opacity=0},3000);}
-
-// HOT BANNER
+// NOTICES & HOT
+function showViewedNotice(name){const card=document.querySelector(`[data-stock="${name}"]`).closest(".card"); const notice=card.querySelector(".view-notice"); notice.innerText="👀 Someone viewed this!"; notice.style.opacity=1; setTimeout(()=>{notice.style.opacity=0},3000);}
 function showHotBanner(name){const p=document.createElement("div"); p.className="hot-banner"; p.innerText=`🔥 HOT SALE: ${name} is almost gone! 🔥`; document.body.appendChild(p); setTimeout(()=>{p.style.animation="hideHot .6s forwards"; setTimeout(()=>p.remove(),6000)},4000);}
 
 // PARTICLES
