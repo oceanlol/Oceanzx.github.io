@@ -8,101 +8,90 @@
   body {
     margin: 0;
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(to bottom, #cce7ff, #f0f8ff);
-    color: #333;
-    overflow-x: hidden;
+    background: black;
+    color: #e0e0e0;
+    overflow: hidden;
   }
 
-  /* Floating clouds */
-  .cloud {
+  /* Flying dots background */
+  .dot {
     position: absolute;
-    background: rgba(255,255,255,0.8);
+    background: white;
     border-radius: 50%;
     opacity: 0.8;
-    animation: floatClouds linear infinite;
+    animation: moveDot linear infinite;
   }
-
-  /* Different sizes and speeds for depth */
-  .cloud.layer1 { width: 120px; height: 60px; top: 50px; left: -150px; animation-duration: 70s; }
-  .cloud.layer2 { width: 200px; height: 80px; top: 150px; left: -250px; animation-duration: 90s; }
-  .cloud.layer3 { width: 150px; height: 70px; top: 250px; left: -200px; animation-duration: 80s; }
-  .cloud.layer4 { width: 180px; height: 90px; top: 320px; left: -220px; animation-duration: 100s; }
-
-  @keyframes floatClouds {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(120vw); }
+  @keyframes moveDot {
+    0% { transform: translateY(0) translateX(0); }
+    100% { transform: translateY(120vh) translateX(50vw); }
   }
 
   header {
     text-align: center;
     padding: 20px;
-    background: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(10px);
-    border-bottom: 2px solid #00aaff;
+    background: #111;
+    border-bottom: 2px solid #444;
     position: relative;
     z-index: 2;
   }
   header h1 {
     margin: 0;
-    color: #005f99;
-    text-shadow: 1px 1px 5px #a0d8ff;
+    color: #f0f0f0;
   }
   header p {
     margin: 5px 0 0;
     font-size: 0.9rem;
-    color: #0077cc;
+    color: #ccc;
   }
 
   .container {
     max-width: 700px;
     margin: 30px auto;
     padding: 20px;
-    background: rgba(255,255,255,0.6);
-    border-radius: 20px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    background: #1a1a1a;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
     position: relative;
     z-index: 2;
   }
 
   h2 {
     text-align: center;
-    color: #0077cc;
-    text-shadow: 1px 1px 3px #a0d8ff;
+    color: #f0f0f0;
+    margin-bottom: 20px;
   }
 
   .item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(255,255,255,0.8);
+    background: #222;
     margin: 10px 0;
     padding: 12px 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    border-radius: 10px;
     transition: transform 0.3s, box-shadow 0.3s;
   }
   .item:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 6px 15px rgba(255,255,255,0.2);
   }
 
-  .item-name { font-weight: bold; font-size: 1rem; }
-  .item-price { color: #005f99; font-weight: bold; margin-right: 15px; }
+  .item-name { font-weight: bold; font-size: 1rem; color: #fff; }
+  .item-price { color: #aaa; font-weight: bold; }
 
   .buy-btn, .tiktok-btn {
-    background: linear-gradient(90deg, #00cfff, #0077cc);
-    color: white;
+    background: #333;
+    color: #fff;
     border: none;
     padding: 8px 14px;
-    border-radius: 10px;
+    border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
     text-decoration: none;
-    box-shadow: 0 0 8px #00cfff, 0 0 15px #0077cc;
     transition: all 0.3s;
   }
   .buy-btn:hover, .tiktok-btn:hover {
-    box-shadow: 0 0 15px #00e0ff, 0 0 25px #0099ff;
+    background: #555;
     transform: scale(1.05);
   }
 
@@ -112,7 +101,7 @@
     text-align: center;
     padding: 15px;
     margin-top: 30px;
-    color: #005f99;
+    color: #aaa;
     font-size: 0.9rem;
     position: relative;
     z-index: 2;
@@ -121,11 +110,21 @@
 </head>
 <body>
 
-<!-- Clouds -->
-<div class="cloud layer1"></div>
-<div class="cloud layer2"></div>
-<div class="cloud layer3"></div>
-<div class="cloud layer4"></div>
+<!-- Flying dots -->
+<script>
+  const numDots = 80;
+  for (let i = 0; i < numDots; i++) {
+    const dot = document.createElement('div');
+    dot.classList.add('dot');
+    const size = Math.random() * 3 + 1;
+    dot.style.width = size + 'px';
+    dot.style.height = size + 'px';
+    dot.style.top = Math.random() * window.innerHeight + 'px';
+    dot.style.left = Math.random() * window.innerWidth + 'px';
+    dot.style.animationDuration = (20 + Math.random() * 40) + 's';
+    document.body.appendChild(dot);
+  }
+</script>
 
 <header>
   <h1>Oceanzx Adopt Me Shop</h1>
