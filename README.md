@@ -76,6 +76,44 @@ header p{color:#aaa}
 <div class="trust">✔ Instant Delivery • ✔ Trusted Trades • ✔ Discord Support</div>
 
 <div class="container">
+<h2 style="text-align:center">🥚 Available Eggs 🥚</h2>
+<div class="grid">
+
+<!-- Crystal Egg -->
+<div class="card">
+<div class="view-notice"></div>
+<img src="https://image2url.com/r2/default/images/1769340250503-3d3f2972-9914-4529-9abd-abaf9b370d22.png">
+<h3>Crystal Egg</h3>
+<div class="price">$1</div>
+<div class="stock" data-stock="Crystal Egg">⏳ Stock left: 3</div>
+<div class="timer" data-timer="Crystal Egg"></div>
+<button class="btn" data-btn="Crystal Egg" onclick="addToCart('Crystal Egg',1)">Add to Cart</button>
+</div>
+
+<!-- Snow Owl NO POT -->
+<div class="card">
+<div class="view-notice"></div>
+<img src="https://image2url.com/r2/default/images/1769340321220-95e1be82-28fa-403a-a021-941d493283b8.png">
+<h3>Snow Owl NO POT</h3>
+<div class="price">$1.25</div>
+<div class="stock" data-stock="Snow Owl NO POT">⏳ Stock left: 2</div>
+<div class="timer" data-timer="Snow Owl NO POT"></div>
+<button class="btn" data-btn="Snow Owl NO POT" onclick="addToCart('Snow Owl NO POT',1.25)">Add to Cart</button>
+</div>
+
+<!-- Reindeer Fly Ride -->
+<div class="card">
+<div class="view-notice"></div>
+<img src="https://image2url.com/r2/default/images/1769340396217-88705f92-43c7-4f07-97ca-2b5d1279ace3.png">
+<h3>Reindeer Fly Ride</h3>
+<div class="price">$2.30</div>
+<div class="stock" data-stock="Reindeer Fly Ride">⏳ Stock left: 2</div>
+<div class="timer" data-timer="Reindeer Fly Ride"></div>
+<button class="btn" data-btn="Reindeer Fly Ride" onclick="addToCart('Reindeer Fly Ride',2.3)">Add to Cart</button>
+</div>
+
+</div>
+
 <h2 style="text-align:center">🔥 Available Pets 🔥</h2>
 <div class="grid">
 
@@ -161,6 +199,9 @@ header p{color:#aaa}
 // CART + STOCK + STORAGE
 let cart = JSON.parse(localStorage.getItem("oceanzx-cart"))||[];
 let stock={
+"Crystal Egg":3,
+"Snow Owl NO POT":2,
+"Reindeer Fly Ride":2,
 "Axolotl Fly Ride":3,
 "Cerberus Fly Ride":2,
 "Dango Penguins":1,
@@ -266,7 +307,7 @@ renderCart();
 
 // FAKE BUYERS
 const names=["Jayden R.","Mia L.","Ethan P.","Noah T.","Ava S.","Lucas M.","Sophie K.","Ryan D.","Olivia B.","Daniel C."];
-const itemsFake=["Axolotl Fly Ride","Cerberus Fly Ride","Snow Owl Fly Ride","Ride Sakura Spirit","Neon Sneak Weasel"];
+const itemsFake=["Axolotl Fly Ride","Cerberus Fly Ride","Snow Owl Fly Ride","Ride Sakura Spirit","Neon Sneak Weasel","Crystal Egg","Snow Owl NO POT","Reindeer Fly Ride"];
 const sound=new Audio("https://assets.mixkit.co/sfx/preview/mixkit-message-pop-alert-2354.mp3");
 
 function fakePopup(){
