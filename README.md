@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -77,113 +77,10 @@ header p{color:#aaa}
 
 <div class="container">
 <h2 style="text-align:center">🥚 Available Eggs 🥚</h2>
-<div class="grid">
-
-<!-- Crystal Egg -->
-<div class="card">
-<div class="view-notice"></div>
-<img src="https://image2url.com/r2/default/images/1769340250503-3d3f2972-9914-4529-9abd-abaf9b370d22.png">
-<h3>Crystal Egg</h3>
-<div class="price">$1</div>
-<div class="stock" data-stock="Crystal Egg">⏳ Stock left: 3</div>
-<div class="timer" data-timer="Crystal Egg"></div>
-<button class="btn" data-btn="Crystal Egg" onclick="addToCart('Crystal Egg',1)">Add to Cart</button>
-</div>
-
-<!-- Snow Owl NO POT -->
-<div class="card">
-<div class="view-notice"></div>
-<img src="https://image2url.com/r2/default/images/1769340321220-95e1be82-28fa-403a-a021-941d493283b8.png">
-<h3>Snow Owl NO POT</h3>
-<div class="price">$1.25</div>
-<div class="stock" data-stock="Snow Owl NO POT">⏳ Stock left: 2</div>
-<div class="timer" data-timer="Snow Owl NO POT"></div>
-<button class="btn" data-btn="Snow Owl NO POT" onclick="addToCart('Snow Owl NO POT',1.25)">Add to Cart</button>
-</div>
-
-<!-- Reindeer Fly Ride -->
-<div class="card">
-<div class="view-notice"></div>
-<img src="https://image2url.com/r2/default/images/1769340396217-88705f92-43c7-4f07-97ca-2b5d1279ace3.png">
-<h3>Reindeer Fly Ride</h3>
-<div class="price">$2.30</div>
-<div class="stock" data-stock="Reindeer Fly Ride">⏳ Stock left: 2</div>
-<div class="timer" data-timer="Reindeer Fly Ride"></div>
-<button class="btn" data-btn="Reindeer Fly Ride" onclick="addToCart('Reindeer Fly Ride',2.3)">Add to Cart</button>
-</div>
-
-</div>
+<div class="grid" id="eggs-grid"></div>
 
 <h2 style="text-align:center">🔥 Available Pets 🔥</h2>
-<div class="grid">
-
-<!-- Axolotl Fly Ride -->
-<div class="card">
-<div class="view-notice"></div>
-<img src="https://image2url.com/r2/default/images/1769312696977-97a3b12d-0869-4661-86d5-65f8f181744a.png">
-<h3>Axolotl Fly Ride</h3>
-<div class="price">$2</div>
-<div class="stock" data-stock="Axolotl Fly Ride">⏳ Stock left: 3</div>
-<div class="timer" data-timer="Axolotl Fly Ride"></div>
-<button class="btn" data-btn="Axolotl Fly Ride" onclick="addToCart('Axolotl Fly Ride',2)">Add to Cart</button>
-</div>
-
-<!-- Cerberus Fly Ride -->
-<div class="card">
-<div class="view-notice"></div>
-<img src="https://image2url.com/r2/default/images/1769312266778-b30a7b97-61bb-4650-bc6c-45a73512c0ba.jpg">
-<h3>Cerberus Fly Ride</h3>
-<div class="price">$3</div>
-<div class="stock" data-stock="Cerberus Fly Ride">⏳ Stock left: 2</div>
-<div class="timer" data-timer="Cerberus Fly Ride"></div>
-<button class="btn" data-btn="Cerberus Fly Ride" onclick="addToCart('Cerberus Fly Ride',3)">Add to Cart</button>
-</div>
-
-<!-- Dango Penguins -->
-<div class="card">
-<div class="view-notice"></div>
-<img src="https://image2url.com/r2/default/images/1769312623274-1c54447a-0b15-4ac9-a9b6-c875cecd6076.png">
-<h3>Dango Penguins</h3>
-<div class="price">$10</div>
-<div class="stock" data-stock="Dango Penguins">⏳ Stock left: 1</div>
-<div class="timer" data-timer="Dango Penguins"></div>
-<button class="btn" data-btn="Dango Penguins" onclick="addToCart('Dango Penguins',10)">Add to Cart</button>
-</div>
-
-<!-- Neon Sneak Weasel -->
-<div class="card">
-<div class="view-notice"></div>
-<img src="https://image2url.com/r2/default/images/1769312555909-e343e380-5694-43a1-9ddf-df2b262990c4.png">
-<h3>Neon Sneak Weasel (5)</h3>
-<div class="price">$12</div>
-<div class="stock" data-stock="Neon Sneak Weasel (5)">⏳ Stock left: 2</div>
-<div class="timer" data-timer="Neon Sneak Weasel (5)"></div>
-<button class="btn" data-btn="Neon Sneak Weasel (5)" onclick="addToCart('Neon Sneak Weasel (5)',12)">Add to Cart</button>
-</div>
-
-<!-- Ride Sakura Spirit -->
-<div class="card">
-<div class="view-notice"></div>
-<img src="https://image2url.com/r2/default/images/1769312389581-e6410de1-5faa-4d25-8b23-dcf7c38fb51e.jpg">
-<h3>Ride Sakura Spirit</h3>
-<div class="price">$8</div>
-<div class="stock" data-stock="Ride Sakura Spirit">⏳ Stock left: 1</div>
-<div class="timer" data-timer="Ride Sakura Spirit"></div>
-<button class="btn" data-btn="Ride Sakura Spirit" onclick="addToCart('Ride Sakura Spirit',8)">Add to Cart</button>
-</div>
-
-<!-- Snow Owl Fly Ride -->
-<div class="card">
-<div class="view-notice"></div>
-<img src="https://image2url.com/r2/default/images/1769312167327-6f2f8ab6-16e0-45d1-9730-dc8a16d6acdd.jpg">
-<h3>Snow Owl Fly Ride</h3>
-<div class="price">$2.50</div>
-<div class="stock" data-stock="Snow Owl Fly Ride">⏳ Stock left: 4</div>
-<div class="timer" data-timer="Snow Owl Fly Ride"></div>
-<button class="btn" data-btn="Snow Owl Fly Ride" onclick="addToCart('Snow Owl Fly Ride',2.5)">Add to Cart</button>
-</div>
-
-</div>
+<div class="grid" id="pets-grid"></div>
 </div>
 
 <div id="cart">
@@ -196,161 +93,158 @@ header p{color:#aaa}
 <div id="cart-toggle">🛒</div>
 
 <script>
-// CART + STOCK + STORAGE
+// CART + STOCK
 let cart = JSON.parse(localStorage.getItem("oceanzx-cart"))||[];
-let stock={
-"Crystal Egg":3,
-"Snow Owl NO POT":2,
-"Reindeer Fly Ride":2,
-"Axolotl Fly Ride":3,
-"Cerberus Fly Ride":2,
-"Dango Penguins":1,
-"Neon Sneak Weasel (5)":2,
-"Ride Sakura Spirit":1,
-"Snow Owl Fly Ride":4
-};
-let holdTimers={};
-let restockTimers={};
+let items=[
+  {name:"Crystal Egg",price:1,img:"https://image2url.com/r2/default/images/1769340250503-3d3f2972-9914-4529-9abd-abaf9b370d22.png",stock:3},
+  {name:"Snow Owl NO POT",price:1.25,img:"https://image2url.com/r2/default/images/1769340321220-95e1be82-28fa-403a-a021-941d493283b8.png",stock:2},
+  {name:"Reindeer Fly Ride",price:2.3,img:"https://image2url.com/r2/default/images/1769340396217-88705f92-43c7-4f07-97ca-2b5d1279ace3.png",stock:2},
+  {name:"Axolotl Fly Ride",price:2,img:"https://image2url.com/r2/default/images/1769312696977-97a3b12d-0869-4661-86d5-65f8f181744a.png",stock:3},
+  {name:"Cerberus Fly Ride",price:3,img:"https://image2url.com/r2/default/images/1769312266778-b30a7b97-61bb-4650-bc6c-45a73512c0ba.jpg",stock:2},
+  {name:"Dango Penguins",price:10,img:"https://image2url.com/r2/default/images/1769312623274-1c54447a-0b15-4ac9-a9b6-c875cecd6076.png",stock:1},
+  {name:"Neon Sneak Weasel (5)",price:12,img:"https://image2url.com/r2/default/images/1769312555909-e343e380-5694-43a1-9ddf-df2b262990c4.png",stock:2},
+  {name:"Ride Sakura Spirit",price:8,img:"https://image2url.com/r2/default/images/1769312389581-e6410de1-5faa-4d25-8b23-dcf7c38fb51e.jpg",stock:1},
+  {name:"Snow Owl Fly Ride",price:2.5,img:"https://image2url.com/r2/default/images/1769312167327-6f2f8ab6-16e0-45d1-9730-dc8a16d6acdd.jpg",stock:4}
+];
+
+// RENDER ITEMS
+function renderItems(){
+  const eggsGrid=document.getElementById("eggs-grid");
+  const petsGrid=document.getElementById("pets-grid");
+  eggsGrid.innerHTML=""; petsGrid.innerHTML="";
+  items.forEach(it=>{
+    const card=document.createElement("div");
+    card.className="card";
+    card.innerHTML=`
+      <div class="view-notice"></div>
+      <img src="${it.img}">
+      <h3>${it.name}</h3>
+      <div class="price">$${it.price}</div>
+      <div class="stock" data-stock="${it.name}">⏳ Stock left: ${it.stock}</div>
+      <div class="timer" data-timer="${it.name}"></div>
+      <button class="btn" data-btn="${it.name}" onclick="addToCart('${it.name}',${it.price})">Add to Cart</button>
+    `;
+    if(it.name.toLowerCase().includes("egg")){
+      eggsGrid.appendChild(card);
+    }else{
+      petsGrid.appendChild(card);
+    }
+  });
+}
+
+// FIND ITEM BY NAME
+function findItem(name){return items.find(i=>i.name===name);}
 
 // ADD TO CART
 function addToCart(name,price){
-if(stock[name]<=0)return;
-cart.push({name,price});
-stock[name]--;
-updateStock(name);
-renderCart();
-showViewedNotice(name);
-
-// HOLD 5 min
-holdTimers[name]=setTimeout(()=>{
-stock[name]++;
-updateStock(name);
-renderCart();
-},300000);
+  const it=findItem(name);
+  if(!it||it.stock<=0)return;
+  cart.push({name,price});
+  it.stock--;
+  updateStock(name);
+  renderCart();
+  showViewedNotice(name);
+  // hold 5 min
+  setTimeout(()=>{
+    it.stock++;
+    updateStock(name);
+    renderCart();
+  },300000);
 }
 
-// UPDATE STOCK + TIMER
+// UPDATE STOCK
 function updateStock(name){
-const s=document.querySelector(`[data-stock="${name}"]`);
-const b=document.querySelector(`[data-btn="${name}"]`);
-const timerEl=document.querySelector(`[data-timer="${name}"]`);
-
-if(stock[name]<=0){
-s.innerText="❌ SOLD OUT";
-b.disabled=true;
-b.innerText="Sold Out";
-
-if(!restockTimers[name]){
-let countdown=60; // restock 1 min
-timerEl.innerText=`Restock in ${countdown}s`;
-restockTimers[name]=setInterval(()=>{
-countdown--;
-timerEl.innerText=`Restock in ${countdown}s`;
-if(countdown<=0){
-clearInterval(restockTimers[name]);
-delete restockTimers[name];
-stock[name]=3; // reset stock default
-updateStock(name);
-timerEl.innerText="";
-}
-},1000);
-}
-
-}else{
-s.innerText=`⏳ Stock left: ${stock[name]}`;
-b.disabled=false;
-b.innerText="Add to Cart";
-timerEl.innerText="";
-}
+  const it=findItem(name);
+  const s=document.querySelector(`[data-stock="${name}"]`);
+  const b=document.querySelector(`[data-btn="${name}"]`);
+  const timerEl=document.querySelector(`[data-timer="${name}"]`);
+  if(it.stock<=0){
+    s.innerText="❌ SOLD OUT";
+    b.disabled=true;
+    b.innerText="Sold Out";
+  }else{
+    s.innerText=`⏳ Stock left: ${it.stock}`;
+    b.disabled=false;
+    b.innerText="Add to Cart";
+  }
 }
 
 // RENDER CART
 function renderCart(){
-const items=document.getElementById("cart-items");
-let total=0;
-items.innerHTML="";
-cart.forEach((i,idx)=>{
-total+=i.price;
-items.innerHTML+=`
-<div class="cart-item">
-<span onclick="removeFromCart(${idx})">❌</span>
-<span>${i.name}</span>
-<span>$${i.price}</span>
-</div>`;
-});
-document.getElementById("total").innerText=total.toFixed(2);
-localStorage.setItem("oceanzx-cart",JSON.stringify(cart));
+  const itemsEl=document.getElementById("cart-items");
+  let total=0;
+  itemsEl.innerHTML="";
+  cart.forEach((i,idx)=>{
+    total+=i.price;
+    itemsEl.innerHTML+=`
+      <div class="cart-item">
+        <span onclick="removeFromCart(${idx})">❌</span>
+        <span>${i.name}</span>
+        <span>$${i.price}</span>
+      </div>`;
+  });
+  document.getElementById("total").innerText=total.toFixed(2);
+  localStorage.setItem("oceanzx-cart",JSON.stringify(cart));
 }
 
-// REMOVE FROM CART
+// REMOVE ITEM
 function removeFromCart(idx){
-const r=cart.splice(idx,1)[0];
-stock[r.name]++;
-updateStock(r.name);
-renderCart();
+  const r=cart.splice(idx,1)[0];
+  const it=findItem(r.name);
+  if(it) it.stock++;
+  updateStock(r.name);
+  renderCart();
 }
 
 // CHECKOUT
 function checkout(){
-if(cart.length===0)return alert("Cart empty");
-const id=Math.floor(Math.random()*900000+100000);
-let text=`🛒 Oceanzx Order (ID:${id})\n`;
-let total=0;
-cart.forEach(i=>{text+=`• ${i.name} - $${i.price}\n`;total+=i.price});
-text+=`\n💰 Total: $${total.toFixed(2)}`;
-navigator.clipboard.writeText(text);
-window.open("https://discord.com/users/1455058787257024512","_blank");
-cart=[];
-localStorage.removeItem("oceanzx-cart");
-renderCart();
+  if(cart.length===0)return alert("Cart empty");
+  const id=Math.floor(Math.random()*900000+100000);
+  let text=`🛒 Oceanzx Order (ID:${id})\n`;
+  let total=0;
+  cart.forEach(i=>{text+=`• ${i.name} - $${i.price}\n`;total+=i.price});
+  text+=`\n💰 Total: $${total.toFixed(2)}`;
+  navigator.clipboard.writeText(text);
+  window.open("https://discord.com/users/1455058787257024512","_blank");
+  cart=[]; localStorage.removeItem("oceanzx-cart"); renderCart();
 }
 
 // FAKE BUYERS
 const names=["Jayden R.","Mia L.","Ethan P.","Noah T.","Ava S.","Lucas M.","Sophie K.","Ryan D.","Olivia B.","Daniel C."];
-const itemsFake=["Axolotl Fly Ride","Cerberus Fly Ride","Snow Owl Fly Ride","Ride Sakura Spirit","Neon Sneak Weasel","Crystal Egg","Snow Owl NO POT","Reindeer Fly Ride"];
+const itemsFake=items.map(i=>i.name);
 const sound=new Audio("https://assets.mixkit.co/sfx/preview/mixkit-message-pop-alert-2354.mp3");
 
 function fakePopup(){
-const p=document.createElement("div");
-p.className="popup";
-p.innerHTML=`<strong>${names[Math.floor(Math.random()*names.length)]}</strong><br>bought <b>${itemsFake[Math.floor(Math.random()*itemsFake.length)]}</b><br><span style="color:#aaa">Just now</span>`;
-document.body.appendChild(p);
-sound.volume=0.25; sound.play();
-setTimeout(()=>{p.style.animation="slideOut .6s forwards"; setTimeout(()=>p.remove(),600)},5000);
+  const p=document.createElement("div");
+  p.className="popup";
+  p.innerHTML=`<strong>${names[Math.floor(Math.random()*names.length)]}</strong><br>bought <b>${itemsFake[Math.floor(Math.random()*itemsFake.length)]}</b><br><span style="color:#aaa">Just now</span>`;
+  document.body.appendChild(p);
+  sound.volume=0.25; sound.play();
+  setTimeout(()=>{p.style.animation="slideOut .6s forwards"; setTimeout(()=>p.remove(),600)},5000);
 }
 setInterval(fakePopup,Math.random()*12000+8000);
 
 // VIEWED NOTICE
 function showViewedNotice(name){
-const card=document.querySelector(`[data-stock="${name}"]`).closest(".card");
-const notice=card.querySelector(".view-notice");
-notice.innerText="👀 Someone viewed this!";
-notice.style.opacity=1;
-setTimeout(()=>{notice.style.opacity=0;},3000);
+  const card=document.querySelector(`[data-stock="${name}"]`).closest(".card");
+  const notice=card.querySelector(".view-notice");
+  notice.innerText="👀 Someone viewed this!";
+  notice.style.opacity=1;
+  setTimeout(()=>{notice.style.opacity=0;},3000);
 }
-
-// ADMIN HOTKEY
-document.addEventListener("keydown",e=>{
-if(e.ctrlKey && e.shiftKey && e.key==="S"){
-const p=prompt("Admin Password:");
-if(p==="admin123"){
-const item=prompt("Enter item name exactly:");
-const qty=parseInt(prompt("Enter new stock quantity:"));
-if(item && qty>=0){stock[item]=qty;updateStock(item);renderCart();alert("Stock updated")}}
-}
-});
 
 // MOBILE CART TOGGLE
 const cartToggle=document.getElementById("cart-toggle");
 cartToggle.addEventListener("click",()=>{document.getElementById("cart").classList.toggle("mobile-show");});
-window.addEventListener("resize",()=>{if(window.innerWidth>600){document.getElementById("cart").classList.remove("mobile-show");}});
+window.addEventListener("resize",()=>{if(window.innerWidth>600)document.getElementById("cart").classList.remove("mobile-show");});
 if(window.innerWidth<=600)document.getElementById("cart").classList.add("mobile-hide");
 
 // PARTICLES
 for(let i=0;i<80;i++){let d=document.createElement("div");d.className="dot";d.style.left=Math.random()*100+"vw";d.style.animationDuration=(8+Math.random()*18)+"s";document.body.appendChild(d);}
 
 // INITIAL RENDER
-Object.keys(stock).forEach(updateStock);
+renderItems();
+items.forEach(it=>updateStock(it.name));
 renderCart();
 </script>
 </body>
