@@ -3,225 +3,103 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Oceanzx • Adopt Me Shop</title>
-<meta name="description" content="Oceanzx Adopt Me Shop — clean, trusted, instant checkout via Discord.">
-
+<title>OCEANZX • Adopt Me Shop</title>
 <style>
-/* =====================
-   CLEAN BLACK & WHITE UI
-   ===================== */
-:root{
-  --bg:#0a0a0a;
-  --bg-soft:#111;
-  --card:#151515;
-  --border:#1f1f1f;
-  --text:#ffffff;
-  --muted:#9a9a9a;
-  --accent:#ffffff;
-}
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Inter,Segoe UI,Arial,sans-serif;
-  background:var(--bg);
-  color:var(--text);
-}
-
-/* LAYOUT */
-.wrapper{max-width:1200px;margin:0 auto;padding:32px}
+/* RESET */
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,Arial,sans-serif;background:#000;color:#fff}
 
 /* HEADER */
-header{
-  display:flex;justify-content:space-between;align-items:center;
-  border-bottom:1px solid var(--border);padding-bottom:24px;margin-bottom:32px
-}
-header h1{margin:0;font-size:1.8rem;letter-spacing:1px}
-header span{color:var(--muted);font-size:.9rem}
+header{padding:28px 20px;border-bottom:1px solid #1a1a1a;text-align:center}
+header h1{letter-spacing:4px;font-size:32px}
+header p{margin-top:8px;font-size:14px;opacity:.7}
+#viewing{margin-top:10px;font-size:13px;opacity:.6}
 
-/* VIEW COUNTER */
-#viewing{font-size:.85rem;color:var(--muted)}
-
-/* SECTIONS */
-.section{margin-bottom:56px}
-.section h2{font-size:1.4rem;margin-bottom:18px;letter-spacing:.5px}
+/* LAYOUT */
+main{max-width:1200px;margin:0 auto;padding:30px}
+.section-title{font-size:18px;letter-spacing:2px;margin:40px 0 20px;border-left:4px solid #fff;padding-left:12px}
 
 /* GRID */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
-  gap:22px
-}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:28px}
 
 /* PRODUCT CARD */
-.card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:16px;
-  transition:.25s
-}
-.card:hover{transform:translateY(-4px)}
-.card img{
-  width:100%;height:180px;object-fit:cover;
-  border-radius:10px;margin-bottom:12px
-}
-.card h3{margin:0;font-size:1rem;font-weight:500}
-.price{color:var(--muted);font-size:.9rem;margin:6px 0}
-.stock{font-size:.75rem;color:#777}
+.card{background:#0b0b0b;border:1px solid #1a1a1a;border-radius:18px;padding:18px;display:flex;flex-direction:column;align-items:center;transition:.25s}
+.card:hover{transform:translateY(-6px);border-color:#fff}
 
-.card button{
-  margin-top:10px;width:100%;
-  background:#fff;color:#000;
-  border:none;border-radius:10px;
-  padding:10px;font-weight:600;cursor:pointer
-}
-.card button:disabled{opacity:.4;cursor:not-allowed}
+/* IMAGE FIX */
+.card-img{width:100%;aspect-ratio:1/1;background:#050505;border-radius:14px;display:flex;align-items:center;justify-content:center;overflow:hidden;margin-bottom:16px}
+.card-img img{width:100%;height:100%;object-fit:contain;padding:10px}
+
+/* TEXT */
+.card h3{font-size:16px;margin-bottom:6px;text-align:center}
+.price{font-size:14px;opacity:.8;margin-bottom:4px}
+.stock{font-size:12px;opacity:.5;margin-bottom:14px}
+
+/* BUTTON */
+button{width:100%;padding:12px;border-radius:12px;border:1px solid #fff;background:#fff;color:#000;font-weight:bold;cursor:pointer;transition:.25s}
+button:hover{background:#000;color:#fff}
+button:disabled{opacity:.3;border-color:#333;cursor:not-allowed}
 
 /* CART */
-#cart{
-  position:fixed;right:24px;top:24px;
-  width:300px;background:var(--bg-soft);
-  border:1px solid var(--border);
-  border-radius:16px;padding:16px
-}
-#cart h3{margin:0 0 12px 0;font-size:1.1rem}
-.cart-item{
-  display:grid;grid-template-columns:1fr auto;
-  gap:6px;font-size:.85rem;margin-bottom:6px
-}
-.cart-item small{color:var(--muted)}
-.cart-total{margin-top:10px;font-weight:600}
+#cart{position:fixed;right:24px;top:120px;width:300px;background:#0b0b0b;border:1px solid #1a1a1a;border-radius:20px;padding:16px}
+#cart h2{text-align:center;margin-bottom:10px;font-size:16px}
+.cart-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #1a1a1a}
+.cart-item img{width:36px;height:36px;object-fit:contain;background:#000;border-radius:8px;padding:4px}
+.cart-item span{flex:1;font-size:13px}
+.remove{font-size:12px;cursor:pointer;opacity:.6}
+#total{margin-top:12px;text-align:center;font-weight:bold}
+#checkout{margin-top:12px}
 
-#checkoutBtn{
-  width:100%;margin-top:12px;
-  background:#fff;color:#000;
-  border:none;border-radius:12px;
-  padding:12px;font-weight:700;cursor:pointer
-}
-
-/* UPDATES PANEL */
-#updates{
-  margin-top:32px;
-  border-top:1px solid var(--border);
-  padding-top:16px
-}
-#updates h4{margin:0 0 8px 0}
-
-/* DEV MODE */
-#devBtn{
-  position:fixed;left:14px;bottom:14px;
-  width:42px;height:42px;border-radius:50%;
-  background:#fff;color:#000;
-  display:flex;align-items:center;justify-content:center;
-  font-weight:800;cursor:pointer
-}
-#devPanel{
-  display:none;position:fixed;left:70px;bottom:14px;
-  width:260px;background:#111;border:1px solid #333;
-  border-radius:12px;padding:14px
-}
-#devPanel textarea{width:100%;height:80px;background:#000;color:#fff;border:1px solid #333}
-#devPanel button{margin-top:8px;width:100%}
+/* DEV BUTTON */
+#devBtn{position:fixed;right:20px;bottom:20px;width:44px;height:44px;border-radius:50%;background:#111;border:1px solid #333;display:flex;align-items:center;justify-content:center;cursor:pointer;font-weight:bold}
 </style>
 </head>
 <body>
 
-<div class="wrapper">
 <header>
-  <div>
-    <h1>OCEANZX</h1>
-    <span>Adopt Me • Clean • Trusted</span>
-  </div>
-  <div id="viewing">👀 14 people viewing</div>
+<h1>OCEANZX</h1>
+<p>Adopt Me • Clean • Trusted</p>
+<div id="viewing">👀 27 people viewing</div>
 </header>
 
-<section class="section">
-<h2>🥚 Eggs</h2>
+<main>
+<h2 class="section-title">🥚 EGGS</h2>
 <div class="grid" id="eggs"></div>
-</section>
 
-<section class="section">
-<h2>🐾 Pets</h2>
+<h2 class="section-title">🐾 PETS</h2>
 <div class="grid" id="pets"></div>
-</section>
-
-<section id="updates">
-<h4>📢 Updates</h4>
-<p id="updateText">New clean black & white UI launched.</p>
-</section>
-</div>
+</main>
 
 <div id="cart">
-<h3>🛒 Cart</h3>
+<h2>Cart</h2>
 <div id="cartItems"></div>
-<div class="cart-total">Total: $<span id="total">0.00</span></div>
-<button id="checkoutBtn">Checkout</button>
-<p style="font-size:.7rem;color:#777;margin-top:6px">Cash App: <b>$Bananaboy723</b></p>
+<div id="total">Total: $0.00</div>
+<button id="checkout">Checkout</button>
+<p style="font-size:11px;opacity:.6;text-align:center;margin-top:8px">Cash App: $Bananaboy723</p>
 </div>
 
 <div id="devBtn">O</div>
-<div id="devPanel">
-<b>Dev Mode</b>
-<textarea id="devMsg" placeholder="Message to display..."></textarea>
-<button onclick="pushUpdate()">Push Update</button>
-</div>
 
 <script>
-/* DATA */
 const items=[
- {name:"Crystal Egg",price:1,img:"https://image2url.com/r2/default/images/1769340250503-3d3f2972-9914-4529-9abd-abaf9b370d22.png",type:"egg",stock:3},
- {name:"Axolotl Fly Ride",price:2,img:"https://image2url.com/r2/default/images/1769312696977-97a3b12d-0869-4661-86d5-65f8f181744a.png",type:"pet",stock:3},
- {name:"Cerberus Fly Ride",price:3,img:"https://image2url.com/r2/default/images/1769312266778-b30a7b97-61bb-4650-bc6c-45a73512c0ba.jpg",type:"pet",stock:2},
- {name:"Dango Penguins",price:10,img:"https://image2url.com/r2/default/images/1769312623274-1c54447a-0b15-4ac9-a9b6-c875cecd6076.png",type:"pet",stock:1},
- {name:"Neon Sneak Weasel (5)",price:12,img:"https://image2url.com/r2/default/images/1769312555909-e343e380-5694-43a1-9ddf-df2b262990c4.png",type:"pet",stock:2},
- {name:"Ride Sakura Spirit",price:8,img:"https://image2url.com/r2/default/images/1769312389581-e6410de1-5faa-4d25-8b23-dcf7c38fb51e.jpg",type:"pet",stock:1},
- {name:"Snow Owl Fly Ride",price:2.5,img:"https://image2url.com/r2/default/images/1769312167327-6f2f8ab6-16e0-45d1-9730-dc8a16d6acdd.jpg",type:"pet",stock:4}
+{name:"Crystal Egg",price:1,img:"https://image2url.com/r2/default/images/1769340250503-3d3f2972-9914-4529-9abd-abaf9b370d22.png",stock:0,type:"egg"},
+{name:"Axolotl Fly Ride",price:2,img:"https://image2url.com/r2/default/images/1769312696977-97a3b12d-0869-4661-86d5-65f8f181744a.png",stock:3,type:"pet"},
+{name:"Cerberus Fly Ride",price:3,img:"https://image2url.com/r2/default/images/1769312266778-b30a7b97-61bb-4650-bc6c-45a73512c0ba.jpg",stock:2,type:"pet"},
+{name:"Dango Penguins",price:10,img:"https://image2url.com/r2/default/images/1769312623274-1c54447a-0b15-4ac9-a9b6-c875cecd6076.png",stock:1,type:"pet"},
+{name:"Neon Sneak Weasel (5)",price:12,img:"https://image2url.com/r2/default/images/1769312555909-e343e380-5694-43a1-9ddf-df2b262990c4.png",stock:2,type:"pet"},
+{name:"Ride Sakura Spirit",price:8,img:"https://image2url.com/r2/default/images/1769312389581-e6410de1-5faa-4d25-8b23-dcf7c38fb51e.jpg",stock:1,type:"pet"},
+{name:"Snow Owl Fly Ride",price:2.5,img:"https://image2url.com/r2/default/images/1769312167327-6f2f8ab6-16e0-45d1-9730-dc8a16d6acdd.jpg",stock:4,type:"pet"}
 ];
 
 let cart=[];
+const eggs=document.getElementById('eggs');
+const pets=document.getElementById('pets');
 
-/* RENDER */
-function render(){
-  eggs.innerHTML=""; pets.innerHTML="";
-  items.forEach(i=>{
-    const c=document.createElement('div');
-    c.className='card';
-    c.innerHTML=`<img src="${i.img}"><h3>${i.name}</h3><div class="price">$${i.price}</div><div class="stock">Stock: ${i.stock}</div><button ${i.stock<=0?'disabled':''}>Add to Cart</button>`;
-    c.querySelector('button').onclick=()=>add(i);
-    (i.type==='egg'?eggs:pets).appendChild(c);
-  });
-}
+function render(){eggs.innerHTML="";pets.innerHTML="";items.forEach(i=>{const card=document.createElement('div');card.className='card';card.innerHTML=`<div class="card-img"><img src="${i.img}"></div><h3>${i.name}</h3><div class="price">$${i.price}</div><div class="stock">Stock: ${i.stock}</div><button ${i.stock===0?'disabled':''}>Add to Cart</button>`;card.querySelector('button').onclick=()=>add(i);(i.type==='egg'?eggs:pets).appendChild(card);});}
 
-function add(i){if(i.stock<=0)return;cart.push(i);i.stock--;render();renderCart();new Audio('https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3').play();}
-
-function renderCart(){
-  cartItems.innerHTML=''; let t=0;
-  cart.forEach(p=>{t+=p.price;cartItems.innerHTML+=`<div class='cart-item'><div>${p.name}<br><small>$${p.price}</small></div></div>`});
-  total.innerText=t.toFixed(2);
-}
-
-checkoutBtn.onclick=()=>{
-  if(!cart.length)return alert('Cart empty');
-  const id=Math.floor(Math.random()*900000+100000);
-  let text=`Order ${id}\n`;
-  cart.forEach(p=>text+=`• ${p.name} $${p.price}\n`);
-  text+=`Total: $${total.innerText}`;
-  navigator.clipboard.writeText(text);
-  window.open('https://discord.gg/sv6tRJBR5G','_blank');
-  cart=[];renderCart();
-};
-
-/* DEV MODE */
-devBtn.onclick=()=>{
-  const p=prompt('Password');
-  if(p==='Keebs')devPanel.style.display='block';
-};
-function pushUpdate(){updateText.innerText=devMsg.value;}
-
-/* VIEW COUNTER */
-setInterval(()=>{
-  viewing.innerText=`👀 ${Math.floor(Math.random()*20+8)} people viewing`;
-},4000);
+function add(i){cart.push(i);i.stock--;render();renderCart();}
+function renderCart(){const c=document.getElementById('cartItems');c.innerHTML="";let t=0;cart.forEach((i,idx)=>{t+=i.price;const d=document.createElement('div');d.className='cart-item';d.innerHTML=`<img src="${i.img}"><span>${i.name}</span><span class="remove" onclick="remove(${idx})">✕</span>`;c.appendChild(d);});document.getElementById('total').innerText=`Total: $${t.toFixed(2)}`;}
+function remove(i){cart.splice(i,1);renderCart();}
 
 render();
 </script>
