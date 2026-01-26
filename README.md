@@ -1,267 +1,226 @@
 <!DOCTYPE html>
-<!-- FULL FILE – OCEANZX ADOPT ME SHOP (PC VERSION) -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Oceanzx Adopt Me Shop</title>
+<title>Oceanzx • Adopt Me Shop</title>
+<meta name="description" content="Oceanzx Adopt Me Shop — clean, trusted, instant checkout via Discord.">
 
 <style>
-/* ===================== ROOT ===================== */
+/* =====================
+   CLEAN BLACK & WHITE UI
+   ===================== */
 :root{
---accent:#0a84ff;
---bg:#0b0b0b;
---card:#151515;
---text:#ffffff;
---good:#00ff99;
+  --bg:#0a0a0a;
+  --bg-soft:#111;
+  --card:#151515;
+  --border:#1f1f1f;
+  --text:#ffffff;
+  --muted:#9a9a9a;
+  --accent:#ffffff;
 }
 *{box-sizing:border-box}
 body{
-margin:0;
-font-family:Segoe UI,Arial,sans-serif;
-background:var(--bg);
-color:var(--text);
-overflow-x:hidden;
+  margin:0;
+  font-family:Inter,Segoe UI,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
 }
 
-/* ===================== HEADER ===================== */
+/* LAYOUT */
+.wrapper{max-width:1200px;margin:0 auto;padding:32px}
+
+/* HEADER */
 header{
-text-align:center;
-padding:40px 20px;
-background:linear-gradient(180deg,#111,#000);
+  display:flex;justify-content:space-between;align-items:center;
+  border-bottom:1px solid var(--border);padding-bottom:24px;margin-bottom:32px
 }
-header h1{
-font-size:2.8rem;
-color:var(--accent);
-text-shadow:0 0 12px #0a84ff;
-}
-header p{color:#aaa}
+header h1{margin:0;font-size:1.8rem;letter-spacing:1px}
+header span{color:var(--muted);font-size:.9rem}
 
-/* ===================== CONTAINER ===================== */
-.container{
-max-width:1200px;
-margin:30px auto;
-padding:30px;
-background:#111;
-border-radius:30px;
-}
+/* VIEW COUNTER */
+#viewing{font-size:.85rem;color:var(--muted)}
 
-h2{text-align:center;margin:40px 0 20px}
+/* SECTIONS */
+.section{margin-bottom:56px}
+.section h2{font-size:1.4rem;margin-bottom:18px;letter-spacing:.5px}
 
-/* ===================== GRID ===================== */
+/* GRID */
 .grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:25px;
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:22px
 }
+
+/* PRODUCT CARD */
 .card{
-background:linear-gradient(180deg,var(--card),#0d0d0d);
-border-radius:24px;
-padding:18px;
-text-align:center;
-transition:.3s;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:16px;
+  transition:.25s
 }
-.card:hover{transform:translateY(-6px)}
+.card:hover{transform:translateY(-4px)}
 .card img{
-width:160px;
-height:160px;
-border-radius:20px;
-object-fit:cover;
+  width:100%;height:180px;object-fit:cover;
+  border-radius:10px;margin-bottom:12px
 }
-.price{margin-top:8px;font-weight:bold}
-.stock{font-size:.8rem;color:#ff4d4d}
-.btn{
-margin-top:10px;
-padding:10px 20px;
-border:none;
-border-radius:16px;
-background:var(--accent);
-color:white;
-font-weight:bold;
-cursor:pointer;
-}
-.btn:disabled{background:#444}
+.card h3{margin:0;font-size:1rem;font-weight:500}
+.price{color:var(--muted);font-size:.9rem;margin:6px 0}
+.stock{font-size:.75rem;color:#777}
 
-/* ===================== CART ===================== */
+.card button{
+  margin-top:10px;width:100%;
+  background:#fff;color:#000;
+  border:none;border-radius:10px;
+  padding:10px;font-weight:600;cursor:pointer
+}
+.card button:disabled{opacity:.4;cursor:not-allowed}
+
+/* CART */
 #cart{
-position:fixed;
-top:20px;
-right:20px;
-width:300px;
-background:#111;
-border-radius:24px;
-padding:18px;
-z-index:999;
+  position:fixed;right:24px;top:24px;
+  width:300px;background:var(--bg-soft);
+  border:1px solid var(--border);
+  border-radius:16px;padding:16px
 }
-#cart h3{text-align:center;margin-top:0}
+#cart h3{margin:0 0 12px 0;font-size:1.1rem}
 .cart-item{
-display:flex;
-justify-content:space-between;
-font-size:.9rem;
-margin:6px 0;
+  display:grid;grid-template-columns:1fr auto;
+  gap:6px;font-size:.85rem;margin-bottom:6px
 }
-.cart-total{margin-top:10px;font-weight:bold}
+.cart-item small{color:var(--muted)}
+.cart-total{margin-top:10px;font-weight:600}
 
-/* ===================== UPDATE PANEL ===================== */
-#updatesBtn{
-position:fixed;
-bottom:20px;
-left:20px;
-background:var(--accent);
-padding:10px 14px;
-border-radius:14px;
-cursor:pointer;
-}
-#updatesPanel{
-display:none;
-position:fixed;
-bottom:80px;
-left:20px;
-width:320px;
-background:#111;
-border-radius:20px;
-padding:16px;
+#checkoutBtn{
+  width:100%;margin-top:12px;
+  background:#fff;color:#000;
+  border:none;border-radius:12px;
+  padding:12px;font-weight:700;cursor:pointer
 }
 
-/* ===================== DEV MODE ===================== */
+/* UPDATES PANEL */
+#updates{
+  margin-top:32px;
+  border-top:1px solid var(--border);
+  padding-top:16px
+}
+#updates h4{margin:0 0 8px 0}
+
+/* DEV MODE */
 #devBtn{
-position:fixed;
-right:10px;
-bottom:50%;
-background:#222;
-border-radius:50%;
-width:36px;
-height:36px;
-text-align:center;
-line-height:36px;
-font-weight:bold;
-cursor:pointer;
+  position:fixed;left:14px;bottom:14px;
+  width:42px;height:42px;border-radius:50%;
+  background:#fff;color:#000;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:800;cursor:pointer
 }
 #devPanel{
-display:none;
-position:fixed;
-right:60px;
-bottom:40%;
-background:#111;
-padding:18px;
-border-radius:20px;
-width:260px;
+  display:none;position:fixed;left:70px;bottom:14px;
+  width:260px;background:#111;border:1px solid #333;
+  border-radius:12px;padding:14px
 }
-
-/* ===================== VIEW COUNTER ===================== */
-#viewing{
-text-align:center;
-color:#aaa;
-margin-bottom:10px;
-}
+#devPanel textarea{width:100%;height:80px;background:#000;color:#fff;border:1px solid #333}
+#devPanel button{margin-top:8px;width:100%}
 </style>
 </head>
 <body>
 
+<div class="wrapper">
 <header>
-<h1>Oceanzx Adopt Me Shop</h1>
-<p>Fast delivery • Trusted trades • Discord checkout</p>
+  <div>
+    <h1>OCEANZX</h1>
+    <span>Adopt Me • Clean • Trusted</span>
+  </div>
+  <div id="viewing">👀 14 people viewing</div>
 </header>
 
-<div class="container">
-<div id="viewing">👀 17 people viewing this</div>
+<section class="section">
+<h2>🥚 Eggs</h2>
+<div class="grid" id="eggs"></div>
+</section>
 
-<h2>Pets & Eggs</h2>
-<div class="grid" id="shop"></div>
+<section class="section">
+<h2>🐾 Pets</h2>
+<div class="grid" id="pets"></div>
+</section>
+
+<section id="updates">
+<h4>📢 Updates</h4>
+<p id="updateText">New clean black & white UI launched.</p>
+</section>
 </div>
 
 <div id="cart">
 <h3>🛒 Cart</h3>
 <div id="cartItems"></div>
 <div class="cart-total">Total: $<span id="total">0.00</span></div>
-<button class="btn" onclick="checkout()">Checkout</button>
-<p style="font-size:.75rem;color:#aaa">Pay with Cash App: <b>$Bananaboy723</b></p>
+<button id="checkoutBtn">Checkout</button>
+<p style="font-size:.7rem;color:#777;margin-top:6px">Cash App: <b>$Bananaboy723</b></p>
 </div>
 
-<div id="updatesBtn" onclick="toggleUpdates()">🆕 Updates</div>
-<div id="updatesPanel">
-<b>Latest Updates</b><br><br>
-• Cart system upgraded<br>
-• Discount codes added<br>
-• Dev mode added<br>
-• Checkout copy improved<br>
-</div>
-
-<div id="devBtn" onclick="devLogin()">O</div>
+<div id="devBtn">O</div>
 <div id="devPanel">
-<b>DEV MODE</b><br><br>
-<input id="devText" placeholder="Banner text" style="width:100%"><br><br>
-<button class="btn" onclick="pushText()">Push Text</button>
+<b>Dev Mode</b>
+<textarea id="devMsg" placeholder="Message to display..."></textarea>
+<button onclick="pushUpdate()">Push Update</button>
 </div>
-
-<audio id="addSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_2a2d10f8b5.mp3"></audio>
 
 <script>
-/* ===================== DATA ===================== */
-let items=[
-{name:"Snow Owl Fly Ride",price:2.5,stock:4,img:"https://image2url.com/r2/default/images/1769312167327-6f2f8ab6-16e0-45d1-9730-dc8a16d6acdd.jpg"},
-{name:"Axolotl Fly Ride",price:2,stock:3,img:"https://image2url.com/r2/default/images/1769312696977-97a3b12d-0869-4661-86d5-65f8f181744a.png"}
+/* DATA */
+const items=[
+ {name:"Crystal Egg",price:1,img:"https://image2url.com/r2/default/images/1769340250503-3d3f2972-9914-4529-9abd-abaf9b370d22.png",type:"egg",stock:3},
+ {name:"Axolotl Fly Ride",price:2,img:"https://image2url.com/r2/default/images/1769312696977-97a3b12d-0869-4661-86d5-65f8f181744a.png",type:"pet",stock:3},
+ {name:"Cerberus Fly Ride",price:3,img:"https://image2url.com/r2/default/images/1769312266778-b30a7b97-61bb-4650-bc6c-45a73512c0ba.jpg",type:"pet",stock:2},
+ {name:"Dango Penguins",price:10,img:"https://image2url.com/r2/default/images/1769312623274-1c54447a-0b15-4ac9-a9b6-c875cecd6076.png",type:"pet",stock:1},
+ {name:"Neon Sneak Weasel (5)",price:12,img:"https://image2url.com/r2/default/images/1769312555909-e343e380-5694-43a1-9ddf-df2b262990c4.png",type:"pet",stock:2},
+ {name:"Ride Sakura Spirit",price:8,img:"https://image2url.com/r2/default/images/1769312389581-e6410de1-5faa-4d25-8b23-dcf7c38fb51e.jpg",type:"pet",stock:1},
+ {name:"Snow Owl Fly Ride",price:2.5,img:"https://image2url.com/r2/default/images/1769312167327-6f2f8ab6-16e0-45d1-9730-dc8a16d6acdd.jpg",type:"pet",stock:4}
 ];
+
 let cart=[];
 
-/* ===================== RENDER ===================== */
+/* RENDER */
 function render(){
-const shop=document.getElementById('shop');
-shop.innerHTML="";
-items.forEach((i,idx)=>{
-shop.innerHTML+=`
-<div class="card">
-<img src="${i.img}">
-<h3>${i.name}</h3>
-<div class="price">$${i.price}</div>
-<div class="stock">Stock: ${i.stock}</div>
-<button class="btn" ${i.stock<=0?'disabled':''} onclick="add(${idx})">Add to Cart</button>
-</div>`;
-});
+  eggs.innerHTML=""; pets.innerHTML="";
+  items.forEach(i=>{
+    const c=document.createElement('div');
+    c.className='card';
+    c.innerHTML=`<img src="${i.img}"><h3>${i.name}</h3><div class="price">$${i.price}</div><div class="stock">Stock: ${i.stock}</div><button ${i.stock<=0?'disabled':''}>Add to Cart</button>`;
+    c.querySelector('button').onclick=()=>add(i);
+    (i.type==='egg'?eggs:pets).appendChild(c);
+  });
 }
 
-function add(i){
-if(items[i].stock<=0)return;
-items[i].stock--;
-cart.push(items[i]);
-document.getElementById('addSound').play();
-render();renderCart();
-}
+function add(i){if(i.stock<=0)return;cart.push(i);i.stock--;render();renderCart();new Audio('https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3').play();}
 
 function renderCart(){
-let el=document.getElementById('cartItems');
-el.innerHTML="";let t=0;
-cart.forEach(c=>{t+=c.price;el.innerHTML+=`<div class='cart-item'><span>${c.name}</span><span>$${c.price}</span></div>`});
-document.getElementById('total').innerText=t.toFixed(2);
+  cartItems.innerHTML=''; let t=0;
+  cart.forEach(p=>{t+=p.price;cartItems.innerHTML+=`<div class='cart-item'><div>${p.name}<br><small>$${p.price}</small></div></div>`});
+  total.innerText=t.toFixed(2);
 }
 
-function checkout(){
-if(!cart.length)return alert('Cart empty');
-let id='OZX-'+Math.floor(Math.random()*900000+100000);
-let txt=`Order ${id}\n`;
-cart.forEach(i=>txt+=`• ${i.name} ($${i.price})\n`);
-txt+=`Total: $${document.getElementById('total').innerText}`;
-navigator.clipboard.writeText(txt);
-alert('Copied! Screenshot cart and send in Discord ticket');
-window.open('https://discord.gg/sv6tRJBR5G','_blank');
-cart=[];renderCart();
-}
+checkoutBtn.onclick=()=>{
+  if(!cart.length)return alert('Cart empty');
+  const id=Math.floor(Math.random()*900000+100000);
+  let text=`Order ${id}\n`;
+  cart.forEach(p=>text+=`• ${p.name} $${p.price}\n`);
+  text+=`Total: $${total.innerText}`;
+  navigator.clipboard.writeText(text);
+  window.open('https://discord.gg/sv6tRJBR5G','_blank');
+  cart=[];renderCart();
+};
 
-/* ===================== EXTRAS ===================== */
-function toggleUpdates(){
-const p=document.getElementById('updatesPanel');
-p.style.display=p.style.display==='block'?'none':'block';
-}
-function devLogin(){
-const pass=prompt('Password');
-if(pass==='Keebs')document.getElementById('devPanel').style.display='block';
-}
-function pushText(){
-alert(document.getElementById('devText').value);
-}
+/* DEV MODE */
+devBtn.onclick=()=>{
+  const p=prompt('Password');
+  if(p==='Keebs')devPanel.style.display='block';
+};
+function pushUpdate(){updateText.innerText=devMsg.value;}
 
+/* VIEW COUNTER */
 setInterval(()=>{
-document.getElementById('viewing').innerText=`👀 ${Math.floor(Math.random()*15+10)} people viewing this`;
+  viewing.innerText=`👀 ${Math.floor(Math.random()*20+8)} people viewing`;
 },4000);
 
 render();
