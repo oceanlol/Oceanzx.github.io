@@ -2,133 +2,364 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OCEANZX Adopt Me Shop</title>
+<title>OCEANZX — Adopt Me Shop</title>
+<meta name="viewport" content="width=1200">
+<meta name="description" content="OCEANZX Adopt Me Shop — Clean • Trusted • Instant Checkout">
+
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:Inter,Arial,sans-serif}
-body{background:#000;color:#fff}
-header{padding:40px 20px;text-align:center;border-bottom:1px solid #1a1a1a}
-header h1{font-size:36px;letter-spacing:4px}
-header p{margin-top:8px;font-size:16px;opacity:.7}
-#viewing{margin-top:10px;font-size:14px;opacity:.6}
-main{max-width:1300px;margin:0 auto;padding:30px}
-.section-title{font-size:20px;letter-spacing:2px;margin:40px 0 20px;border-left:4px solid #fff;padding-left:12px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:28px}
-.card{background:#0b0b0b;border:1px solid #1a1a1a;border-radius:18px;padding:18px;display:flex;flex-direction:column;align-items:center;transition:.25s;position:relative;overflow:hidden}
-.card:hover{transform:translateY(-6px);border-color:#fff;box-shadow:0 0 20px rgba(255,255,255,.2)}
-.card-img{width:100%;aspect-ratio:1/1;background:#050505;border-radius:14px;display:flex;align-items:center;justify-content:center;overflow:hidden;margin-bottom:16px}
-.card-img img{width:100%;height:100%;object-fit:contain;padding:10px}
-.card h3{font-size:16px;margin-bottom:6px;text-align:center}
-.price{font-size:14px;opacity:.8;margin-bottom:4px}
-.stock{font-size:12px;opacity:.5;margin-bottom:14px}
-button{width:100%;padding:12px;border-radius:12px;border:1px solid #fff;background:#fff;color:#000;font-weight:bold;cursor:pointer;transition:.25s}
-button:hover{background:#000;color:#fff}
-button:disabled{opacity:.3;border-color:#333;cursor:not-allowed}
-#cart{position:fixed;right:24px;top:120px;width:360px;background:#0b0b0b;border:2px solid #fff;border-radius:24px;padding:16px;box-shadow:0 0 30px rgba(255,255,255,.3)}
-#cart h2{text-align:center;margin-bottom:12px;font-size:18px;letter-spacing:1px}
-.cart-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #1a1a1a;transition:.2s;position:relative}
-.cart-item:hover{background:rgba(255,255,255,.05);border-radius:12px;transform:scale(1.02)}
-.cart-item img{width:48px;height:48px;object-fit:contain;background:#000;border-radius:8px;padding:4px;flex-shrink:0}
-.cart-item span{flex:1;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.remove{font-size:14px;cursor:pointer;opacity:.6;transition:.2s}
-.remove:hover{color:red;opacity:1}
-#total{margin-top:12px;text-align:center;font-weight:bold;font-size:16px}
-#checkout{margin-top:12px;padding:12px;background:#fff;color:#000;border-radius:16px;border:none;font-weight:bold;cursor:pointer;width:100%;transition:.25s}
-#checkout:hover{background:#000;color:#fff;transform:scale(1.05)}
-#updates{position:fixed;left:20px;top:120px;width:300px;background:#0b0b0b;border:1px solid #1a1a1a;border-radius:16px;padding:12px;max-height:400px;overflow-y:auto;display:none}
-#updates h3{margin-bottom:8px;text-align:center}
-#devBtn{position:fixed;right:20px;bottom:20px;width:44px;height:44px;border-radius:50%;background:#111;border:1px solid #333;display:flex;align-items:center;justify-content:center;cursor:pointer;font-weight:bold}
+/* ===== ROOT ===== */
+:root{
+--bg:#0a0a0a;
+--card:#111;
+--border:#1f1f1f;
+--text:#fff;
+--muted:#9a9a9a;
+--accent:#fff;
+--soft:#161616;
+}
+
+*{box-sizing:border-box}
+body{
+margin:0;
+background:var(--bg);
+color:var(--text);
+font-family:Inter,Segoe UI,Arial,sans-serif;
+}
+
+/* ===== HEADER ===== */
+header{
+text-align:center;
+padding:50px 20px 30px;
+border-bottom:1px solid var(--border);
+}
+header h1{
+margin:0;
+font-size:48px;
+letter-spacing:4px;
+}
+header p{
+margin-top:10px;
+color:var(--muted);
+}
+
+/* ===== VIEWERS ===== */
+.viewers{
+position:fixed;
+top:20px;
+left:20px;
+background:var(--card);
+border:1px solid var(--border);
+padding:10px 14px;
+border-radius:14px;
+font-size:14px;
+}
+
+/* ===== CONTAINER ===== */
+.container{
+max-width:1200px;
+margin:40px auto;
+padding:0 20px;
+}
+
+/* ===== SECTION ===== */
+.section-title{
+font-size:28px;
+margin-bottom:18px;
+border-left:4px solid white;
+padding-left:12px;
+}
+
+/* ===== GRID ===== */
+.grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:24px;
+}
+
+/* ===== CARD ===== */
+.card{
+background:var(--card);
+border:1px solid var(--border);
+border-radius:22px;
+padding:18px;
+transition:.25s;
+}
+.card:hover{
+transform:translateY(-4px);
+border-color:white;
+}
+.card img{
+width:100%;
+height:180px;
+object-fit:contain;
+border-radius:14px;
+background:#000;
+}
+.card h3{
+margin:14px 0 6px;
+font-size:18px;
+}
+.card .price{
+font-weight:bold;
+}
+.card button{
+margin-top:12px;
+width:100%;
+padding:12px;
+border-radius:14px;
+border:none;
+background:white;
+color:black;
+font-weight:bold;
+cursor:pointer;
+}
+
+/* ===== CART ===== */
+#cart{
+position:fixed;
+top:100px;
+right:20px;
+width:340px;
+background:var(--soft);
+border:1px solid var(--border);
+border-radius:24px;
+padding:16px;
+}
+#cart h2{
+margin:0 0 10px;
+text-align:center;
+}
+.cart-item{
+display:flex;
+gap:10px;
+align-items:center;
+margin:10px 0;
+}
+.cart-item img{
+width:50px;
+height:50px;
+object-fit:contain;
+background:black;
+border-radius:10px;
+}
+.cart-item span{
+font-size:14px;
+}
+.cart-total{
+margin-top:12px;
+font-weight:bold;
+text-align:center;
+}
+.cart-btn{
+margin-top:10px;
+width:100%;
+padding:12px;
+border-radius:14px;
+background:white;
+color:black;
+border:none;
+font-weight:bold;
+cursor:pointer;
+}
+
+/* ===== MODAL ===== */
+#checkoutModal{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.85);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:9999;
+}
+.modal-box{
+background:#111;
+border-radius:26px;
+padding:26px;
+width:500px;
+text-align:center;
+}
+.modal-box h3{margin-top:0}
+.modal-box pre{
+background:black;
+padding:14px;
+border-radius:14px;
+text-align:left;
+max-height:240px;
+overflow:auto;
+}
+
+/* ===== DEV BUTTON ===== */
+#devBtn{
+position:fixed;
+right:10px;
+bottom:10px;
+width:44px;
+height:44px;
+border-radius:50%;
+background:white;
+color:black;
+font-weight:bold;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+}
+
+/* ===== UPDATES ===== */
+#updates{
+position:fixed;
+left:20px;
+bottom:20px;
+background:var(--card);
+border:1px solid var(--border);
+padding:14px;
+border-radius:18px;
+width:260px;
+}
 </style>
 </head>
+
 <body>
+
 <header>
 <h1>OCEANZX</h1>
 <p>Adopt Me • Clean • Trusted</p>
-<div id="viewing">👀 27 people viewing</div>
 </header>
-<main>
-<h2 class="section-title">🥚 EGGS</h2>
+
+<div class="viewers">👀 <span id="viewerCount"></span> people viewing</div>
+
+<div class="container">
+
+<h2 class="section-title">🥚 Eggs</h2>
 <div class="grid" id="eggs"></div>
-<h2 class="section-title">🐾 PETS</h2>
+
+<h2 class="section-title">🐾 Pets</h2>
 <div class="grid" id="pets"></div>
-</main>
+
+</div>
+
+<!-- CART -->
 <div id="cart">
-<h2>Cart</h2>
+<h2>🛒 Cart</h2>
 <div id="cartItems"></div>
-<div id="total">Total: $0.00</div>
-<button id="checkout">Checkout</button>
-<p style="font-size:11px;opacity:.6;text-align:center;margin-top:8px">Cash App: $Bananaboy723</p>
+<div class="cart-total">Total: $<span id="total">0.00</span></div>
+<button class="cart-btn" onclick="openCheckout()">Checkout</button>
 </div>
+
+<!-- CHECKOUT -->
+<div id="checkoutModal">
+<div class="modal-box">
+<h3>Screenshot this 🧾</h3>
+<p>Send this screenshot in the Discord ticket</p>
+<pre id="receipt"></pre>
+<p><b>Cash App:</b> $Bananaboy723</p>
+<button class="cart-btn" onclick="finish()">Go to Discord</button>
+</div>
+</div>
+
+<!-- UPDATES -->
 <div id="updates">
-<h3>Latest Updates</h3>
-<ul id="updateList"></ul>
+<b>📢 Updates</b>
+<ul>
+<li>New clean UI</li>
+<li>Discount codes</li>
+<li>Dev mode added</li>
+</ul>
 </div>
-<div id="devBtn">O</div>
+
+<div id="devBtn" onclick="dev()">O</div>
+
+<audio id="ding" src="https://assets.mixkit.co/sfx/preview/mixkit-click-melodic-tone-1129.mp3"></audio>
+
 <script>
-const items=[
-{name:"Crystal Egg",price:1,img:"https://image2url.com/r2/default/images/1769340250503-3d3f2972-9914-4529-9abd-abaf9b370d22.png",stock:0,type:"egg"},
-{name:"Snow Owl NO POT",price:1.25,img:"https://image2url.com/r2/default/images/1769340321220-95e1be82-28fa-403a-a021-941d493283b8.png",stock:2,type:"egg"},
-{name:"Axolotl Fly Ride",price:2,img:"https://image2url.com/r2/default/images/1769312696977-97a3b12d-0869-4661-86d5-65f8f181744a.png",stock:3,type:"pet"},
-{name:"Cerberus Fly Ride",price:3,img:"https://image2url.com/r2/default/images/1769312266778-b30a7b97-61bb-4650-bc6c-45a73512c0ba.jpg",stock:2,type:"pet"},
-{name:"Dango Penguins",price:10,img:"https://image2url.com/r2/default/images/1769312623274-1c54447a-0b15-4ac9-a9b6-c875cecd6076.png",stock:1,type:"pet"},
-{name:"Neon Sneak Weasel (5)",price:12,img:"https://image2url.com/r2/default/images/1769312555909-e343e380-5694-43a1-9ddf-df2b262990c4.png",stock:2,type:"pet"},
-{name:"Ride Sakura Spirit",price:8,img:"https://image2url.com/r2/default/images/1769312389581-e6410de1-5faa-4d25-8b23-dcf7c38fb51e.jpg",stock:1,type:"pet"},
-{name:"Snow Owl Fly Ride",price:2.5,img:"https://image2url.com/r2/default/images/1769312167327-6f2f8ab6-16e0-45d1-9730-dc8a16d6acdd.jpg",stock:4,type:"pet"}
+/* ===== DATA ===== */
+const eggs=[
+{name:"Crystal Egg",price:1,img:"https://starpets.gg/adopt-me/shop/egg/crystal_egg/151744"},
+{name:"Retired Egg (2)",price:1,img:"https://starpets.gg/adopt-me/shop/egg/retired_egg/28325"},
+{name:"Moon Egg (2)",price:1.25,img:"https://starpets.gg/adopt-me/shop/egg/moon_egg/31568"},
+{name:"Royal Egg (5)",price:1,img:"https://starpets.gg/adopt-me/shop/egg/royal_egg/28311"},
+{name:"Aussie Egg (2)",price:10,img:"https://starpets.gg/adopt-me/shop/egg/aussie_egg/28315"}
 ];
+
+const pets=[
+{name:"Strawberry Shortcake Bat Dragon Fly Ride",price:35,img:"https://image2url.com/r2/default/images/1769417417556-2117c23b-fadc-4197-9aca-9023736ecf7a.png"},
+{name:"Cow Fly Ride",price:20,img:"https://image2url.com/r2/default/images/1769417494592-7c9b625a-9528-459c-bdae-ec45773ce972.png"},
+{name:"Chocolate Chip Bat Dragon Fly Ride",price:20,img:"https://image2url.com/r2/default/images/1769417573051-1675be6f-08e2-46bc-b60f-3f8f478db80a.png"},
+{name:"Dragonfruit Fox",price:10,img:"https://image2url.com/r2/default/images/1769417684237-e455a114-a17c-49ba-8c95-ee41c1698ec6.png"},
+{name:"Unicorn",price:3,img:"https://image2url.com/r2/default/images/1769417779444-cc940dbb-8d7e-4e91-8e22-998da1983d02.png"},
+{name:"German Shepherd Fly Ride",price:10,img:"https://image2url.com/r2/default/images/1769417898335-95161f79-12d0-4e89-a55f-a0af98128192.png"},
+{name:"Turtle Fly Ride",price:20,img:"https://image2url.com/r2/default/images/1769417980360-be5c9242-f50d-4c26-8b02-38ad8b169e91.png"}
+];
+
 let cart=[];
-const eggsDiv=document.getElementById('eggs');
-const petsDiv=document.getElementById('pets');
-const updatesUl=document.getElementById('updateList');
-function render(){eggsDiv.innerHTML='';petsDiv.innerHTML='';items.forEach(i=>{
-  const card=document.createElement('div');
-  card.className='card';
-  card.innerHTML=`<div class="card-img"><img src="${i.img}"></div><h3>${i.name}</h3><div class="price">$${i.price}</div><div class="stock">Stock: ${i.stock}</div><button ${i.stock===0?'disabled':''}>Add to Cart</button>`;
-  card.querySelector('button').onclick=()=>addToCart(i);
-  (i.type==='egg'?eggsDiv:petsDiv).appendChild(card);
-})
+
+/* ===== RENDER ===== */
+function render(list,id){
+const el=document.getElementById(id);
+list.forEach(i=>{
+el.innerHTML+=`
+<div class="card">
+<img src="${i.img}">
+<h3>${i.name}</h3>
+<div class="price">$${i.price}</div>
+<button onclick='add(${JSON.stringify(i)})'>Add to Cart</button>
+</div>`;
+});
 }
-function addToCart(item){cart.push(item);item.stock--;render();renderCart();playSound();}
-function renderCart(){
-  const c=document.getElementById('cartItems');
-  c.innerHTML='';
-  let total=0;
-  cart.forEach((i,idx)=>{
-    total+=i.price;
-    const div=document.createElement('div');
-    div.className='cart-item';
-    div.innerHTML=`<img src="${i.img}"><span>${i.name}</span><span class="remove" onclick="removeCart(${idx})">✕</span>`;
-    c.appendChild(div);
-  });
-  document.getElementById('total').innerText=`Total: $${total.toFixed(2)}`;
+render(eggs,"eggs");
+render(pets,"pets");
+
+/* ===== CART ===== */
+function add(i){
+document.getElementById("ding").play();
+cart.push(i);
+updateCart();
 }
-function removeCart(idx){cart.splice(idx,1);renderCart();render();}
-document.getElementById('checkout').onclick=()=>{
-  if(cart.length===0){alert('Cart empty');return;}
-  let text='🛒 Oceanzx Order:\n';
-  cart.forEach(i=>text+=`• ${i.name} - $${i.price}\n`);
-  text+=`\n💰 Total: $${cart.reduce((a,b)=>a+b.price,0).toFixed(2)}`;
-  navigator.clipboard.writeText(text);
-  window.open('https://discord.gg/sv6tRJBR5G','_blank');
-  cart=[];renderCart();render();
+function updateCart(){
+const c=document.getElementById("cartItems");
+c.innerHTML="";
+let t=0;
+cart.forEach(i=>{
+t+=i.price;
+c.innerHTML+=`
+<div class="cart-item">
+<img src="${i.img}">
+<span>${i.name}</span>
+<span>$${i.price}</span>
+</div>`;
+});
+document.getElementById("total").innerText=t.toFixed(2);
 }
-const audio=new Audio('https://freesound.org/data/previews/522/522998_10536942-lq.mp3');
-function playSound(){audio.currentTime=0;audio.play();}
-let viewers=27;
-setInterval(()=>{viewers=Math.floor(Math.random()*50)+10;document.getElementById('viewing').innerText=`👀 ${viewers} people viewing`;},5000);
-const devBtn=document.getElementById('devBtn');
-devBtn.onclick=()=>{
-  const pw=prompt('Enter password');
-  if(pw==='Keebs'){
-    const msg=prompt('Enter stock update text');
-    if(msg) {
-      const li=document.createElement('li');
-      li.innerText=msg;
-      updatesUl.appendChild(li);
-      document.getElementById('updates').style.display='block';
-    }
-  }
+
+/* ===== CHECKOUT ===== */
+function openCheckout(){
+if(!cart.length)return;
+const id=Math.floor(Math.random()*900000+100000);
+let txt=`Order ID: ${id}\n\n`;
+let t=0;
+cart.forEach(i=>{txt+=`• ${i.name} - $${i.price}\n`;t+=i.price});
+txt+=`\nTotal: $${t}`;
+document.getElementById("receipt").innerText=txt;
+navigator.clipboard.writeText(txt);
+document.getElementById("checkoutModal").style.display="flex";
 }
-render();
+function finish(){
+window.location.href="https://discord.gg/sv6tRJBR5G";
+}
+
+/* ===== VIEWERS ===== */
+document.getElementById("viewerCount").innerText=Math.floor(Math.random()*20+15);
+
+/* ===== DEV ===== */
+function dev(){
+const p=prompt("Password");
+if(p==="Keebs"){
+const msg=prompt("Admin message to show:");
+if(msg)alert("ADMIN: "+msg);
+}
+}
 </script>
+
 </body>
 </html>
