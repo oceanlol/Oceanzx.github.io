@@ -1,154 +1,160 @@
 
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>OCEANZX — Adopt Me Shop</title>
+<meta charset="UTF-8">
+<title>OCEANZX</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 :root{
   --bg:#000;
-  --card:#0d0d0d;
-  --border:#1f1f1f;
+  --card:#111;
   --text:#fff;
+  --border:#000;
 }
 *{box-sizing:border-box}
 body{
   margin:0;
-  font-family:Inter,Arial,sans-serif;
-  background:var(--bg);
-  color:var(--text);
+  font-family:Segoe UI,Arial,sans-serif;
+  background:black;
+  color:white;
   overflow-x:hidden;
 }
 
-/* flying dots */
+/* PARTICLES */
 .dot{
   position:fixed;
-  background:#fff;
+  width:3px;
+  height:3px;
+  background:white;
+  opacity:.6;
   border-radius:50%;
-  opacity:.8;
-  animation:fly linear infinite;
+  animation:fall linear infinite;
 }
-@keyframes fly{
-  from{transform:translateY(120vh)}
-  to{transform:translateY(-20vh)}
+@keyframes fall{
+  from{transform:translateY(-10vh)}
+  to{transform:translateY(110vh)}
 }
 
-/* header */
+/* HEADER */
 header{
-  padding:30px;
   text-align:center;
-  border-bottom:1px solid var(--border);
+  padding:40px 20px;
 }
-header h1{margin:0;font-size:36px;letter-spacing:3px}
+header h1{
+  font-size:3rem;
+  font-weight:900;
+  letter-spacing:2px;
+}
 header p{opacity:.7}
 
-/* layout */
-section{padding:40px;max-width:1200px;margin:auto}
-h2{margin-bottom:20px;letter-spacing:2px}
-
-/* grid */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
-  gap:25px;
-}
-
-/* product card */
-.card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:20px;
-  text-align:center;
-}
-.card img{
-  width:100%;
-  height:180px;
-  object-fit:contain;
-  filter:grayscale(100%) contrast(1.3) brightness(1.1);
-  mix-blend-mode:lighten;
-}
-.card h3{font-size:16px;margin:15px 0 5px}
-.card p{margin:4px 0;opacity:.8}
-
-button{
-  margin-top:10px;
-  width:100%;
-  padding:12px;
-  background:#111;
-  border:1px solid #333;
-  color:#fff;
-  border-radius:12px;
-  cursor:pointer;
-}
-button:hover{background:#222}
-
-/* cart */
-#cartBtn{
-  position:fixed;
-  top:20px;
-  right:20px;
-  background:#fff;
-  color:#000;
-  border-radius:999px;
-  padding:12px 18px;
-  font-weight:bold;
-}
+/* CART BAR */
 #cart{
   position:fixed;
-  inset:0;
-  background:#000;
-  display:none;
-  padding:40px;
+  top:0;
+  left:0;
+  right:0;
+  background:black;
+  border-bottom:2px solid white;
+  padding:12px 20px;
+  z-index:999;
 }
-#cart h2{text-align:center}
-.cart-items{
-  max-height:60vh;
-  overflow:auto;
-  margin:30px 0;
+#cart h3{margin:0;font-size:1.2rem}
+#cart-items{
+  max-height:180px;
+  overflow-y:auto;
+  margin-top:10px;
 }
 .cart-item{
   display:flex;
-  align-items:center;
-  gap:15px;
-  border-bottom:1px solid #222;
-  padding:10px 0;
+  justify-content:space-between;
+  font-size:.9rem;
+  margin:6px 0;
 }
-.cart-item img{
-  width:60px;
-  height:60px;
-  object-fit:contain;
-  filter:grayscale(100%) contrast(1.3);
-  mix-blend-mode:lighten;
+.cart-total{
+  font-weight:900;
+  margin-top:8px;
 }
-.total{font-size:20px;text-align:center;margin:20px 0}
-
 .checkout{
-  text-align:center;
-}
-.checkout button{
-  max-width:300px;
-  margin:auto;
-  background:#fff;
-  color:#000;
+  margin-top:8px;
+  background:white;
+  color:black;
+  border:2px solid black;
+  padding:8px;
+  width:100%;
+  font-weight:900;
+  cursor:pointer;
 }
 
-/* screenshot overlay */
-#checkoutScreen{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:#000;
-  padding:40px;
+/* LAYOUT */
+.container{
+  max-width:1200px;
+  margin:200px auto 60px;
+  padding:20px;
+}
+h2{
+  margin-top:50px;
+  font-size:2rem;
+  border-bottom:2px solid white;
+  padding-bottom:6px;
+}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:25px;
+  margin-top:20px;
+}
+
+/* CARD */
+.card{
+  background:#111;
+  padding:18px;
+  border-radius:18px;
+  position:relative;
   text-align:center;
 }
-#checkoutScreen h2{margin-bottom:20px}
-#orderBox{
-  border:1px dashed #555;
-  padding:20px;
-  max-width:500px;
-  margin:auto;
+.card img{
+  width:140px;
+  height:140px;
+  object-fit:contain;
+}
+.card h3{
+  margin:10px 0 4px;
+  font-weight:900;
+}
+.price{opacity:.9}
+.stock{font-size:.8rem;opacity:.7}
+
+/* BADGE */
+.badge-new{
+  position:absolute;
+  top:10px;
+  left:10px;
+  background:white;
+  color:black;
+  border:2px solid black;
+  font-weight:900;
+  font-size:12px;
+  padding:4px 8px;
+  letter-spacing:1px;
+  border-radius:6px;
+}
+
+/* BUTTON */
+.btn{
+  margin-top:10px;
+  background:white;
+  color:black;
+  border:2px solid black;
+  padding:8px 14px;
+  font-weight:900;
+  cursor:pointer;
+}
+.btn:disabled{
+  opacity:.4;
+  cursor:not-allowed;
 }
 </style>
 </head>
@@ -157,119 +163,105 @@ button:hover{background:#222}
 
 <header>
   <h1>OCEANZX</h1>
-  <p>Adopt Me • Clean • Trusted</p>
+  <p>Adopt Me • Clean • Trusted • CashApp Only</p>
 </header>
 
-<button id="cartBtn" onclick="openCart()">Cart (<span id="cartCount">0</span>)</button>
-
-<section>
-<h2>PETS</h2>
-<div class="grid" id="pets"></div>
-</section>
-
-<section>
-<h2>EGGS</h2>
-<div class="grid" id="eggs"></div>
-</section>
-
-<!-- CART -->
 <div id="cart">
-  <h2>Your Cart</h2>
-  <div class="cart-items" id="cartItems"></div>
-  <div class="total" id="total"></div>
-  <div class="checkout">
-    <button onclick="checkout()">Checkout</button><br><br>
-    <button onclick="closeCart()">Close</button>
-  </div>
+  <h3>🛒 Cart</h3>
+  <div id="cart-items"></div>
+  <div class="cart-total">Total: $<span id="total">0.00</span></div>
+  <button class="checkout" onclick="checkout()">Checkout (CashApp)</button>
 </div>
 
-<!-- CHECKOUT SCREEN -->
-<div id="checkoutScreen">
-  <h2>Almost Done</h2>
-  <p>📸 Screenshot this and send it in the buying ticket</p>
-  <div id="orderBox"></div>
-  <p style="margin-top:20px">💸 Pay with Cash App: <b>$Bananaboy723</b></p>
-  <button onclick="window.location.href='https://discord.gg/sv6tRJBR5G'">Go to Discord</button>
+<div class="container">
+
+<h2>🔥 New Pets</h2>
+<div class="grid" id="new-pets"></div>
+
+<h2>🐾 Old Pets</h2>
+<div class="grid" id="old-pets"></div>
+
+<h2>🥚 Eggs</h2>
+<div class="grid" id="eggs"></div>
+
 </div>
 
 <script>
-/* dots */
-for(let i=0;i<120;i++){
+let cart=[];
+
+const items=[
+  {name:"Strawberry Shortcake Bat Dragon Fly Ride",price:24,stock:5,img:"https://image2url.com/r2/default/images/1769419915326-9b1f86be-1cf1-47e3-9eac-43f7fb10c8ba.png",new:true,type:"pet"},
+  {name:"Cow Fly Ride",price:20,stock:5,img:"https://image2url.com/r2/default/images/1769419943380-9a948b0d-6c67-40d8-960b-79564c520a19.png",new:true,type:"pet"},
+  {name:"Chocolate Chip Bat Dragon Fly Ride",price:20,stock:5,img:"https://image2url.com/r2/default/images/1769417573051-1675be6f-08e2-46bc-b60f-3f8f478db80a.png",new:false,type:"pet"},
+  {name:"Dragonfruit Fox",price:12.5,stock:5,img:"https://image2url.com/r2/default/images/1769417684237-e455a114-a17c-49ba-8c95-ee41c1698ec6.png",new:false,type:"pet"},
+  {name:"Unicorn",price:3.25,stock:5,img:"https://image2url.com/r2/default/images/1769417779444-cc940dbb-8d7e-4e91-8e22-998da1983d02.png",new:false,type:"pet"},
+  {name:"German Shepherd Fly Ride",price:11.2,stock:5,img:"https://image2url.com/r2/default/images/1769417898335-95161f79-12d0-4e89-a55f-a0af98128192.png",new:false,type:"pet"},
+  {name:"Turtle Fly Ride",price:22.1,stock:5,img:"https://image2url.com/r2/default/images/1769417980360-be5c9242-f50d-4c26-8b02-38ad8b169e91.png",new:false,type:"pet"},
+
+  {name:"Crystal Egg",price:1,stock:15,img:"https://image2url.com/r2/default/images/1769418420566-8274a492-a6e0-42d4-a4c8-018c13c65bae.png",type:"egg"},
+  {name:"Retired Egg",price:0.5,stock:15,img:"https://image2url.com/r2/default/images/1769419815185-0d947ffd-f776-439d-9ae8-369f4da2547f.png",type:"egg"},
+  {name:"Moon Egg",price:0.63,stock:15,img:"https://image2url.com/r2/default/images/1769419776495-b06541d7-00ea-4c74-856a-a6ce4d29b8b6.png",type:"egg"},
+  {name:"Royal Egg",price:0.2,stock:15,img:"https://image2url.com/r2/default/images/1769419849095-5a4e63b2-ad03-4efa-98bd-54607cbec21d.png",type:"egg"}
+];
+
+function render(){
+  ["new-pets","old-pets","eggs"].forEach(id=>document.getElementById(id).innerHTML="");
+  items.forEach(it=>{
+    const card=document.createElement("div");
+    card.className="card";
+    card.innerHTML=`
+      ${it.new?'<div class="badge-new">NEW</div>':""}
+      <img src="${it.img}">
+      <h3>${it.name}</h3>
+      <div class="price">$${it.price}</div>
+      <div class="stock">Stock: ${it.stock}</div>
+      <button class="btn" ${it.stock<=0?"disabled":""} onclick="add('${it.name}')">Add to Cart</button>
+    `;
+    if(it.type==="egg")eggs.appendChild(card);
+    else if(it.new)newPets.appendChild(card);
+    else oldPets.appendChild(card);
+  });
+}
+
+function add(name){
+  const it=items.find(i=>i.name===name);
+  if(!it||it.stock<=0)return;
+  cart.push(it);
+  it.stock--;
+  updateCart();
+  render();
+}
+
+function updateCart(){
+  const el=document.getElementById("cart-items");
+  let total=0;
+  el.innerHTML="";
+  cart.forEach(i=>{
+    total+=i.price;
+    el.innerHTML+=`<div class="cart-item"><span>${i.name}</span><span>$${i.price}</span></div>`;
+  });
+  document.getElementById("total").innerText=total.toFixed(2);
+}
+
+function checkout(){
+  if(!cart.length)return;
+  let text="OCEANZX ORDER:\n";
+  let total=0;
+  cart.forEach(i=>{text+=`• ${i.name} $${i.price}\n`;total+=i.price});
+  text+=`\nTOTAL: $${total.toFixed(2)}\nCashApp: $Bananaboy723`;
+  navigator.clipboard.writeText(text);
+  alert("Order copied. Send on CashApp.");
+}
+
+for(let i=0;i<100;i++){
   const d=document.createElement("div");
   d.className="dot";
-  const s=Math.random()*3+1;
-  d.style.width=d.style.height=s+"px";
   d.style.left=Math.random()*100+"vw";
-  d.style.animationDuration=10+Math.random()*20+"s";
+  d.style.animationDuration=(6+Math.random()*12)+"s";
   document.body.appendChild(d);
 }
 
-/* products */
-const pets=[
- {n:"Strawberry Shortcake Bat Dragon Fly Ride",p:24,img:"https://image2url.com/r2/default/images/1769419915326-9b1f86be-1cf1-47e3-9eac-43f7fb10c8ba.png"},
- {n:"Cow Fly Ride",p:20,img:"https://image2url.com/r2/default/images/1769419943380-9a948b0d-6c67-40d8-960b-79564c520a19.png"},
- {n:"Chocolate Chip Bat Dragon Fly Ride",p:20,img:"https://image2url.com/r2/default/images/1769417573051-1675be6f-08e2-46bc-b60f-3f8f478db80a.png"},
- {n:"Dragonfruit Fox",p:12.5,img:"https://image2url.com/r2/default/images/1769417684237-e455a114-a17c-49ba-8c95-ee41c1698ec6.png"},
- {n:"Unicorn",p:3.25,img:"https://image2url.com/r2/default/images/1769417779444-cc940dbb-8d7e-4e91-8e22-998da1983d02.png"},
- {n:"German Shepherd Fly Ride",p:11.2,img:"https://image2url.com/r2/default/images/1769417898335-95161f79-12d0-4e89-a55f-a0af98128192.png"},
- {n:"Turtle Fly Ride",p:22.1,img:"https://image2url.com/r2/default/images/1769417980360-be5c9242-f50d-4c26-8b02-38ad8b169e91.png"}
-];
-
-const eggs=[
- {n:"Crystal Egg",p:1,img:"https://image2url.com/r2/default/images/1769418420566-8274a492-a6e0-42d4-a4c8-018c13c65bae.png"},
- {n:"Retired Egg",p:0.5,img:"https://image2url.com/r2/default/images/1769419815185-0d947ffd-f776-439d-9ae8-369f4da2547f.png"},
- {n:"Moon Egg",p:0.63,img:"https://image2url.com/r2/default/images/1769419776495-b06541d7-00ea-4c74-856a-a6ce4d29b8b6.png"},
- {n:"Royal Egg",p:0.2,img:"https://image2url.com/r2/default/images/1769419849095-5a4e63b2-ad03-4efa-98bd-54607cbec21d.png"}
-];
-
-const cart=[];
-function render(list,id){
- const el=document.getElementById(id);
- list.forEach(i=>{
-  el.innerHTML+=`
-  <div class="card">
-    <img src="${i.img}">
-    <h3>${i.n}</h3>
-    <p>$${i.p}</p>
-    <p>Stock: ${id==="pets"?5:15}</p>
-    <button onclick='add(${JSON.stringify(i)})'>Add to Cart</button>
-  </div>`;
- });
-}
-render(pets,"pets");
-render(eggs,"eggs");
-
-function add(i){
- cart.push(i);
- document.getElementById("cartCount").innerText=cart.length;
-}
-
-function openCart(){
- document.getElementById("cart").style.display="block";
- const c=document.getElementById("cartItems");
- c.innerHTML="";
- let t=0;
- cart.forEach(i=>{
-  t+=i.p;
-  c.innerHTML+=`
-  <div class="cart-item">
-    <img src="${i.img}">
-    <div>${i.n}<br>$${i.p}</div>
-  </div>`;
- });
- document.getElementById("total").innerText="Total: $"+t.toFixed(2);
-}
-function closeCart(){document.getElementById("cart").style.display="none"}
-
-function checkout(){
- document.getElementById("cart").style.display="none";
- document.getElementById("checkoutScreen").style.display="block";
- let text="<b>Your Order</b><br>";
- let t=0;
- cart.forEach(i=>{text+=i.n+" - $"+i.p+"<br>";t+=i.p});
- text+="<br><b>Total: $"+t.toFixed(2)+"</b>";
- document.getElementById("orderBox").innerHTML=text;
-}
+render();
 </script>
 </body>
 </html>
