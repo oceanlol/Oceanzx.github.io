@@ -52,18 +52,6 @@ header p {margin:0; font-size:1.2rem; color:#ccc;}
     width:150px;
     height:150px;
     object-fit:contain;
-    filter:brightness(0) invert(1); /* black silhouette + invert */
-    position:relative;
-}
-.wave {
-    position:absolute;
-    width:80px;
-    height:8px;
-    background:white;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%) rotate(-15deg);
-    border-radius:4px;
 }
 .card h3 {
     margin:8px 0 4px 0;
@@ -139,106 +127,92 @@ section h2 {text-align:center; margin-bottom:10px;}
 <script>
 // PARTICLES
 for(let i=0;i<100;i++){
-    const dot = document.createElement('div');
+    let dot=document.createElement('div');
     dot.className='dot';
     dot.style.left=Math.random()*100+'vw';
-    dot.style.animationDuration=(5+Math.random()*10)+'s';
+    dot.style.animationDuration=(5+Math.random()*15)+'s';
     document.body.appendChild(dot);
 }
 
-// ITEMS DATA
-let cart = [];
-let pets = [
-    {name:"Axolotl Fly Ride", price:2, img:"https://image2url.com/r2/default/images/1769312696977-97a3b12d-0869-4661-86d5-65f8f181744a.png", stock:5},
-    {name:"Cerberus Fly Ride", price:3, img:"https://image2url.com/r2/default/images/1769312266778-b30a7b97-61bb-4650-bc6c-45a73512c0ba.jpg", stock:5},
-    {name:"Dango Penguins", price:10, img:"https://image2url.com/r2/default/images/1769312623274-1c54447a-0b15-4ac9-a9b6-c875cecd6076.png", stock:5},
-    {name:"Neon Sneak Weasel (5)", price:12, img:"https://image2url.com/r2/default/images/1769312555909-e343e380-5694-43a1-9ddf-df2b262990c4.png", stock:5},
-    {name:"Ride Sakura Spirit", price:8, img:"https://image2url.com/r2/default/images/1769312389581-e6410de1-5faa-4d25-8b23-dcf7c38fb51e.jpg", stock:5},
-    {name:"Snow Owl Fly Ride", price:2.5, img:"https://image2url.com/r2/default/images/1769312167327-6f2f8ab6-16e0-45d1-9730-dc8a16d6acdd.jpg", stock:5},
-    // New pets
-    {name:"Strawberry Shortcake Bat Dragon Fly Ride", price:24, img:"https://image2url.com/r2/default/images/1769419915326-9b1f86be-1cf1-47e3-9eac-43f7fb10c8ba.png", stock:5},
-    {name:"Cow Fly Ride", price:20, img:"https://image2url.com/r2/default/images/1769419943380-9a948b0d-6c67-40d8-960b-79564c520a19.png", stock:5},
-    {name:"Chocolate Chip Bat Dragon Fly Ride", price:20, img:"https://image2url.com/r2/default/images/1769417573051-1675be6f-08e2-46bc-b60f-3f8f478db80a.png", stock:5},
-    {name:"Dragonfruit Fox", price:12.5, img:"https://image2url.com/r2/default/images/1769417684237-e455a114-a17c-49ba-8c95-ee41c1698ec6.png", stock:5},
-    {name:"Unicorn", price:3.25, img:"https://image2url.com/r2/default/images/1769417779444-cc940dbb-8d7e-4e91-8e22-998da1983d02.png", stock:5},
-    {name:"German Shepherd Fly Ride", price:11.2, img:"https://image2url.com/r2/default/images/1769417898335-95161f79-12d0-4e89-a55f-a0af98128192.png", stock:5},
-    {name:"Turtle Fly Ride", price:22.1, img:"https://image2url.com/r2/default/images/1769417980360-be5c9242-f50d-4c26-8b02-38ad8b169e91.png", stock:5}
-];
-let eggs = [
-    {name:"Crystal Egg", price:1, img:"https://image2url.com/r2/default/images/1769418420566-8274a492-a6e0-42d4-a4c8-018c13c65bae.png", stock:15},
-    {name:"Retired Egg", price:2, img:"https://image2url.com/r2/default/images/1769418455991-0cd50c08-7af1-433f-8438-1ff08827d293.png", stock:15},
-    {name:"Moon Egg", price:1.25, img:"https://image2url.com/r2/default/images/1769419776495-b06541d7-00ea-4c74-856a-a6ce4d29b8b6.png", stock:15},
-    {name:"Royal Egg", price:5, img:"https://image2url.com/r2/default/images/1769419849095-5a4e63b2-ad03-4efa-98bd-54607cbec21d.png", stock:15},
-    {name:"Aussie Egg", price:10, img:"https://image2url.com/r2/default/images/1769418468586-a61ac3ef-3b69-41e6-af48-c7f2c8433262.png", stock:15}
+// DATA
+let cart=JSON.parse(localStorage.getItem("oceanzx-cart"))||[];
+let pets=[
+{name:"Crystal Egg",price:1,img:"https://image2url.com/r2/default/images/1769418420566-8274a492-a6e0-42d4-a4c8-018c13c65bae.png",stock:15},
+{name:"Retired Egg",price:2,img:"https://image2url.com/r2/default/images/1769419815185-0d947ffd-f776-439d-9ae8-369f4da2547f.png",stock:15},
+{name:"Moon Egg",price:1.25,img:"https://image2url.com/r2/default/images/1769419776495-b06541d7-00ea-4c74-856a-a6ce4d29b8b6.png",stock:15},
+{name:"Royal Egg",price:5,img:"https://image2url.com/r2/default/images/1769419849095-5a4e63b2-ad03-4efa-98bd-54607cbec21d.png",stock:15},
+{name:"Strawberry Shortcake Bat Dragon Fly Ride",price:24,img:"https://image2url.com/r2/default/images/1769419915326-9b1f86be-1cf1-47e3-9eac-43f7fb10c8ba.png",stock:5},
+{name:"Cow Fly Ride",price:20,img:"https://image2url.com/r2/default/images/1769419943380-9a948b0d-6c67-40d8-960b-79564c520a19.png",stock:5},
+{name:"Chocolate Chip Bat Dragon Fly Ride",price:20,img:"https://image2url.com/r2/default/images/1769417573051-1675be6f-08e2-46bc-b60f-3f8f478db80a.png",stock:5},
+{name:"Dragonfruit Fox",price:12.5,img:"https://image2url.com/r2/default/images/1769417684237-e455a114-a17c-49c-8c95-ee41c1698ec6.png",stock:5},
+{name:"Unicorn",price:3.25,img:"https://image2url.com/r2/default/images/1769417779444-cc940dbb-8d7e-4e91-8e22-998da1983d02.png",stock:5},
+{name:"German Shepherd Fly Ride",price:11.2,img:"https://image2url.com/r2/default/images/1769417898335-95161f79-12d0-4e89-a55f-a0af98128192.png",stock:5},
+{name:"Turtle Fly Ride",price:22.1,img:"https://image2url.com/r2/default/images/1769417980360-be5c9242-f50d-4c26-8b02-38ad8b169e91.png",stock:5},
+{name:"Sneak Weasel",price:20,img:"https://image2url.com/r2/default/images/1769571416593-b6e07468-7b7b-459e-b558-68041278a9e5.jpg",stock:5},
+{name:"Dango Penguins",price:10,img:"https://image2url.com/r2/default/images/1769571447431-5827c598-c3bf-41c2-af58-3ab54ed28eb2.webp",stock:5}
 ];
 
 // RENDER
-function renderGrid(items, gridId){
-    const grid = document.getElementById(gridId);
-    grid.innerHTML="";
-    items.forEach((it, idx)=>{
-        const card = document.createElement('div');
+function renderItems(){
+    const petsGrid=document.getElementById('pets-grid');
+    const eggsGrid=document.getElementById('eggs-grid');
+    petsGrid.innerHTML='';
+    eggsGrid.innerHTML='';
+    pets.forEach(item=>{
+        const card=document.createElement('div');
         card.className='card';
-        card.innerHTML = `
-            <div style="position:relative;">
-                <img src="${it.img}" alt="${it.name}">
-                <div class="wave"></div>
-            </div>
-            <h3>${it.name}</h3>
-            <div class="price">$${it.price}</div>
-            <div class="stock" id="stock-${gridId}-${idx}">Stock: ${it.stock}</div>
-            <button class="btn" onclick="addToCart('${gridId}',${idx})">Add to Cart</button>
-        `;
-        grid.appendChild(card);
+        card.innerHTML=`<img src="${item.img}"><h3>${item.name}</h3><div class="price">$${item.price}</div><div class="stock" data-stock="${item.name}">Stock: ${item.stock}</div><button class="btn" onclick="addToCart('${item.name}',${item.price})">Add to Cart</button>`;
+        if(item.name.toLowerCase().includes("egg")) eggsGrid.appendChild(card);
+        else petsGrid.appendChild(card);
     });
-}
-function updateStock(gridId, idx){
-    const item = (gridId==='pets-grid'?pets:eggs)[idx];
-    document.getElementById(`stock-${gridId}-${idx}`).innerText=`Stock: ${item.stock}`;
-}
-function addToCart(gridId, idx){
-    const item = (gridId==='pets-grid'?pets:eggs)[idx];
-    if(item.stock<=0) return alert('Out of stock!');
-    cart.push({name:item.name,price:item.price});
-    item.stock--;
-    updateStock(gridId, idx);
-    renderCart();
-}
-function renderCart(){
-    const cartEl = document.getElementById('cart-items');
-    cartEl.innerHTML="";
-    let total=0;
-    cart.forEach((c,i)=>{
-        total+=c.price;
-        const div = document.createElement('div');
-        div.className='cart-item';
-        div.innerHTML=`<span onclick="removeFromCart(${i})">❌</span><span>${c.name}</span><span>$${c.price}</span>`;
-        cartEl.appendChild(div);
-    });
-    document.getElementById('total').innerText=total.toFixed(2);
-}
-function removeFromCart(idx){
-    const item = cart.splice(idx,1)[0];
-    // restore stock
-    pets.forEach(p=>{if(p.name===item.name)p.stock++;});
-    eggs.forEach(e=>{if(e.name===item.name)e.stock++;});
-    renderCart(); renderGrid(pets,'pets-grid'); renderGrid(eggs,'eggs-grid');
-}
-function checkout(){
-    if(cart.length===0) return alert("Cart empty!");
-    let total=0;
-    let text="🛒 Oceanzx Order\n";
-    cart.forEach(c=>{text+=`• ${c.name} - $${c.price}\n`; total+=c.price;});
-    text+=`\n💰 Total: $${total.toFixed(2)}`;
-    navigator.clipboard.writeText(text);
-    alert("Cart copied! Send payment via CashApp $Bananaboy723");
-    cart=[]; renderCart(); renderGrid(pets,'pets-grid'); renderGrid(eggs,'eggs-grid');
 }
 
-// INIT
-renderGrid(pets,'pets-grid');
-renderGrid(eggs,'eggs-grid');
-renderCart();
+// CART FUNCTIONS
+function findItem(name){return pets.find(i=>i.name===name);}
+function addToCart(name,price){
+    const item=findItem(name);
+    if(!item||item.stock<=0) return;
+    cart.push({name,price});
+    item.stock--;
+    updateStock(name);
+    renderCart();
+}
+function updateStock(name){
+    const item=findItem(name);
+    const stockEl=document.querySelector(`[data-stock="${name}"]`);
+    const btn=document.querySelector(`[onclick*="${name}"]`);
+    if(item.stock<=0){stockEl.innerText="❌ SOLD OUT"; btn.disabled=true;}
+    else stockEl.innerText="Stock: "+item.stock;
+}
+function renderCart(){
+    const itemsEl=document.getElementById('cart-items');
+    itemsEl.innerHTML='';
+    let total=0;
+    cart.forEach((i,idx)=>{
+        total+=i.price;
+        itemsEl.innerHTML+=`<div class="cart-item"><span onclick="removeFromCart(${idx})">❌</span><span>${i.name}</span><span>$${i.price}</span></div>`;
+    });
+    document.getElementById('total').innerText=total.toFixed(2);
+    localStorage.setItem("oceanzx-cart",JSON.stringify(cart));
+}
+function removeFromCart(idx){
+    const removed=cart.splice(idx,1)[0];
+    const item=findItem(removed.name);
+    if(item) item.stock++;
+    updateStock(removed.name);
+    renderCart();
+}
+function checkout(){
+    if(cart.length===0){alert("Cart empty"); return;}
+    let total=0;
+    let orderText="🛒 Oceanzx Order\n";
+    cart.forEach(i=>{orderText+=`${i.name} - $${i.price}\n`; total+=i.price;});
+    orderText+="\n💰 Total: $"+total.toFixed(2);
+    navigator.clipboard.writeText(orderText);
+    window.open("https://cash.app/$Bananaboy723","_blank");
+    cart=[]; renderCart();
+}
+renderItems(); renderCart();
 </script>
 </body>
 </html>
