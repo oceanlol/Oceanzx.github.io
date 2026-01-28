@@ -12,6 +12,7 @@ body {
     color:white;
     overflow-x:hidden;
 }
+
 /* PARTICLES */
 .dot {
     position:fixed;
@@ -42,17 +43,23 @@ header p {margin:0; font-size:1.2rem; color:#ccc;}
     position:relative;
     background:none;
     text-align:center;
-    border-radius:20px;
+    border-radius:20px; /* soft corners for card */
     padding:10px;
     cursor:pointer;
-    transition:transform 0.2s;
+    transition:transform 0.2s, box-shadow 0.2s;
 }
-.card:hover {transform:translateY(-5px);}
+.card:hover {
+    transform:translateY(-5px);
+    box-shadow:0 0 15px rgba(255,255,255,0.2);
+}
 .card img {
     width:150px;
     height:150px;
     object-fit:contain;
+    border-radius:20px; /* soft corners for images */
+    transition:transform 0.2s;
 }
+.card img:hover {transform:scale(1.05);}
 .card h3 {
     margin:8px 0 4px 0;
     font-weight:bold;
@@ -65,7 +72,7 @@ header p {margin:0; font-size:1.2rem; color:#ccc;}
     background:white;
     color:black;
     padding:6px 12px;
-    border-radius:12px;
+    border-radius:12px; /* soft button corners */
     font-weight:bold;
     cursor:pointer;
     border:none;
@@ -147,7 +154,7 @@ let pets=[
 {name:"Turtle Fly Ride",price:22.1,img:"https://image2url.com/r2/default/images/1769417980360-be5c9242-f50d-4c26-8b02-38ad8b169e91.png",stock:5},
 {name:"Sneak Weasel",price:20,img:"https://image2url.com/r2/default/images/1769571416593-b6e07468-7b7b-459e-b558-68041278a9e5.jpg",stock:5},
 {name:"Dango Penguins",price:10,img:"https://image2url.com/r2/default/images/1769571447431-5827c598-c3bf-41c2-af58-3ab54ed28eb2.webp",stock:5},
-// Add all old pets here in same format
+// Old pets
 {name:"Snow Owl NO POT",price:1.25,img:"https://image2url.com/r2/default/images/1769340321220-95e1be82-28fa-403a-a021-941d493283b8.png",stock:5},
 {name:"Reindeer Fly Ride",price:2.3,img:"https://image2url.com/r2/default/images/1769340396217-88705f92-43c7-4f07-97ca-2b5d1279ace3.png",stock:5},
 {name:"Axolotl Fly Ride",price:2,img:"https://image2url.com/r2/default/images/1769312696977-97a3b12d-0869-4661-86d5-65f8f181744a.png",stock:5},
