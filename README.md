@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>OCEANZX • Adopt Me Shop</title>
+<title>OCEANZX</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -12,242 +12,262 @@ body{
   font-family:Arial,Helvetica,sans-serif;
   background:#000;
   color:#fff;
+  overflow-x:hidden;
 }
+
+/* PARTICLES */
+canvas{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  z-index:-1;
+}
+
+/* LAYOUT */
 header{
-  padding:30px;
   text-align:center;
-  border-bottom:1px solid #222;
+  padding:60px 20px 30px;
 }
 header h1{
+  letter-spacing:6px;
+  font-weight:700;
   margin:0;
-  letter-spacing:4px;
 }
-header p{color:#aaa}
+header p{
+  color:#aaa;
+  margin-top:10px;
+  font-size:14px;
+}
 
 .container{
   max-width:1200px;
-  margin:30px auto;
+  margin:auto;
   padding:20px;
 }
 
 .section-title{
-  font-size:24px;
-  margin:40px 0 20px;
+  font-size:22px;
+  letter-spacing:2px;
+  margin:60px 0 20px;
   border-bottom:1px solid #222;
   padding-bottom:10px;
 }
 
+/* GRID */
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
-  gap:25px;
+  gap:28px;
 }
 
 .card{
-  background:#0e0e0e;
-  border:1px solid #1f1f1f;
-  border-radius:14px;
-  padding:18px;
+  background:#0a0a0a;
+  border:1px solid #1a1a1a;
+  border-radius:18px;
+  padding:16px;
   text-align:center;
   transition:.25s;
 }
 .card:hover{
-  transform:translateY(-4px);
+  transform:translateY(-6px);
   border-color:#fff;
 }
 .card img{
   width:100%;
   height:180px;
   object-fit:contain;
-  background:#000;
-  border-radius:12px;
+  filter:grayscale(100%) contrast(1.1);
 }
 .card h3{
-  margin:12px 0 4px;
-  font-size:16px;
+  font-size:15px;
+  margin:14px 0 4px;
 }
 .price{
   font-weight:bold;
-  margin-top:6px;
-}
-.deal{
-  font-size:12px;
-  color:#aaa;
+  font-size:14px;
 }
 .stock{
   font-size:12px;
+  color:#aaa;
   margin-top:6px;
-  color:#ccc;
 }
 .btn{
-  margin-top:10px;
-  padding:10px;
+  margin-top:12px;
   width:100%;
+  padding:10px;
   background:#fff;
   color:#000;
   border:none;
-  border-radius:10px;
+  border-radius:14px;
   font-weight:bold;
   cursor:pointer;
 }
 .btn:hover{opacity:.85}
 .btn:disabled{
   background:#444;
-  color:#999;
+  color:#888;
   cursor:not-allowed;
 }
 
 /* CART */
 #cart{
   position:fixed;
-  top:20px;
   right:20px;
-  width:320px;
-  background:#0e0e0e;
-  border:1px solid #222;
-  border-radius:16px;
+  top:20px;
+  width:300px;
+  background:#0a0a0a;
+  border:1px solid #1f1f1f;
+  border-radius:18px;
   padding:16px;
 }
 #cart h3{margin-top:0}
 #cart-items{
   max-height:260px;
   overflow-y:auto;
+  font-size:13px;
 }
 .cart-item{
   display:flex;
   justify-content:space-between;
-  font-size:14px;
   margin:6px 0;
 }
-.cart-total{
+.total{
   margin-top:10px;
   font-weight:bold;
 }
 .checkout{
   margin-top:10px;
-  background:#fff;
-  color:#000;
 }
 
-/* scrollbar */
+/* SCROLLBAR */
 #cart-items::-webkit-scrollbar{width:6px}
-#cart-items::-webkit-scrollbar-thumb{background:#444;border-radius:10px}
+#cart-items::-webkit-scrollbar-thumb{background:#333;border-radius:10px}
 </style>
 </head>
 
 <body>
 
+<canvas id="particles"></canvas>
+
 <header>
   <h1>OCEANZX</h1>
-  <p>Adopt Me • Clean • Trusted • Cash App Only</p>
+  <p>Adopt Me Store • Cash App Only</p>
 </header>
 
 <div class="container">
 
-  <div class="section-title">🥚 Eggs</div>
-  <div class="grid" id="eggs-grid"></div>
+  <!-- PETS FIRST -->
+  <div class="section-title">PETS</div>
+  <div class="grid" id="pets"></div>
 
-  <div class="section-title">🔥 Pets</div>
-  <div class="grid" id="pets-grid"></div>
+  <!-- EGGS SECOND -->
+  <div class="section-title">EGGS</div>
+  <div class="grid" id="eggs"></div>
 
 </div>
 
 <div id="cart">
-  <h3>🛒 Cart</h3>
+  <h3>CART</h3>
   <div id="cart-items"></div>
-  <div class="cart-total">Total: $<span id="total">0.00</span></div>
+  <div class="total">Total: $<span id="total">0.00</span></div>
   <button class="btn checkout" onclick="checkout()">Checkout</button>
 </div>
 
 <script>
-// ================= DATA =================
+// ===== PARTICLES =====
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+let w,h;
+function resize(){w=canvas.width=window.innerWidth;h=canvas.height=window.innerHeight}
+window.onresize=resize;resize();
 
-// EGGS (STOCK 15)
-const eggs = [
- {name:"Crystal Egg", price:1.00, stock:15, deal:"$1 each", img:"https://image2url.com/r2/default/images/1769419308180-be119059-935c-4323-8d8a-2d0e5958128c.png"},
- {name:"Retired Egg", price:0.50, stock:15, deal:"2 for $1", img:"https://image2url.com/r2/default/images/1769419815185-0d947ffd-f776-439d-9ae8-369f4da2547f.png"},
- {name:"Moon Egg", price:0.63, stock:15, deal:"2 for $1.25", img:"https://image2url.com/r2/default/images/1769419776495-b06541d7-00ea-4c74-856a-a6ce4d29b8b6.png"},
- {name:"Royal Egg", price:0.20, stock:15, deal:"5 for $1", img:"https://image2url.com/r2/default/images/1769419849095-5a4e63b2-ad03-4efa-98bd-54607cbec21d.png"},
- {name:"Aussie Egg", price:5.00, stock:15, deal:"2 for $10", img:"https://image2url.com/r2/default/images/1769419333612-f58ec7fc-55d9-40d9-805d-16492cc76ff6.png"}
+let dots=[...Array(120)].map(()=>({
+  x:Math.random()*w,
+  y:Math.random()*h,
+  vx:(Math.random()-.5)*1.5,
+  vy:(Math.random()-.5)*1.5
+}));
+
+function animate(){
+  ctx.clearRect(0,0,w,h);
+  ctx.fillStyle="#fff";
+  dots.forEach(d=>{
+    d.x+=d.vx; d.y+=d.vy;
+    if(d.x<0||d.x>w) d.vx*=-1;
+    if(d.y<0||d.y>h) d.vy*=-1;
+    ctx.beginPath();
+    ctx.arc(d.x,d.y,1.3,0,Math.PI*2);
+    ctx.fill();
+  });
+  requestAnimationFrame(animate);
+}
+animate();
+
+// ===== STORE DATA =====
+const pets=[
+ {n:"Strawberry Bat Dragon FR",p:24,s:5,i:"https://image2url.com/r2/default/images/1769419915326-9b1f86be-1cf1-47e3-9eac-43f7fb10c8ba.png"},
+ {n:"Cow Fly Ride",p:20,s:5,i:"https://image2url.com/r2/default/images/1769419943380-9a948b0d-6c67-40d8-960b-79564c520a19.png"},
+ {n:"Turtle Fly Ride",p:22.1,s:5,i:"https://image2url.com/r2/default/images/1769417980360-be5c9242-f50d-4c26-8b02-38ad8b169e91.png"},
+ {n:"Unicorn",p:3.25,s:5,i:"https://image2url.com/r2/default/images/1769417779444-cc940dbb-8d7e-4e91-8e22-998da1983d02.png"}
 ];
 
-// PETS (STOCK 5)
-const pets = [
- {name:"Axolotl Fly Ride", price:2.00, stock:5, img:"https://image2url.com/r2/default/images/1769312696977-97a3b12d-0869-4661-86d5-65f8f181744a.png"},
- {name:"Cerberus Fly Ride", price:3.00, stock:5, img:"https://image2url.com/r2/default/images/1769312266778-b30a7b97-61bb-4650-bc6c-45a73512c0ba.jpg"},
- {name:"Dango Penguins", price:10.00, stock:5, img:"https://image2url.com/r2/default/images/1769312623274-1c54447a-0b15-4ac9-a9b6-c875cecd6076.png"},
- {name:"Neon Sneak Weasel (5)", price:12.00, stock:5, img:"https://image2url.com/r2/default/images/1769312555909-e343e380-5694-43a1-9ddf-df2b262990c4.png"},
- {name:"Ride Sakura Spirit", price:8.00, stock:5, img:"https://image2url.com/r2/default/images/1769312389581-e6410de1-5faa-4d25-8b23-dcf7c38fb51e.jpg"},
- {name:"Snow Owl Fly Ride", price:2.50, stock:5, img:"https://image2url.com/r2/default/images/1769312167327-6f2f8ab6-16e0-45d1-9730-dc8a16d6acdd.jpg"},
-
- {name:"Strawberry Shortcake Bat Dragon Fly Ride", price:24.00, stock:5, img:"https://image2url.com/r2/default/images/1769419915326-9b1f86be-1cf1-47e3-9eac-43f7fb10c8ba.png"},
- {name:"Cow Fly Ride", price:20.00, stock:5, img:"https://image2url.com/r2/default/images/1769419943380-9a948b0d-6c67-40d8-960b-79564c520a19.png"},
- {name:"Chocolate Chip Bat Dragon Fly Ride", price:20.00, stock:5, img:"https://image2url.com/r2/default/images/1769417573051-1675be6f-08e2-46bc-b60f-3f8f478db80a.png"},
- {name:"Dragonfruit Fox", price:12.50, stock:5, img:"https://image2url.com/r2/default/images/1769417684237-e455a114-a17c-49ba-8c95-ee41c1698ec6.png"},
- {name:"Unicorn", price:3.25, stock:5, img:"https://image2url.com/r2/default/images/1769417779444-cc940dbb-8d7e-4e91-8e22-998da1983d02.png"},
- {name:"German Shepherd Fly Ride", price:11.20, stock:5, img:"https://image2url.com/r2/default/images/1769417898335-95161f79-12d0-4e89-a55f-a0af98128192.png"},
- {name:"Turtle Fly Ride", price:22.10, stock:5, img:"https://image2url.com/r2/default/images/1769417980360-be5c9242-f50d-4c26-8b02-38ad8b169e91.png"}
+const eggs=[
+ {n:"Crystal Egg",p:1,s:15,i:"https://image2url.com/r2/default/images/1769419308180-be119059-935c-4323-8d8a-2d0e5958128c.png"},
+ {n:"Retired Egg",p:.5,s:15,i:"https://image2url.com/r2/default/images/1769419815185-0d947ffd-f776-439d-9ae8-369f4da2547f.png"},
+ {n:"Moon Egg",p:.63,s:15,i:"https://image2url.com/r2/default/images/1769419776495-b06541d7-00ea-4c74-856a-a6ce4d29b8b6.png"},
+ {n:"Royal Egg",p:.2,s:15,i:"https://image2url.com/r2/default/images/1769419849095-5a4e63b2-ad03-4efa-98bd-54607cbec21d.png"}
 ];
 
-let cart = [];
+let cart=[];
 
-// ================= RENDER =================
-function renderSection(list, el, isEgg){
+// ===== RENDER =====
+function render(list,el){
   el.innerHTML="";
-  list.forEach((i,idx)=>{
-    const c=document.createElement("div");
-    c.className="card";
-    c.innerHTML=`
-      <img src="${i.img}">
-      <h3>${i.name}</h3>
-      <div class="price">$${i.price.toFixed(2)}</div>
-      ${isEgg?`<div class="deal">${i.deal}</div>`:""}
-      <div class="stock">Stock: ${i.stock}</div>
-      <button class="btn" ${i.stock<=0?"disabled":""}
-      onclick="addToCart(${isEgg?'eggs':'pets'},${idx})">
-      ${i.stock<=0?"Sold Out":"Add to Cart"}
-      </button>`;
-    el.appendChild(c);
+  list.forEach((x,i)=>{
+    el.innerHTML+=`
+    <div class="card">
+      <img src="${x.i}">
+      <h3>${x.n}</h3>
+      <div class="price">$${x.p}</div>
+      <div class="stock">Stock: ${x.s}</div>
+      <button class="btn" ${x.s<=0?"disabled":""} onclick="add(${list===pets?'pets':'eggs'},${i})">
+        ${x.s<=0?"Sold Out":"Add"}
+      </button>
+    </div>`;
   });
 }
 
-function addToCart(arr,idx){
-  if(arr[idx].stock<=0) return;
-  arr[idx].stock--;
-  cart.push({name:arr[idx].name,price:arr[idx].price});
-  render();
+function add(arr,i){
+  if(arr[i].s<=0)return;
+  arr[i].s--;
+  cart.push(arr[i]);
+  update();
 }
 
-function renderCart(){
-  const el=document.getElementById("cart-items");
-  let total=0;
-  el.innerHTML="";
-  cart.forEach(i=>{
-    total+=i.price;
-    el.innerHTML+=`<div class="cart-item"><span>${i.name}</span><span>$${i.price.toFixed(2)}</span></div>`;
-  });
-  document.getElementById("total").innerText=total.toFixed(2);
+function update(){
+  render(pets,document.getElementById("pets"));
+  render(eggs,document.getElementById("eggs"));
+  let t=0;
+  const c=document.getElementById("cart-items");
+  c.innerHTML="";
+  cart.forEach(i=>{t+=i.p;c.innerHTML+=`<div class="cart-item"><span>${i.n}</span><span>$${i.p}</span></div>`});
+  document.getElementById("total").innerText=t.toFixed(2);
 }
 
 function checkout(){
-  if(!cart.length) return alert("Cart empty");
   let text="OCEANZX ORDER\n\n";
-  let total=0;
-  cart.forEach(i=>{text+=`• ${i.name} - $${i.price}\n`; total+=i.price});
-  text+=`\nTotal: $${total.toFixed(2)}\nCashApp ONLY: $Bananaboy723`;
+  let t=0;
+  cart.forEach(i=>{text+=`• ${i.n} - $${i.p}\n`;t+=i.p});
+  text+=`\nTotal: $${t}\nCashApp ONLY: $Bananaboy723`;
   navigator.clipboard.writeText(text);
   window.open("https://discord.gg/sv6tRJBR5G","_blank");
   cart=[];
-  render();
+  update();
 }
 
-function render(){
-  renderSection(eggs,document.getElementById("eggs-grid"),true);
-  renderSection(pets,document.getElementById("pets-grid"),false);
-  renderCart();
-}
-
-render();
+update();
 </script>
 
 </body>
