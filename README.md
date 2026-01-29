@@ -89,13 +89,13 @@ header p{opacity:.8}
   cursor:pointer;
 }
 
-/* CART – FINAL LOCKED VERSION */
+/* CART */
 .cart{
   position:fixed;
   top:90px;
   right:20px;
   width:300px;
-  max-height:70vh;
+  max-height:75vh;
   background:#111;
   border-radius:18px;
   padding:16px;
@@ -120,7 +120,19 @@ header p{opacity:.8}
   cursor:pointer;
 }
 
-/* FOOTER */
+/* RECEIPT */
+#receiptBox{
+  width:100%;
+  margin-top:10px;
+  height:140px;
+  background:#000;
+  color:#fff;
+  border-radius:14px;
+  padding:10px;
+  font-size:12px;
+  border:1px solid #222;
+}
+
 footer{
   text-align:center;
   padding:20px;
@@ -133,7 +145,7 @@ footer a{color:#fff;text-decoration:none}
 <body>
 
 <div class="top-bar">
-🔥 10x Royal Egg — $7 • $10 OFF $45 ORDERS • Ends on FEB 1st
+🔥 10x Royal Egg — $7 • $10 OFF $45 ORDERS • Ends FEB 1st
 </div>
 
 <header>
@@ -161,7 +173,12 @@ footer a{color:#fff;text-decoration:none}
 <h3>🛒 Cart</h3>
 <div id="cartItems"></div>
 <p><strong>Total: $<span id="total">0</span></strong></p>
+
 <button class="checkout-btn" onclick="checkoutDiscord()">Checkout via Discord</button>
+
+<textarea id="receiptBox" readonly></textarea>
+
+<button class="checkout-btn" onclick="copyReceipt()">Copy Receipt</button>
 </div>
 
 <footer>
@@ -182,13 +199,43 @@ function renderCart(){
   cart.forEach(i=>{
     const d=document.createElement("div");
     d.className="cart-item";
-    d.textContent=i.name+" - $"+i.price;
+    d.textContent=i.name+" — $"+i.price;
     c.appendChild(d);
   });
   document.getElementById("total").textContent=total.toFixed(2);
 }
+
 function checkoutDiscord(){
+  generateReceipt();
   window.open("https://discord.gg/sv6tRJBR5G","_blank");
+}
+
+function generateReceipt(){
+  let id=Math.floor(100000+Math.random()*900000);
+  let text=`🧾 OCEANZX RECEIPT
+━━━━━━━━━━━━━━━━
+Order ID: #${id}
+
+Items:
+`;
+  cart.forEach(i=>{
+    text+=`• ${i.name} — $${i.price}\n`;
+  });
+  text+=`
+━━━━━━━━━━━━━━━━
+Total: $${total.toFixed(2)}
+
+Payment: Discord
+Server: https://discord.gg/sv6tRJBR5G
+━━━━━━━━━━━━━━━━`;
+  document.getElementById("receiptBox").value=text;
+}
+
+function copyReceipt(){
+  const b=document.getElementById("receiptBox");
+  b.select();
+  document.execCommand("copy");
+  alert("Receipt copied. Paste it in Discord.");
 }
 
 /* DATA */
