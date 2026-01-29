@@ -110,33 +110,55 @@ h2 {
   position:fixed;
   top:20px;
   right:20px;
-  width:300px;
+  width:320px;
+  max-height:90vh;
   background:#111;
-  padding:16px;
-  border-radius:16px;
-  box-shadow:0 0 30px rgba(0,0,0,.8);
+  padding:20px;
+  border-radius:20px;
+  box-shadow:0 0 40px rgba(0,0,0,.9);
   z-index:999;
+  overflow-y:auto;
 }
 #cart h3 {
   margin-top:0;
+  font-size:1.5rem;
+  text-align:center;
 }
 .cart-item {
   display:flex;
   justify-content:space-between;
-  margin:6px 0;
-  font-size:.9rem;
+  align-items:center;
+  margin:8px 0;
+  font-size:.95rem;
+  padding:4px 0;
+  border-bottom:1px solid #333;
 }
 .cart-item span:first-child {
   color:red;
   cursor:pointer;
-}
-.cart-total {
-  margin-top:10px;
   font-weight:bold;
 }
+.cart-total {
+  margin-top:12px;
+  font-weight:bold;
+  text-align:right;
+  font-size:1.1rem;
+}
 #cart-items {
-  max-height:350px;
+  max-height:300px;
   overflow-y:auto;
+  margin-bottom:10px;
+}
+#cart button {
+  width:100%;
+  padding:10px;
+  border:none;
+  border-radius:12px;
+  background:#fff;
+  color:#000;
+  font-weight:bold;
+  cursor:pointer;
+  font-size:1rem;
 }
 </style>
 </head>
@@ -189,13 +211,13 @@ let pets = [
 {name:"Sneak Weasel",price:12,img:"https://image2url.com/r2/default/images/1769571416593-b6e07468-7b7b-459e-b558-68041278a9e5.jpg",stock:5}
 ];
 
-// EGGS
+// EGGS (10x Royal Egg at top)
 let eggs = [
+{name:"10x Royal Egg",price:7,img:"https://image2url.com/r2/default/images/1769419849095-5a4e63b2-ad03-4efa-98bd-54607cbec21d.png",stock:15},
 {name:"Crystal Egg",price:1,img:"https://image2url.com/r2/default/images/1769418420566-8274a492-a6e0-42d4-a4c8-018c13c65bae.png",stock:15},
 {name:"Retired Egg",price:2,img:"https://image2url.com/r2/default/images/1769419815185-0d947ffd-f776-439d-9ae8-369f4da2547f.png",stock:15},
 {name:"Moon Egg",price:1.25,img:"https://image2url.com/r2/default/images/1769419776495-b06541d7-00ea-4c74-856a-a6ce4d29b8b6.png",stock:15},
-{name:"Royal Egg",price:5,img:"https://image2url.com/r2/default/images/1769419849095-5a4e63b2-ad03-4efa-98bd-54607cbec21d.png",stock:15},
-{name:"10x Royal Egg",price:50,img:"https://image2url.com/r2/default/images/1769419849095-5a4e63b2-ad03-4efa-98bd-54607cbec21d.png",stock:15}
+{name:"Royal Egg",price:5,img:"https://image2url.com/r2/default/images/1769419849095-5a4e63b2-ad03-4efa-98bd-54607cbec21d.png",stock:15}
 ];
 
 // RENDER FUNCTIONS
