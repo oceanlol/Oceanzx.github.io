@@ -2,40 +2,53 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Oceanzx Adopt Me Shop</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-:root{
-  --bg:#000;
-  --card:#111;
-  --border:#222;
-  --text:#fff;
-}
 *{box-sizing:border-box}
 body{
   margin:0;
   font-family:Arial,Helvetica,sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  padding-right:320px;
+  background:#000;
+  color:#fff;
+  padding-right:340px;
 }
 
-/* TOP DEAL BAR */
-.top-deal{
+/* WHITE DOTS BACKGROUND */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(2px 2px at 20px 30px,#fff 40%,transparent 41%),
+    radial-gradient(2px 2px at 120px 90px,#fff 40%,transparent 41%),
+    radial-gradient(2px 2px at 220px 160px,#fff 40%,transparent 41%);
+  background-size:200px 200px;
+  animation:dotsMove 2.5s linear infinite;
+  opacity:.35;
+  pointer-events:none;
+  z-index:-1;
+}
+@keyframes dotsMove{
+  from{background-position:0 0}
+  to{background-position:-200px -200px}
+}
+
+/* TOP BAR */
+.top-bar{
+  text-align:center;
+  padding:12px;
   background:#111;
   border-bottom:1px solid #222;
-  padding:10px;
-  text-align:center;
   font-weight:bold;
 }
 
 /* HEADER */
 header{
-  padding:20px;
   text-align:center;
+  padding:20px;
 }
-header h1{margin:0}
 header p{opacity:.8}
 
 /* SECTIONS */
@@ -44,7 +57,7 @@ header p{opacity:.8}
 }
 .section h2{
   border-bottom:1px solid #222;
-  padding-bottom:5px;
+  padding-bottom:6px;
 }
 
 /* GRID */
@@ -54,9 +67,9 @@ header p{opacity:.8}
   gap:15px;
 }
 .card{
-  background:var(--card);
-  border:1px solid var(--border);
-  padding:10px;
+  background:#111;
+  border:1px solid #222;
+  padding:12px;
   text-align:center;
 }
 .card img{
@@ -65,27 +78,29 @@ header p{opacity:.8}
   object-fit:contain;
 }
 .card button{
+  width:100%;
   margin-top:8px;
   padding:8px;
-  width:100%;
+  border:none;
+  border-radius:14px;
   background:#fff;
   color:#000;
-  border:none;
-  cursor:pointer;
   font-weight:bold;
+  cursor:pointer;
 }
 
-/* CART (SIDE) */
+/* CART – FINAL LOCKED VERSION */
 .cart{
   position:fixed;
-  top:0;
-  right:0;
+  top:90px;
+  right:20px;
   width:300px;
-  height:100%;
-  background:#0a0a0a;
-  border-left:1px solid #222;
-  padding:15px;
+  max-height:70vh;
+  background:#111;
+  border-radius:18px;
+  padding:16px;
   overflow-y:auto;
+  box-shadow:0 0 25px rgba(255,255,255,.08);
 }
 .cart h3{margin-top:0}
 .cart-item{
@@ -93,11 +108,22 @@ header p{opacity:.8}
   padding:8px 0;
   font-size:14px;
 }
+.checkout-btn{
+  margin-top:12px;
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:16px;
+  background:#fff;
+  color:#000;
+  font-weight:bold;
+  cursor:pointer;
+}
 
 /* FOOTER */
 footer{
-  padding:20px;
   text-align:center;
+  padding:20px;
   border-top:1px solid #222;
 }
 footer a{color:#fff;text-decoration:none}
@@ -106,7 +132,7 @@ footer a{color:#fff;text-decoration:none}
 
 <body>
 
-<div class="top-deal">
+<div class="top-bar">
 🔥 10x Royal Egg — $7 • $10 OFF $45 ORDERS • Ends on FEB 1st
 </div>
 
@@ -135,6 +161,7 @@ footer a{color:#fff;text-decoration:none}
 <h3>🛒 Cart</h3>
 <div id="cartItems"></div>
 <p><strong>Total: $<span id="total">0</span></strong></p>
+<button class="checkout-btn" onclick="checkoutDiscord()">Checkout via Discord</button>
 </div>
 
 <footer>
@@ -142,15 +169,13 @@ footer a{color:#fff;text-decoration:none}
 </footer>
 
 <script>
-let cart=[];
-let total=0;
+let cart=[], total=0;
 
 function add(item){
   cart.push(item);
   total+=item.price;
   renderCart();
 }
-
 function renderCart(){
   const c=document.getElementById("cartItems");
   c.innerHTML="";
@@ -162,8 +187,12 @@ function renderCart(){
   });
   document.getElementById("total").textContent=total.toFixed(2);
 }
+function checkoutDiscord(){
+  window.open("https://discord.gg/sv6tRJBR5G","_blank");
+}
 
-const featuredPets=[
+/* DATA */
+const featured=[
  {name:"Strawberry Shortcake Bat Dragon Fly Ride",price:24,img:"https://image2url.com/r2/default/images/1769419915326-9b1f86be-1cf1-47e3-9eac-43f7fb10c8ba.png"},
  {name:"Chocolate Chip Bat Dragon Fly Ride",price:20,img:"https://image2url.com/r2/default/images/1769417573051-1675be6f-08e2-46bc-b60f-3f8f478db80a.png"}
 ];
@@ -172,14 +201,21 @@ const pets=[
  {name:"Cow Fly Ride",price:20,img:"https://image2url.com/r2/default/images/1769419943380-9a948b0d-6c67-40d8-960b-79564c520a19.png"},
  {name:"Dragonfruit Fox",price:12.5,img:"https://image2url.com/r2/default/images/1769572512431-ffc2599d-7cf1-4d6e-aa1f-e975783dc761.jpg"},
  {name:"Unicorn",price:3.25,img:"https://image2url.com/r2/default/images/1769417779444-cc940dbb-8d7e-4e91-8e22-998da1983d02.png"},
- {name:"Turtle Fly Ride",price:22.1,img:"https://image2url.com/r2/default/images/1769417980360-be5c9242-f50d-4c26-8b02-38ad8b169e91.png"}
+ {name:"German Shepherd Fly Ride",price:11.2,img:"https://image2url.com/r2/default/images/1769417898335-95161f79-12d0-4e89-a55f-a0af98128192.png"},
+ {name:"Turtle Fly Ride",price:22.1,img:"https://image2url.com/r2/default/images/1769417980360-be5c9242-f50d-4c26-8b02-38ad8b169e91.png"},
+ {name:"Snow Owl NO POT",price:1.25,img:"https://image2url.com/r2/default/images/1769340321220-95e1be82-28fa-403a-a021-941d493283b8.png"},
+ {name:"Reindeer Fly Ride",price:2.3,img:"https://image2url.com/r2/default/images/1769340396217-88705f92-43c7-4f07-97ca-2b5d1279ace3.png"},
+ {name:"Axolotl Fly Ride",price:2,img:"https://image2url.com/r2/default/images/1769312696977-97a3b12d-0869-4661-86d5-65f8f181744a.png"},
+ {name:"Cerberus Fly Ride",price:3,img:"https://image2url.com/r2/default/images/1769571888116-fe636100-1ac8-4c9c-aaeb-0bfd97d9adb1.jpg"},
+ {name:"Ride Sakura Spirit",price:8,img:"https://image2url.com/r2/default/images/1769571952502-156e70c2-979b-4008-a84e-d3dbab31f72d.webp"},
+ {name:"Neon Sneak Weasel (5)",price:12,img:"https://image2url.com/r2/default/images/1769572019588-bb64eee7-b0d3-40cc-9fa6-8a09e3dc8a51.jpg"}
 ];
 
 const eggs=[
  {name:"Crystal Egg",price:1,img:"https://image2url.com/r2/default/images/1769418420566-8274a492-a6e0-42d4-a4c8-018c13c65bae.png"},
  {name:"Retired Egg",price:2,img:"https://image2url.com/r2/default/images/1769419815185-0d947ffd-f776-439d-9ae8-369f4da2547f.png"},
  {name:"Moon Egg",price:1.25,img:"https://image2url.com/r2/default/images/1769419776495-b06541d7-00ea-4c74-856a-a6ce4d29b8b6.png"},
- {name:"Royal Egg (10x Bundle)",price:7,img:"https://image2url.com/r2/default/images/1769419849095-5a4e63b2-ad03-4efa-98bd-54607cbec21d.png"}
+ {name:"Royal Egg (10x)",price:7,img:"https://image2url.com/r2/default/images/1769419849095-5a4e63b2-ad03-4efa-98bd-54607cbec21d.png"}
 ];
 
 function render(list,id){
@@ -191,14 +227,13 @@ function render(list,id){
       <img src="${i.img}">
       <p>${i.name}</p>
       <p>$${i.price}</p>
-      <button>Add to Cart</button>
-    `;
+      <button>Add to Cart</button>`;
     c.querySelector("button").onclick=()=>add(i);
     g.appendChild(c);
   });
 }
 
-render(featuredPets,"featured");
+render(featured,"featured");
 render(pets,"pets");
 render(eggs,"eggs");
 </script>
