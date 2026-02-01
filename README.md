@@ -12,73 +12,79 @@
   --accent:#fff;
   --radius:18px;
 }
-*{box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
-body{margin:0;background:var(--bg);color:var(--text);overflow-x:hidden;position:relative}
+*{box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;}
+body{margin:0;background:var(--bg);color:var(--text);overflow-x:hidden;position:relative;font-size:16px;}
 
 .topbar{
   background:#fff;color:#000;text-align:center;padding:10px;font-weight:bold;
 }
 
 header{
-  padding:25px;
+  padding:25px 50px;
 }
-h1{margin:0;font-size:28px}
-.subtitle{opacity:.8}
+h1{margin:0;font-size:40px;}
+.subtitle{opacity:.8;font-size:18px;}
 
 main{
-  display:flex;gap:20px;padding:20px;
+  display:flex;gap:30px;padding:20px 50px;
 }
 
-.products{flex:3}
+.products{
+  flex:4;
+}
 
-.section-title{font-size:22px;margin:25px 0 10px}
+.section-title{font-size:28px;margin:30px 0 15px}
 
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
-  gap:15px;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:25px;
 }
 
 .card{
   background:var(--card);
   border-radius:var(--radius);
-  padding:12px;
+  padding:15px;
   text-align:center;
+  transition:transform .2s;
 }
-
+.card:hover{transform:scale(1.03);}
 .card img{width:100%;border-radius:12px;}
 
 .card button{
-  margin-top:8px;width:100%;padding:8px;border-radius:12px;border:none;cursor:pointer;
+  margin-top:10px;width:100%;padding:10px;border-radius:12px;border:none;cursor:pointer;
+  font-weight:bold;background:var(--accent);color:#000;
 }
 
 .cart{
   flex:1;
   background:var(--card);
   border-radius:var(--radius);
-  padding:15px;
+  padding:20px;
   position:sticky;
   top:20px;
   height:fit-content;
+  overflow-y:auto;
+  max-height:80vh;
 }
 
-.cart-item{font-size:14px;margin-bottom:6px;}
-.cart-total{margin-top:10px;font-weight:bold;}
-.warning{color:#ff5555;font-size:13px;display:none;}
+.cart-item{font-size:16px;margin-bottom:8px;}
+.cart-total{margin-top:12px;font-weight:bold;font-size:18px;}
+.warning{color:#ff5555;font-size:14px;display:none;}
 .checkout{
-  margin-top:12px;padding:10px;border-radius:14px;background:#fff;color:#000;cursor:pointer;width:100%;border:none;
+  margin-top:15px;padding:12px;border-radius:14px;background:#fff;color:#000;cursor:pointer;width:100%;border:none;font-weight:bold;
 }
 
 footer{text-align:center;opacity:.6;padding:20px}
 
 /* white dots background */
-.dot{position:absolute;width:3px;height:3px;background:#fff;border-radius:50%;animation:move 3s linear infinite;}
-@keyframes move{0%{transform:translateY(0)}100%{transform:translateY(800px)}}
+.dot{position:absolute;width:4px;height:4px;background:#fff;border-radius:50%;animation:move 3s linear infinite;}
+@keyframes move{0%{transform:translateY(0)}100%{transform:translateY:900px}}
 </style>
 </head>
 <body>
 
-<div class="topbar">💸 $10 OFF $45 ORDERS • Ends FEB 1st</div>
+<div class="topbar">💸 10x Royal Egg $7 • $10 OFF $45 ORDERS • Ends FEB 1st</div>
 
 <header>
 <h1>Oceanzx Adopt Me Shop</h1>
@@ -114,7 +120,7 @@ footer{text-align:center;opacity:.6;padding:20px}
 
 <!-- white dots -->
 <script>
-for(let i=0;i<100;i++){
+for(let i=0;i<150;i++){
   const d=document.createElement('div');
   d.classList.add('dot');
   d.style.left=Math.random()*window.innerWidth+'px';
@@ -124,7 +130,6 @@ for(let i=0;i<100;i++){
 }
 </script>
 
-<!-- Firebase -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
 import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-database.js";
@@ -141,13 +146,11 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
-
 const sessionId = localStorage.getItem("oceanzx_id") || crypto.randomUUID();
 localStorage.setItem("oceanzx_id", sessionId);
 const cartRef = ref(db,"carts/"+sessionId);
 
 let cart=[];
-
 window.addToCart=(name,price)=>{
   cart.push({name,price});
   set(cartRef,cart);
@@ -175,15 +178,16 @@ window.checkout=()=>{
   window.location.href="https://discord.gg/sv6tRJBR5G";
 };
 
-// Data arrays
+// Featured Deal
 const featuredDeals=[
-["10x Royal Egg",7,"https://image2url.com/r2/default/images/1769419849095-5a4e63b2-ad03-4efa-98bd-54607cbec21d.png"]
+["10x Royal Egg",7,"https://image2url.com/r2/default/images/1769419849095-5a4e63b2-ad03-4efa-98bd-54607cbec21d.png"],
+["Strawberry Shortcake Bat Dragon Fly Ride",24,"https://image2url.com/r2/default/images/1769419915326-9b1f86be-1cf1-47e3-9eac-43f7fb10c8ba.png"],
+["Chocolate Chip Bat Dragon Fly Ride",20,"https://image2url.com/r2/default/images/1769417573051-1675be6f-08e2-46bc-b60f-3f8f478db80a.png"]
 ];
 
+// Pets
 const pets=[
-["Strawberry Shortcake Bat Dragon Fly Ride",24,"https://image2url.com/r2/default/images/1769419915326-9b1f86be-1cf1-47e3-9eac-43f7fb10c8ba.png"],
 ["Cow Fly Ride",20,"https://image2url.com/r2/default/images/1769419943380-9a948b0d-6c67-40d8-960b-79564c520a19.png"],
-["Chocolate Chip Bat Dragon Fly Ride",20,"https://image2url.com/r2/default/images/1769417573051-1675be6f-08e2-46bc-b60f-3f8f478db80a.png"],
 ["Dragonfruit Fox",12.5,"https://image2url.com/r2/default/images/1769572512431-ffc2599d-7cf1-4d6e-aa1f-e975783dc761.jpg"],
 ["Unicorn",3.25,"https://image2url.com/r2/default/images/1769417779444-cc940dbb-8d7e-4e91-8e22-998da1983d02.png"],
 ["German Shepherd Fly Ride",11.2,"https://image2url.com/r2/default/images/1769417898335-95161f79-12d0-4e89-a55f-a0af98128192.png"],
@@ -196,6 +200,7 @@ const pets=[
 ["Neon Sneak Weasel (5)",12,"https://image2url.com/r2/default/images/1769572019588-bb64eee7-b0d3-40cc-9fa6-8a09e3dc8a51.jpg"]
 ];
 
+// Eggs
 const eggs=[
 ["Crystal Egg",1,"https://image2url.com/r2/default/images/1769418420566-8274a492-a6e0-42d4-a4c8-018c13c65bae.png"],
 ["Retired Egg",2,"https://image2url.com/r2/default/images/1769419815185-0d947ffd-f776-439d-9ae8-369f4da2547f.png"],
@@ -207,7 +212,6 @@ const petsDiv=document.getElementById("pets");
 const eggsDiv=document.getElementById("eggs");
 const featuredDiv=document.getElementById("featuredDeals");
 
-// Render arrays
 featuredDeals.forEach(p=>{
   featuredDiv.innerHTML+=`
   <div class="card">
@@ -238,5 +242,6 @@ eggs.forEach(e=>{
   </div>`;
 });
 </script>
+
 </body>
 </html>
