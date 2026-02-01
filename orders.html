@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Oceanzx Fake Orders Overlay</title>
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: transparent;
+    font-family: Arial, sans-serif;
+  }
+  #orders {
+    position: absolute;
+    top: 50px;
+    right: 50px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 10;
+  }
+  .order {
+    font-size: 22px;
+    padding: 10px 15px;
+    background: rgba(0,0,0,0.6);
+    border-radius: 12px;
+    color: white;
+    white-space: nowrap;
+    animation: slideIn 0.5s ease forwards;
+  }
+  @keyframes slideIn {
+    0% {opacity: 0; transform: translateX(100%);}
+    100% {opacity: 1; transform: translateX(0);}
+  }
+  /* White dots background */
+  canvas {
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+</style>
+</head>
+<body>
+
+<canvas id="dots"></canvas>
+<div id="orders"></div>
+
+<script>
+// === Fake names ===
+const fakeNames = [
+"Alice Carter","Ben Thompson","Chloe Martinez","Daniel Kim","Emma Johnson",
+"Finn O’Connor","Grace Lee","Henry Davis","Isla Walker","Jack Wilson",
+"Kayla Ramirez","Liam Brown","Mia Nguyen","Noah Garcia","Olivia Smith",
+"Parker Hall","Quinn Allen","Riley Scott","Sophia Clark","Tyler Lewis",
+"Ava Young","Brandon Hughes","Charlotte Wright","Dylan King","Ella Green",
+"Felix Turner","Gabriella Morgan","Hunter Reed","Ivy Brooks","Jason Hill",
+"Kylie Adams","Lucas Nelson","Madison Perez","Nathan Carter","Olivia Morris",
+"Patrick Baker","Quinn Foster","Rachel Bailey","Samuel Cooper","Taylor Edwards",
+"Victoria Simmons","Wyatt Rogers","Zoe Ward","Adrian Rivera","Bella Diaz",
+"Cameron Gray","Daisy Jenkins","Ethan Patterson","Faith Hughes","Gavin Sanders",
+"Hannah Ross","Isaac Coleman","Jasmine Wood","Kevin Price","Lily Bennett",
+"Mason Russell","Nora Griffin","Owen Butler","Penelope Perry","Ryan Howard",
+"Stella Bryant","Tristan Cole","Uma Fletcher","Victor Reynolds","Willow Simmons",
+"Xavier Knight","Yara Harper","Zachary Powell","Amelia Stone","Bryce Matthews",
+"Clara Hudson","Dominic Wells","Eliza Shaw","Finnley Hunt","Georgia Barnes",
+"Harrison Barrett","Isla Knight","Julian Cross","Kayden Bishop","Layla Harper",
+"Miles Gardner","Naomi Dixon","Oliver Blake","Piper Holmes","Quinn Douglas",
+"Ruby Chapman","Sebastian Holt","Tessa Freeman","Uriel Walsh","Violet Barker",
+"Wesley Cole","Xena Parks","Yvonne Dean","Zachariah Miles","Aria Hudson",
+"Blake Sanders","Camila Romero","Dominic Walsh","Elena Cooper","Felix Harper"
+];
+
+// === Pets & Eggs ===
+const items = [
+"Strawberry Shortcake Bat Dragon Fly Ride","Cow Fly Ride","Chocolate Chip Bat Dragon Fly Ride",
+"Dragonfruit Fox","Unicorn","German Shepherd Fly Ride","Turtle Fly Ride",
+"Snow Owl NO POT","Reindeer Fly Ride","Axolotl Fly Ride","Cerberus Fly Ride",
+"Ride Sakura Spirit","Neon Sneak Weasel (5)",
+"Crystal Egg","Retired Egg","Moon Egg","Royal Egg"
+];
+
+// === Add fake orders ===
+const ordersDiv = document.getElementById("orders");
+
+function addFakeOrder(){
+  const name = fakeNames[Math.floor(Math.random()*fakeNames.length)];
+  const item = items[Math.floor(Math.random()*items.length)];
+  const div = document.createElement("div");
+  div.classList.add("order");
+  div.innerText = `${name} bought ${item}`;
+  ordersDiv.prepend(div);
+
+  // Remove after 8 seconds
+  setTimeout(()=>div.remove(),8000);
+}
+
+// Add fake order every 2-5 seconds
+setInterval(()=>addFakeOrder(), 2000 + Math.random()*3000);
+
+// === White dots background ===
+const canvas = document.getElementById("dots");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let dots=[];
+for(let i=0;i<150;i++){
+  dots.push({
+    x: Math.random()*canvas.width,
+    y: Math.random()*canvas.height,
+    r: Math.random()*2+1,
+    dx: Math.random()*1.5-0.75,
+    dy: Math.random()*1.5-0.75
+  });
+}
+
+function animateDots(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  for(let d of dots){
+    d.x += d.dx;
+    d.y += d.dy;
+    if(d.x<0||d.x>canvas.width) d.dx*=-1;
+    if(d.y<0||d.y>canvas.height) d.dy*=-1;
+    ctx.beginPath();
+    ctx.arc(d.x,d.y,d.r,0,Math.PI*2);
+    ctx.fillStyle="white";
+    ctx.fill();
+  }
+  requestAnimationFrame(animateDots);
+}
+animateDots();
+
+// === Resize canvas on window resize ===
+window.addEventListener("resize",()=>{
+  canvas.width=window.innerWidth;
+  canvas.height=window.innerHeight;
+});
+</script>
+
+</body>
+</html>
